@@ -1,0 +1,3 @@
+/mnt/d/ArchLinux/CongFD/build/CMakeFiles/helloCFD.dir
+/mnt/d/ArchLinux/CongFD/build/CMakeFiles/edit_cache.dir
+/mnt/d/ArchLinux/CongFD/build/CMakeFiles/rebuild_cache.dir
