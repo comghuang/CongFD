@@ -1,0 +1,1 @@
+double exactBurgers(double x,double t,double theta0);

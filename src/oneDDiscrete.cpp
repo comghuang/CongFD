@@ -33,8 +33,31 @@ void oneDDiscrete::calFluxConv()
             flux(i,0)=a*ur;
         }
     }
+}
 
+void oneDDiscrete::calFluxBurgers()
+{
+    /*for u_t + a * u_x == 0*/
+    
+    real ul,ur;
 
+    for(ind i=0;i<nHalf;i++)
+    {
+        
+        ul=reconL(i,0);
+        ur=reconR(i,0);
+        
+        
+        //ul=data(i-1,0);
+        //ur=data(i,0);
+        //L-F flux
+        real al,ar;
+        al=std::abs(ul);
+        ar=std::abs(ur);
+        //real a=std::max(ar,ar);
+        real a=(al+ar)/2;
+        flux(i,0)=0.5*(ul*ul/2+ur*ur/2-a*(ur-ul));
+    }
 }
 
 std::vector<real> oneDDiscrete::difference()
@@ -45,14 +68,14 @@ std::vector<real> oneDDiscrete::difference()
     for(ind i=0;i<n;i++)
     for(ind j=0;j<nVar;j++)
     {
-        rhs[i*nVar+j]=(flux(i+1,j)-flux(i,j))/(1.0/(n+1));
+        rhs[i*nVar+j]=(flux(i+1,j)-flux(i,j))/(2.0/n);
     }
     return rhs;
 }
 
 void oneDDiscrete::calFlux()
 {
-    calFluxConv();
+    calFluxBurgers();
 }
 
 real oneDDiscrete::reconL(ind i,ind ivar)
@@ -93,6 +116,6 @@ real oneDDiscrete::reconR(ind i,ind ivar)
     {
         delta=std::min(0.0,std::min(std::max(beta*deltam,deltap),std::max(deltam,beta*deltap)));
     }
-    return data(i-1,ivar)+delta*0.5;
+    return data(i,ivar)-delta*0.5;
 
 }

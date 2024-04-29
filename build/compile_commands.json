@@ -1,6 +1,12 @@
 [
 {
   "directory": "/mnt/d/ArchLinux/CongFD/build",
+  "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/include -I/mnt/d/ArchLinux/CongFD/build -g -o CMakeFiles/helloCFD.dir/src/bergers.cpp.o -c /mnt/d/ArchLinux/CongFD/src/bergers.cpp",
+  "file": "/mnt/d/ArchLinux/CongFD/src/bergers.cpp",
+  "output": "CMakeFiles/helloCFD.dir/src/bergers.cpp.o"
+},
+{
+  "directory": "/mnt/d/ArchLinux/CongFD/build",
   "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/include -I/mnt/d/ArchLinux/CongFD/build -g -o CMakeFiles/helloCFD.dir/src/main.cpp.o -c /mnt/d/ArchLinux/CongFD/src/main.cpp",
   "file": "/mnt/d/ArchLinux/CongFD/src/main.cpp",
   "output": "CMakeFiles/helloCFD.dir/src/main.cpp.o"

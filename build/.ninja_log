@@ -1,9 +1,10 @@
 # ninja log v5
-985	1321	1713970071008295300	helloCFD	5b75fa17e504892
-114	1685	1713923227289236700	CMakeFiles/helloCFD.dir/src/solver.cpp.o	62c1f57b417e48ad
-62	456	1714267435216815200	build.ninja	676ff8bbe8de8215
-111	1661	1713923227237398300	CMakeFiles/helloCFD.dir/src/riemannSolver.cpp.o	c049e20b43b37303
-121	975	1713970070658202500	CMakeFiles/helloCFD.dir/src/main.cpp.o	7de4bfadec3831f6
-157	772	1713966262248616500	CMakeFiles/helloCFD.dir/src/oneDDiscrete.cpp.o	febbb2e5bd1ebbb9
-64	131	0	/mnt/d/ArchLinux/CongFD/build/CMakeFiles/cmake.verify_globs	a3e24c1a1464aa12
 122	1053	1713966229122697700	CMakeFiles/helloCFD.dir/src/vecs.cpp.o	87b2fe839a33d8a7
+63	96	0	/mnt/d/ArchLinux/CongFD/build/CMakeFiles/cmake.verify_globs	a3e24c1a1464aa12
+173	815	1714358943029876500	CMakeFiles/helloCFD.dir/src/oneDDiscrete.cpp.o	febbb2e5bd1ebbb9
+130	1261	1714359309473597500	CMakeFiles/helloCFD.dir/src/main.cpp.o	7de4bfadec3831f6
+111	1661	1713923227237398300	CMakeFiles/helloCFD.dir/src/riemannSolver.cpp.o	c049e20b43b37303
+145	664	1714360073222067100	build.ninja	676ff8bbe8de8215
+114	1685	1713923227289236700	CMakeFiles/helloCFD.dir/src/solver.cpp.o	62c1f57b417e48ad
+1268	1749	1714359309964235100	helloCFD	13122209237c841f
+100	387	1714354129535916500	CMakeFiles/helloCFD.dir/src/bergers.cpp.o	a302c16ac88ef88

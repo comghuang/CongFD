@@ -11,6 +11,7 @@ class oneDDiscrete
     std::vector<real> difference();
     void calFlux();
     void calFluxConv();
+    void calFluxBurgers();
     real reconL(ind,ind);
     real reconR(ind,ind);
 
