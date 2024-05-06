@@ -5,10 +5,11 @@ cmake_policy(SET CMP0009 NEW)
 # SRCS at CMakeLists.txt:18 (file)
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "/mnt/d/ArchLinux/CongFD/src/*.cpp")
 set(OLD_GLOB
+  "/mnt/d/ArchLinux/CongFD/src/SpaceDis.cpp"
   "/mnt/d/ArchLinux/CongFD/src/bergers.cpp"
+  "/mnt/d/ArchLinux/CongFD/src/data.cpp"
+  "/mnt/d/ArchLinux/CongFD/src/interScheme.cpp"
   "/mnt/d/ArchLinux/CongFD/src/main.cpp"
-  "/mnt/d/ArchLinux/CongFD/src/oneDDiscrete.cpp"
-  "/mnt/d/ArchLinux/CongFD/src/vecs.cpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")

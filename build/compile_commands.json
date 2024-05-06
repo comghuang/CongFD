@@ -1,26 +1,32 @@
 [
 {
   "directory": "/mnt/d/ArchLinux/CongFD/build",
+  "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/include -I/mnt/d/ArchLinux/CongFD/build -g -o CMakeFiles/helloCFD.dir/src/SpaceDis.cpp.o -c /mnt/d/ArchLinux/CongFD/src/SpaceDis.cpp",
+  "file": "/mnt/d/ArchLinux/CongFD/src/SpaceDis.cpp",
+  "output": "CMakeFiles/helloCFD.dir/src/SpaceDis.cpp.o"
+},
+{
+  "directory": "/mnt/d/ArchLinux/CongFD/build",
   "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/include -I/mnt/d/ArchLinux/CongFD/build -g -o CMakeFiles/helloCFD.dir/src/bergers.cpp.o -c /mnt/d/ArchLinux/CongFD/src/bergers.cpp",
   "file": "/mnt/d/ArchLinux/CongFD/src/bergers.cpp",
   "output": "CMakeFiles/helloCFD.dir/src/bergers.cpp.o"
 },
 {
   "directory": "/mnt/d/ArchLinux/CongFD/build",
+  "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/include -I/mnt/d/ArchLinux/CongFD/build -g -o CMakeFiles/helloCFD.dir/src/data.cpp.o -c /mnt/d/ArchLinux/CongFD/src/data.cpp",
+  "file": "/mnt/d/ArchLinux/CongFD/src/data.cpp",
+  "output": "CMakeFiles/helloCFD.dir/src/data.cpp.o"
+},
+{
+  "directory": "/mnt/d/ArchLinux/CongFD/build",
+  "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/include -I/mnt/d/ArchLinux/CongFD/build -g -o CMakeFiles/helloCFD.dir/src/interScheme.cpp.o -c /mnt/d/ArchLinux/CongFD/src/interScheme.cpp",
+  "file": "/mnt/d/ArchLinux/CongFD/src/interScheme.cpp",
+  "output": "CMakeFiles/helloCFD.dir/src/interScheme.cpp.o"
+},
+{
+  "directory": "/mnt/d/ArchLinux/CongFD/build",
   "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/include -I/mnt/d/ArchLinux/CongFD/build -g -o CMakeFiles/helloCFD.dir/src/main.cpp.o -c /mnt/d/ArchLinux/CongFD/src/main.cpp",
   "file": "/mnt/d/ArchLinux/CongFD/src/main.cpp",
   "output": "CMakeFiles/helloCFD.dir/src/main.cpp.o"
-},
-{
-  "directory": "/mnt/d/ArchLinux/CongFD/build",
-  "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/include -I/mnt/d/ArchLinux/CongFD/build -g -o CMakeFiles/helloCFD.dir/src/oneDDiscrete.cpp.o -c /mnt/d/ArchLinux/CongFD/src/oneDDiscrete.cpp",
-  "file": "/mnt/d/ArchLinux/CongFD/src/oneDDiscrete.cpp",
-  "output": "CMakeFiles/helloCFD.dir/src/oneDDiscrete.cpp.o"
-},
-{
-  "directory": "/mnt/d/ArchLinux/CongFD/build",
-  "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/include -I/mnt/d/ArchLinux/CongFD/build -g -o CMakeFiles/helloCFD.dir/src/vecs.cpp.o -c /mnt/d/ArchLinux/CongFD/src/vecs.cpp",
-  "file": "/mnt/d/ArchLinux/CongFD/src/vecs.cpp",
-  "output": "CMakeFiles/helloCFD.dir/src/vecs.cpp.o"
 }
 ]

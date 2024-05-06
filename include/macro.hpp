@@ -11,3 +11,4 @@
 #include <math.h>
 #include <fstream>
 #include <algorithm>
+#include <vector>
