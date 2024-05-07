@@ -14,7 +14,6 @@ project(helloCFD)
 #list(APPEND EXTRA_LIBS libMeshb)
 
 
-
 file(GLOB_RECURSE SRCS CONFIGURE_DEPENDS src/*.cpp)
 include_directories(
         ${PROJECT_SOURCE_DIR}/include/
@@ -23,9 +22,12 @@ include_directories(
 # add the executable
 add_executable(${PROJECT_NAME} ${SRCS})
 
+target_link_libraries(${PROJECT_NAME} PUBLIC cgns)
 target_link_libraries ( ${PROJECT_NAME} PUBLIC ${EXTRA_LIBS})
 target_include_directories(${PROJECT_NAME} PUBLIC
                            ${PROJECT_BINARY_DIR}
                            )
+
+
 
 

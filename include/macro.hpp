@@ -12,3 +12,6 @@
 #include <fstream>
 #include <algorithm>
 #include <vector>
+#include <string>
+#include <stdio.h>
+#include <cstring>

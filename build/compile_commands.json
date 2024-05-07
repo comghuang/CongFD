@@ -13,6 +13,12 @@
 },
 {
   "directory": "/mnt/d/ArchLinux/CongFD/build",
+  "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/include -I/mnt/d/ArchLinux/CongFD/build -g -o CMakeFiles/helloCFD.dir/src/cgnsio.cpp.o -c /mnt/d/ArchLinux/CongFD/src/cgnsio.cpp",
+  "file": "/mnt/d/ArchLinux/CongFD/src/cgnsio.cpp",
+  "output": "CMakeFiles/helloCFD.dir/src/cgnsio.cpp.o"
+},
+{
+  "directory": "/mnt/d/ArchLinux/CongFD/build",
   "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/include -I/mnt/d/ArchLinux/CongFD/build -g -o CMakeFiles/helloCFD.dir/src/data.cpp.o -c /mnt/d/ArchLinux/CongFD/src/data.cpp",
   "file": "/mnt/d/ArchLinux/CongFD/src/data.cpp",
   "output": "CMakeFiles/helloCFD.dir/src/data.cpp.o"

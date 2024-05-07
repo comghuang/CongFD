@@ -58,3 +58,4 @@ real Data::maxElement(ind ivar)
     }
     return res;
 }
+

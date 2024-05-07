@@ -2,6 +2,7 @@
 
 #include "macro.hpp"
 #include <fstream>
+#include <cgnslib.h>
 
 class Data
 {
@@ -15,6 +16,10 @@ class Data
 
     void uniMesh();
     void output(std::fstream*,ind);
+
+
+    void cgnsoutputInit();
+    void oneDsolOutput(real);
 
     private:
     std::vector<real> data;

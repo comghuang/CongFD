@@ -21,12 +21,17 @@ int main(){
     coor.init(n,1);
     coor.uniMesh();
 
-    file<<n<<' '<<nstep+1<<'\n';
+    std::string name="CoordinateX";
+
+    coor.cgnsoutputInit();
+
+
+    /*file<<n<<' '<<nstep+1<<'\n';
     coor.output(&file,0);
-    dat.output(&file,0);
+    dat.output(&file,0);*/
 
     SpaceDis discrete(&dat,&coor,n,nVar);
-    
+    ind step=0;
     while(t<tend)
     {
         Data tempdata=dat;
@@ -72,7 +77,9 @@ int main(){
             
         }
         std::cout<<"t=  "<<t<<"  error:  "<<error/n<<'\n';
-        for(ind ivar=0;ivar<nVar;ivar++) dat.output(&file,ivar);
+        if(step%100==0)for(ind ivar=0;ivar<nVar;ivar++) dat.oneDsolOutput(t);
+
+        step++;
     }
 
 
