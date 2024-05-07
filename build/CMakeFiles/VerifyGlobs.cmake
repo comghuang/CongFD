@@ -7,10 +7,13 @@ file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "/mnt/d/ArchLinux/CongFD/src/*
 set(OLD_GLOB
   "/mnt/d/ArchLinux/CongFD/src/SpaceDis.cpp"
   "/mnt/d/ArchLinux/CongFD/src/bergers.cpp"
+  "/mnt/d/ArchLinux/CongFD/src/boudary.cpp"
   "/mnt/d/ArchLinux/CongFD/src/cgnsio.cpp"
   "/mnt/d/ArchLinux/CongFD/src/data.cpp"
   "/mnt/d/ArchLinux/CongFD/src/interScheme.cpp"
   "/mnt/d/ArchLinux/CongFD/src/main.cpp"
+  "/mnt/d/ArchLinux/CongFD/src/sp_flux.cpp"
+  "/mnt/d/ArchLinux/CongFD/src/sp_recon.cpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")

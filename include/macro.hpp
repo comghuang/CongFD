@@ -15,3 +15,15 @@
 #include <string>
 #include <stdio.h>
 #include <cstring>
+#include <array>
+
+#define GAMMA 1.4
+
+enum BndType{
+    PERIODIC,
+    DIRICLET_SODL,
+    DIRICLET_SODR,
+};
+
+#define LEFTT 0
+#define RIGHT 1

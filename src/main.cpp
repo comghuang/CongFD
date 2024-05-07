@@ -6,16 +6,14 @@
 #include "data.hpp"
 int main(){
     
-    std::fstream file("data.txt",std::ios::out);
+    //std::fstream file("data.txt",std::ios::out);
     real dt=0.001,t=0.0,tend=4-dt/4;
     ind nstep=floor((tend-t)/dt);
     ind n=200;
     ind nVar=1;
 
-    
-
     Data dat;
-    dat.init(n,nVar);
+    dat.solInit(n,nVar);
 
     Data coor;
     coor.init(n,1);
@@ -24,6 +22,7 @@ int main(){
     std::string name="CoordinateX";
 
     coor.cgnsoutputInit();
+    dat.oneDsolOutput(0);
 
 
     /*file<<n<<' '<<nstep+1<<'\n';
@@ -31,6 +30,7 @@ int main(){
     dat.output(&file,0);*/
 
     SpaceDis discrete(&dat,&coor,n,nVar);
+    discrete.setMethod(WCNSJS5,BURGERS);
     ind step=0;
     while(t<tend)
     {
@@ -77,9 +77,10 @@ int main(){
             
         }
         std::cout<<"t=  "<<t<<"  error:  "<<error/n<<'\n';
+        step++;
         if(step%100==0)for(ind ivar=0;ivar<nVar;ivar++) dat.oneDsolOutput(t);
 
-        step++;
+        
     }
 
 

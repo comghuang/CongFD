@@ -2,7 +2,7 @@
 
 
 
-void Data::init(ind n_,ind nvar_)
+void Data::solInit(ind n_,ind nvar_)
 {
     n=n_;
     nVar=nvar_;
@@ -12,15 +12,37 @@ void Data::init(ind n_,ind nvar_)
     {
         real h=2.0/n;
         real xi=h/2.0+i*h-1.0;
-        data[i]=-sin(M_PI*xi);
+        data[i]=-sin(M_PI*xi);//for burgers equation
+
+        //for sod tube 1D
+        /*
+        real gamma=GAMMA;
+        if(xi<0)
+        {
+            (*this)(i,0)=1;
+            (*this)(i,1)=0;
+            (*this)(i,2)=1.0/(gamma-1)*1;
+        }
+        else
+        {
+            (*this)(i,0)=0.125;
+            (*this)(i,1)=0;
+            (*this)(i,2)=1.0/(gamma-1)*0.1;
+        }*/
     }
 }
-
-real& Data::operator() (ind i,ind j)
+void Data::init(ind n_,ind nvar_)
 {
-    if (i<0) return(this->data)[(n+i)*this->nVar+j];
-    if (i>=n) return(this->data)[(i-n)*this->nVar+j];
-    return (this->data)[i*this->nVar+j];
+    n=n_;
+    nVar=nvar_;
+    data.resize(nVar*n,0.0);
+}
+
+real& Data::operator() (ind i,ind ivar)
+{
+    if (i<0) return ghVertex[LEFTT](1-i,ivar);
+    if (i>=n) return ghVertex[RIGHT](n-i,ivar);
+    return (this->data)[i*this->nVar+ivar];
 }
 
 real& Data::operator[] (ind i)
@@ -59,3 +81,38 @@ real Data::maxElement(ind ivar)
     return res;
 }
 
+void Data::setGhostVertex(ind nL,ind igh)
+{
+    ghVertex[igh].init(nL,nVar);
+}
+
+void Data::updateGhostVertex()
+{
+    std::vector<real> res;
+    for (ind i=0;i<ghVertex[LEFTT].getN();i++)
+    {
+        for(ind ivar;ivar<nVar;ivar++)
+        {
+            res.push_back((*this)(n-1-i,ivar));
+        }
+    }
+    ghVertex[LEFTT].setGhostValue(res);
+    res.clear();
+    for (ind i=0;i<ghVertex[RIGHT].getN();i++)
+    {
+        for(ind ivar;ivar<nVar;ivar++)
+        {
+            res.push_back((*this)(i,ivar));
+        }
+    }
+    ghVertex[RIGHT].setGhostValue(res);
+
+}
+
+
+std::array<ind,2> Data::getNGhost()
+{
+    std::array<ind,2> res;
+    res[LEFTT]=ghVertex[LEFTT].getN();
+    res[RIGHT]=ghVertex[RIGHT].getN();
+}
