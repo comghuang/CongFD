@@ -1,8 +1,0 @@
-[
-{
-  "directory": "/mnt/d/ArchLinux/CongFD/utils/testcgns/build",
-  "command": "/usr/sbin/gcc -g -o CMakeFiles/cgnstest.dir/write_grid_str.c.o -c /mnt/d/ArchLinux/CongFD/utils/testcgns/write_grid_str.c",
-  "file": "/mnt/d/ArchLinux/CongFD/utils/testcgns/write_grid_str.c",
-  "output": "CMakeFiles/cgnstest.dir/write_grid_str.c.o"
-}
-]

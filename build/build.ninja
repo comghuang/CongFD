@@ -11,7 +11,7 @@
 # =============================================================================
 
 # =============================================================================
-# Project: helloCFD
+# Project: congFD
 # Configurations: Debug
 # =============================================================================
 
@@ -41,93 +41,94 @@ include CMakeFiles/rules.ninja
 
 cmake_ninja_workdir = /mnt/d/ArchLinux/CongFD/build/
 # =============================================================================
-# Object build statements for EXECUTABLE target helloCFD
+# Object build statements for EXECUTABLE target congFD
 
 
 #############################################
-# Order-only phony target for helloCFD
+# Order-only phony target for congFD
 
-build cmake_object_order_depends_target_helloCFD: phony || .
+build cmake_object_order_depends_target_congFD: phony || cmake_object_order_depends_target_libcongFD
 
-build CMakeFiles/helloCFD.dir/src/SpaceDis.cpp.o: CXX_COMPILER__helloCFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/SpaceDis.cpp || cmake_object_order_depends_target_helloCFD
-  DEP_FILE = CMakeFiles/helloCFD.dir/src/SpaceDis.cpp.o.d
+build CMakeFiles/congFD.dir/main.cpp.o: CXX_COMPILER__congFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/main.cpp || cmake_object_order_depends_target_congFD
+  DEP_FILE = CMakeFiles/congFD.dir/main.cpp.o.d
   FLAGS = -g
-  INCLUDES = -I/mnt/d/ArchLinux/CongFD/include -I/mnt/d/ArchLinux/CongFD/build
-  OBJECT_DIR = CMakeFiles/helloCFD.dir
-  OBJECT_FILE_DIR = CMakeFiles/helloCFD.dir/src
-
-build CMakeFiles/helloCFD.dir/src/bergers.cpp.o: CXX_COMPILER__helloCFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/bergers.cpp || cmake_object_order_depends_target_helloCFD
-  DEP_FILE = CMakeFiles/helloCFD.dir/src/bergers.cpp.o.d
-  FLAGS = -g
-  INCLUDES = -I/mnt/d/ArchLinux/CongFD/include -I/mnt/d/ArchLinux/CongFD/build
-  OBJECT_DIR = CMakeFiles/helloCFD.dir
-  OBJECT_FILE_DIR = CMakeFiles/helloCFD.dir/src
-
-build CMakeFiles/helloCFD.dir/src/boudary.cpp.o: CXX_COMPILER__helloCFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/boudary.cpp || cmake_object_order_depends_target_helloCFD
-  DEP_FILE = CMakeFiles/helloCFD.dir/src/boudary.cpp.o.d
-  FLAGS = -g
-  INCLUDES = -I/mnt/d/ArchLinux/CongFD/include -I/mnt/d/ArchLinux/CongFD/build
-  OBJECT_DIR = CMakeFiles/helloCFD.dir
-  OBJECT_FILE_DIR = CMakeFiles/helloCFD.dir/src
-
-build CMakeFiles/helloCFD.dir/src/cgnsio.cpp.o: CXX_COMPILER__helloCFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/cgnsio.cpp || cmake_object_order_depends_target_helloCFD
-  DEP_FILE = CMakeFiles/helloCFD.dir/src/cgnsio.cpp.o.d
-  FLAGS = -g
-  INCLUDES = -I/mnt/d/ArchLinux/CongFD/include -I/mnt/d/ArchLinux/CongFD/build
-  OBJECT_DIR = CMakeFiles/helloCFD.dir
-  OBJECT_FILE_DIR = CMakeFiles/helloCFD.dir/src
-
-build CMakeFiles/helloCFD.dir/src/data.cpp.o: CXX_COMPILER__helloCFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/data.cpp || cmake_object_order_depends_target_helloCFD
-  DEP_FILE = CMakeFiles/helloCFD.dir/src/data.cpp.o.d
-  FLAGS = -g
-  INCLUDES = -I/mnt/d/ArchLinux/CongFD/include -I/mnt/d/ArchLinux/CongFD/build
-  OBJECT_DIR = CMakeFiles/helloCFD.dir
-  OBJECT_FILE_DIR = CMakeFiles/helloCFD.dir/src
-
-build CMakeFiles/helloCFD.dir/src/interScheme.cpp.o: CXX_COMPILER__helloCFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/interScheme.cpp || cmake_object_order_depends_target_helloCFD
-  DEP_FILE = CMakeFiles/helloCFD.dir/src/interScheme.cpp.o.d
-  FLAGS = -g
-  INCLUDES = -I/mnt/d/ArchLinux/CongFD/include -I/mnt/d/ArchLinux/CongFD/build
-  OBJECT_DIR = CMakeFiles/helloCFD.dir
-  OBJECT_FILE_DIR = CMakeFiles/helloCFD.dir/src
-
-build CMakeFiles/helloCFD.dir/src/main.cpp.o: CXX_COMPILER__helloCFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/main.cpp || cmake_object_order_depends_target_helloCFD
-  DEP_FILE = CMakeFiles/helloCFD.dir/src/main.cpp.o.d
-  FLAGS = -g
-  INCLUDES = -I/mnt/d/ArchLinux/CongFD/include -I/mnt/d/ArchLinux/CongFD/build
-  OBJECT_DIR = CMakeFiles/helloCFD.dir
-  OBJECT_FILE_DIR = CMakeFiles/helloCFD.dir/src
-
-build CMakeFiles/helloCFD.dir/src/sp_flux.cpp.o: CXX_COMPILER__helloCFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/sp_flux.cpp || cmake_object_order_depends_target_helloCFD
-  DEP_FILE = CMakeFiles/helloCFD.dir/src/sp_flux.cpp.o.d
-  FLAGS = -g
-  INCLUDES = -I/mnt/d/ArchLinux/CongFD/include -I/mnt/d/ArchLinux/CongFD/build
-  OBJECT_DIR = CMakeFiles/helloCFD.dir
-  OBJECT_FILE_DIR = CMakeFiles/helloCFD.dir/src
-
-build CMakeFiles/helloCFD.dir/src/sp_recon.cpp.o: CXX_COMPILER__helloCFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/sp_recon.cpp || cmake_object_order_depends_target_helloCFD
-  DEP_FILE = CMakeFiles/helloCFD.dir/src/sp_recon.cpp.o.d
-  FLAGS = -g
-  INCLUDES = -I/mnt/d/ArchLinux/CongFD/include -I/mnt/d/ArchLinux/CongFD/build
-  OBJECT_DIR = CMakeFiles/helloCFD.dir
-  OBJECT_FILE_DIR = CMakeFiles/helloCFD.dir/src
+  INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
+  OBJECT_DIR = CMakeFiles/congFD.dir
+  OBJECT_FILE_DIR = CMakeFiles/congFD.dir
 
 
 # =============================================================================
-# Link build statements for EXECUTABLE target helloCFD
+# Link build statements for EXECUTABLE target congFD
 
 
 #############################################
-# Link the executable helloCFD
+# Link the executable congFD
 
-build helloCFD: CXX_EXECUTABLE_LINKER__helloCFD_Debug CMakeFiles/helloCFD.dir/src/SpaceDis.cpp.o CMakeFiles/helloCFD.dir/src/bergers.cpp.o CMakeFiles/helloCFD.dir/src/boudary.cpp.o CMakeFiles/helloCFD.dir/src/cgnsio.cpp.o CMakeFiles/helloCFD.dir/src/data.cpp.o CMakeFiles/helloCFD.dir/src/interScheme.cpp.o CMakeFiles/helloCFD.dir/src/main.cpp.o CMakeFiles/helloCFD.dir/src/sp_flux.cpp.o CMakeFiles/helloCFD.dir/src/sp_recon.cpp.o
+build congFD: CXX_EXECUTABLE_LINKER__congFD_Debug CMakeFiles/congFD.dir/main.cpp.o | src/liblibcongFD.a || src/liblibcongFD.a
   FLAGS = -g
-  LINK_LIBRARIES = -lcgns
-  OBJECT_DIR = CMakeFiles/helloCFD.dir
+  LINK_LIBRARIES = src/liblibcongFD.a  -lcgns
+  OBJECT_DIR = CMakeFiles/congFD.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_FILE = helloCFD
-  TARGET_PDB = helloCFD.dbg
+  TARGET_FILE = congFD
+  TARGET_PDB = congFD.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target cgnstest
+
+
+#############################################
+# Order-only phony target for cgnstest
+
+build cmake_object_order_depends_target_cgnstest: phony || cmake_object_order_depends_target_libcongFD
+
+build CMakeFiles/cgnstest.dir/write_grid_str.cpp.o: CXX_COMPILER__cgnstest_unscanned_Debug /mnt/d/ArchLinux/CongFD/write_grid_str.cpp || cmake_object_order_depends_target_cgnstest
+  DEP_FILE = CMakeFiles/cgnstest.dir/write_grid_str.cpp.o.d
+  FLAGS = -g
+  INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
+  OBJECT_DIR = CMakeFiles/cgnstest.dir
+  OBJECT_FILE_DIR = CMakeFiles/cgnstest.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target cgnstest
+
+
+#############################################
+# Link the executable cgnstest
+
+build cgnstest: CXX_EXECUTABLE_LINKER__cgnstest_Debug CMakeFiles/cgnstest.dir/write_grid_str.cpp.o | src/liblibcongFD.a || src/liblibcongFD.a
+  FLAGS = -g
+  LINK_LIBRARIES = src/liblibcongFD.a  -lcgns
+  OBJECT_DIR = CMakeFiles/cgnstest.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = cgnstest
+  TARGET_PDB = cgnstest.dbg
+
+
+#############################################
+# Utility command for package
+
+build CMakeFiles/package.util: CUSTOM_COMMAND all
+  COMMAND = cd /mnt/d/ArchLinux/CongFD/build && /usr/bin/cpack --config ./CPackConfig.cmake
+  DESC = Run CPack packaging tool...
+  pool = console
+  restat = 1
+
+build package: phony CMakeFiles/package.util
+
+
+#############################################
+# Utility command for package_source
+
+build CMakeFiles/package_source.util: CUSTOM_COMMAND
+  COMMAND = cd /mnt/d/ArchLinux/CongFD/build && /usr/bin/cpack --config ./CPackSourceConfig.cmake /mnt/d/ArchLinux/CongFD/build/CPackSourceConfig.cmake
+  DESC = Run CPack packaging tool for source...
+  pool = console
+  restat = 1
+
+build package_source: phony CMakeFiles/package_source.util
 
 
 #############################################
@@ -154,7 +155,198 @@ build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
 build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
 # =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /mnt/d/ArchLinux/CongFD/CMakeLists.txt
+# =============================================================================
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target libcongFD
+
+
+#############################################
+# Order-only phony target for libcongFD
+
+build cmake_object_order_depends_target_libcongFD: phony || .
+
+build src/CMakeFiles/libcongFD.dir/src/SpaceDis.cpp.o: CXX_COMPILER__libcongFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/src/SpaceDis.cpp || cmake_object_order_depends_target_libcongFD
+  DEP_FILE = src/CMakeFiles/libcongFD.dir/src/SpaceDis.cpp.o.d
+  FLAGS = -g
+  INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
+  OBJECT_DIR = src/CMakeFiles/libcongFD.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/libcongFD.dir/src
+
+build src/CMakeFiles/libcongFD.dir/src/bergers.cpp.o: CXX_COMPILER__libcongFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/src/bergers.cpp || cmake_object_order_depends_target_libcongFD
+  DEP_FILE = src/CMakeFiles/libcongFD.dir/src/bergers.cpp.o.d
+  FLAGS = -g
+  INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
+  OBJECT_DIR = src/CMakeFiles/libcongFD.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/libcongFD.dir/src
+
+build src/CMakeFiles/libcongFD.dir/src/boudary.cpp.o: CXX_COMPILER__libcongFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/src/boudary.cpp || cmake_object_order_depends_target_libcongFD
+  DEP_FILE = src/CMakeFiles/libcongFD.dir/src/boudary.cpp.o.d
+  FLAGS = -g
+  INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
+  OBJECT_DIR = src/CMakeFiles/libcongFD.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/libcongFD.dir/src
+
+build src/CMakeFiles/libcongFD.dir/src/cgnsio.cpp.o: CXX_COMPILER__libcongFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/src/cgnsio.cpp || cmake_object_order_depends_target_libcongFD
+  DEP_FILE = src/CMakeFiles/libcongFD.dir/src/cgnsio.cpp.o.d
+  FLAGS = -g
+  INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
+  OBJECT_DIR = src/CMakeFiles/libcongFD.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/libcongFD.dir/src
+
+build src/CMakeFiles/libcongFD.dir/src/data.cpp.o: CXX_COMPILER__libcongFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/src/data.cpp || cmake_object_order_depends_target_libcongFD
+  DEP_FILE = src/CMakeFiles/libcongFD.dir/src/data.cpp.o.d
+  FLAGS = -g
+  INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
+  OBJECT_DIR = src/CMakeFiles/libcongFD.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/libcongFD.dir/src
+
+build src/CMakeFiles/libcongFD.dir/src/interScheme.cpp.o: CXX_COMPILER__libcongFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/src/interScheme.cpp || cmake_object_order_depends_target_libcongFD
+  DEP_FILE = src/CMakeFiles/libcongFD.dir/src/interScheme.cpp.o.d
+  FLAGS = -g
+  INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
+  OBJECT_DIR = src/CMakeFiles/libcongFD.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/libcongFD.dir/src
+
+build src/CMakeFiles/libcongFD.dir/src/sp_flux.cpp.o: CXX_COMPILER__libcongFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/src/sp_flux.cpp || cmake_object_order_depends_target_libcongFD
+  DEP_FILE = src/CMakeFiles/libcongFD.dir/src/sp_flux.cpp.o.d
+  FLAGS = -g
+  INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
+  OBJECT_DIR = src/CMakeFiles/libcongFD.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/libcongFD.dir/src
+
+build src/CMakeFiles/libcongFD.dir/src/sp_recon.cpp.o: CXX_COMPILER__libcongFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/src/sp_recon.cpp || cmake_object_order_depends_target_libcongFD
+  DEP_FILE = src/CMakeFiles/libcongFD.dir/src/sp_recon.cpp.o.d
+  FLAGS = -g
+  INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
+  OBJECT_DIR = src/CMakeFiles/libcongFD.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/libcongFD.dir/src
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target libcongFD
+
+
+#############################################
+# Link the static library src/liblibcongFD.a
+
+build src/liblibcongFD.a: CXX_STATIC_LIBRARY_LINKER__libcongFD_Debug src/CMakeFiles/libcongFD.dir/src/SpaceDis.cpp.o src/CMakeFiles/libcongFD.dir/src/bergers.cpp.o src/CMakeFiles/libcongFD.dir/src/boudary.cpp.o src/CMakeFiles/libcongFD.dir/src/cgnsio.cpp.o src/CMakeFiles/libcongFD.dir/src/data.cpp.o src/CMakeFiles/libcongFD.dir/src/interScheme.cpp.o src/CMakeFiles/libcongFD.dir/src/sp_flux.cpp.o src/CMakeFiles/libcongFD.dir/src/sp_recon.cpp.o
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = src/CMakeFiles/libcongFD.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = src/liblibcongFD.a
+  TARGET_PDB = libcongFD.a.dbg
+
+
+#############################################
+# Utility command for package
+
+build src/CMakeFiles/package.util: CUSTOM_COMMAND src/all
+  COMMAND = cd /mnt/d/ArchLinux/CongFD/build && /usr/bin/cpack --config ./CPackConfig.cmake
+  DESC = Run CPack packaging tool...
+  pool = console
+  restat = 1
+
+build src/package: phony src/CMakeFiles/package.util
+
+
+#############################################
+# Utility command for package_source
+
+build src/CMakeFiles/package_source.util: CUSTOM_COMMAND
+  COMMAND = cd /mnt/d/ArchLinux/CongFD/build && /usr/bin/cpack --config ./CPackSourceConfig.cmake /mnt/d/ArchLinux/CongFD/build/CPackSourceConfig.cmake
+  DESC = Run CPack packaging tool for source...
+  pool = console
+  restat = 1
+
+build src/package_source: phony src/CMakeFiles/package_source.util
+
+
+#############################################
+# Utility command for edit_cache
+
+build src/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /mnt/d/ArchLinux/CongFD/build/src && /usr/bin/ccmake -S/mnt/d/ArchLinux/CongFD -B/mnt/d/ArchLinux/CongFD/build
+  DESC = Running CMake cache editor...
+  pool = console
+  restat = 1
+
+build src/edit_cache: phony src/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build src/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /mnt/d/ArchLinux/CongFD/build/src && /usr/bin/cmake --regenerate-during-build -S/mnt/d/ArchLinux/CongFD -B/mnt/d/ArchLinux/CongFD/build
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build src/rebuild_cache: phony src/CMakeFiles/rebuild_cache.util
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# /mnt/d/ArchLinux/CongFD/CMakeLists.txt
+# =============================================================================
+
+
+#############################################
+# Utility command for package
+
+build utils/CMakeFiles/package.util: CUSTOM_COMMAND utils/all
+  COMMAND = cd /mnt/d/ArchLinux/CongFD/build && /usr/bin/cpack --config ./CPackConfig.cmake
+  DESC = Run CPack packaging tool...
+  pool = console
+  restat = 1
+
+build utils/package: phony utils/CMakeFiles/package.util
+
+
+#############################################
+# Utility command for package_source
+
+build utils/CMakeFiles/package_source.util: CUSTOM_COMMAND
+  COMMAND = cd /mnt/d/ArchLinux/CongFD/build && /usr/bin/cpack --config ./CPackSourceConfig.cmake /mnt/d/ArchLinux/CongFD/build/CPackSourceConfig.cmake
+  DESC = Run CPack packaging tool for source...
+  pool = console
+  restat = 1
+
+build utils/package_source: phony utils/CMakeFiles/package_source.util
+
+
+#############################################
+# Utility command for edit_cache
+
+build utils/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /mnt/d/ArchLinux/CongFD/build/utils && /usr/bin/ccmake -S/mnt/d/ArchLinux/CongFD -B/mnt/d/ArchLinux/CongFD/build
+  DESC = Running CMake cache editor...
+  pool = console
+  restat = 1
+
+build utils/edit_cache: phony utils/CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build utils/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /mnt/d/ArchLinux/CongFD/build/utils && /usr/bin/cmake --regenerate-during-build -S/mnt/d/ArchLinux/CongFD -B/mnt/d/ArchLinux/CongFD/build
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build utils/rebuild_cache: phony utils/CMakeFiles/rebuild_cache.util
+
+# =============================================================================
 # Target aliases.
+
+build libcongFD: phony src/liblibcongFD.a
+
+build liblibcongFD.a: phony src/liblibcongFD.a
 
 # =============================================================================
 # Folder targets.
@@ -164,7 +356,21 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 #############################################
 # Folder: /mnt/d/ArchLinux/CongFD/build
 
-build all: phony helloCFD
+build all: phony congFD cgnstest src/all utils/all
+
+# =============================================================================
+
+#############################################
+# Folder: /mnt/d/ArchLinux/CongFD/build/src
+
+build src/all: phony src/liblibcongFD.a
+
+# =============================================================================
+
+#############################################
+# Folder: /mnt/d/ArchLinux/CongFD/build/utils
+
+build utils/all: phony
 
 # =============================================================================
 # Built-in targets
@@ -187,14 +393,14 @@ build /mnt/d/ArchLinux/CongFD/build/CMakeFiles/cmake.verify_globs: VERIFY_GLOBS 
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE /mnt/d/ArchLinux/CongFD/build/CMakeFiles/cmake.verify_globs | /mnt/d/ArchLinux/CongFD/CMakeLists.txt /mnt/d/ArchLinux/CongFD/build/CMakeFiles/VerifyGlobs.cmake /mnt/d/ArchLinux/CongFD/helloConfig.h.in /usr/share/cmake/Modules/CMakeCInformation.cmake /usr/share/cmake/Modules/CMakeCXXInformation.cmake /usr/share/cmake/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake/Modules/CMakeGenericSystem.cmake /usr/share/cmake/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake/Modules/CMakeLanguageInformation.cmake /usr/share/cmake/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake/Modules/Compiler/GNU-C.cmake /usr/share/cmake/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake/Modules/Compiler/GNU.cmake /usr/share/cmake/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake/Modules/Platform/Linux-GNU.cmake /usr/share/cmake/Modules/Platform/Linux-Initialize.cmake /usr/share/cmake/Modules/Platform/Linux.cmake /usr/share/cmake/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.29.2/CMakeCCompiler.cmake CMakeFiles/3.29.2/CMakeCXXCompiler.cmake CMakeFiles/3.29.2/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE /mnt/d/ArchLinux/CongFD/build/CMakeFiles/cmake.verify_globs | /mnt/d/ArchLinux/CongFD/CMakeLists.txt /mnt/d/ArchLinux/CongFD/build/CMakeFiles/VerifyGlobs.cmake /mnt/d/ArchLinux/CongFD/helloConfig.h.in /mnt/d/ArchLinux/CongFD/src/CMakeLists.txt /mnt/d/ArchLinux/CongFD/utils/CMakeLists.txt /usr/share/cmake/Modules/CMakeCInformation.cmake /usr/share/cmake/Modules/CMakeCXXInformation.cmake /usr/share/cmake/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake/Modules/CMakeGenericSystem.cmake /usr/share/cmake/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake/Modules/CMakeLanguageInformation.cmake /usr/share/cmake/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake/Modules/Compiler/GNU-C.cmake /usr/share/cmake/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake/Modules/Compiler/GNU.cmake /usr/share/cmake/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake/Modules/Platform/Linux-GNU.cmake /usr/share/cmake/Modules/Platform/Linux-Initialize.cmake /usr/share/cmake/Modules/Platform/Linux.cmake /usr/share/cmake/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.29.2/CMakeCCompiler.cmake CMakeFiles/3.29.2/CMakeCXXCompiler.cmake CMakeFiles/3.29.2/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build /mnt/d/ArchLinux/CongFD/CMakeLists.txt /mnt/d/ArchLinux/CongFD/build/CMakeFiles/VerifyGlobs.cmake /mnt/d/ArchLinux/CongFD/helloConfig.h.in /usr/share/cmake/Modules/CMakeCInformation.cmake /usr/share/cmake/Modules/CMakeCXXInformation.cmake /usr/share/cmake/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake/Modules/CMakeGenericSystem.cmake /usr/share/cmake/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake/Modules/CMakeLanguageInformation.cmake /usr/share/cmake/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake/Modules/Compiler/GNU-C.cmake /usr/share/cmake/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake/Modules/Compiler/GNU.cmake /usr/share/cmake/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake/Modules/Platform/Linux-GNU.cmake /usr/share/cmake/Modules/Platform/Linux-Initialize.cmake /usr/share/cmake/Modules/Platform/Linux.cmake /usr/share/cmake/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.29.2/CMakeCCompiler.cmake CMakeFiles/3.29.2/CMakeCXXCompiler.cmake CMakeFiles/3.29.2/CMakeSystem.cmake: phony
+build /mnt/d/ArchLinux/CongFD/CMakeLists.txt /mnt/d/ArchLinux/CongFD/build/CMakeFiles/VerifyGlobs.cmake /mnt/d/ArchLinux/CongFD/helloConfig.h.in /mnt/d/ArchLinux/CongFD/src/CMakeLists.txt /mnt/d/ArchLinux/CongFD/utils/CMakeLists.txt /usr/share/cmake/Modules/CMakeCInformation.cmake /usr/share/cmake/Modules/CMakeCXXInformation.cmake /usr/share/cmake/Modules/CMakeCommonLanguageInclude.cmake /usr/share/cmake/Modules/CMakeGenericSystem.cmake /usr/share/cmake/Modules/CMakeInitializeConfigs.cmake /usr/share/cmake/Modules/CMakeLanguageInformation.cmake /usr/share/cmake/Modules/CMakeSystemSpecificInformation.cmake /usr/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake /usr/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake /usr/share/cmake/Modules/Compiler/GNU-C.cmake /usr/share/cmake/Modules/Compiler/GNU-CXX.cmake /usr/share/cmake/Modules/Compiler/GNU.cmake /usr/share/cmake/Modules/Platform/Linux-GNU-C.cmake /usr/share/cmake/Modules/Platform/Linux-GNU-CXX.cmake /usr/share/cmake/Modules/Platform/Linux-GNU.cmake /usr/share/cmake/Modules/Platform/Linux-Initialize.cmake /usr/share/cmake/Modules/Platform/Linux.cmake /usr/share/cmake/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.29.2/CMakeCCompiler.cmake CMakeFiles/3.29.2/CMakeCXXCompiler.cmake CMakeFiles/3.29.2/CMakeSystem.cmake: phony
 
 
 #############################################
