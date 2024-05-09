@@ -125,3 +125,16 @@ std::array<ind,2> Data::getNGhost()
     res[RIGHT]=ghVertex[RIGHT].getN();
     return res;
 }
+
+void Data::setValue(real* value,ind len)
+{
+    if(len!=n*nVar)
+    {
+        std::cout<<"vector length incorrect \n";
+        return;
+    }
+    for(int i=0;i<len;i++)
+    {
+        data[i]=value[i];
+    }
+}

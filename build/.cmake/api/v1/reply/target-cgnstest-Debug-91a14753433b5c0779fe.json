@@ -124,7 +124,7 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "write_grid_str.cpp",
+			"path" : "cgnsReadTest.cpp",
 			"sourceGroupIndex" : 0
 		}
 	],

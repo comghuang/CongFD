@@ -7,9 +7,9 @@
 },
 {
   "directory": "/mnt/d/ArchLinux/CongFD/build",
-  "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/src/include -g -o CMakeFiles/cgnstest.dir/write_grid_str.cpp.o -c /mnt/d/ArchLinux/CongFD/write_grid_str.cpp",
-  "file": "/mnt/d/ArchLinux/CongFD/write_grid_str.cpp",
-  "output": "CMakeFiles/cgnstest.dir/write_grid_str.cpp.o"
+  "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/src/include -g -o CMakeFiles/cgnstest.dir/cgnsReadTest.cpp.o -c /mnt/d/ArchLinux/CongFD/cgnsReadTest.cpp",
+  "file": "/mnt/d/ArchLinux/CongFD/cgnsReadTest.cpp",
+  "output": "CMakeFiles/cgnstest.dir/cgnsReadTest.cpp.o"
 },
 {
   "directory": "/mnt/d/ArchLinux/CongFD/build",

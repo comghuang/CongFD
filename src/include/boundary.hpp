@@ -13,6 +13,6 @@ class OneDGhost
 
     private:
     std::vector<real> data;
-    ind n=5;
-    ind nVar;
+    ind n=0;
+    ind nVar=0;
 };

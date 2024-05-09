@@ -21,7 +21,7 @@ target_link_libraries(${PROJECT_NAME} PUBLIC libcongFD)
 add_subdirectory(src)
 add_subdirectory(utils)
 
-add_executable(cgnstest write_grid_str.cpp)
+add_executable(cgnstest cgnsReadTest.cpp)
 target_link_libraries(cgnstest PUBLIC libcongFD)
 
 

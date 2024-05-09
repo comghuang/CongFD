@@ -82,8 +82,8 @@ build congFD: CXX_EXECUTABLE_LINKER__congFD_Debug CMakeFiles/congFD.dir/main.cpp
 
 build cmake_object_order_depends_target_cgnstest: phony || cmake_object_order_depends_target_libcongFD
 
-build CMakeFiles/cgnstest.dir/write_grid_str.cpp.o: CXX_COMPILER__cgnstest_unscanned_Debug /mnt/d/ArchLinux/CongFD/write_grid_str.cpp || cmake_object_order_depends_target_cgnstest
-  DEP_FILE = CMakeFiles/cgnstest.dir/write_grid_str.cpp.o.d
+build CMakeFiles/cgnstest.dir/cgnsReadTest.cpp.o: CXX_COMPILER__cgnstest_unscanned_Debug /mnt/d/ArchLinux/CongFD/cgnsReadTest.cpp || cmake_object_order_depends_target_cgnstest
+  DEP_FILE = CMakeFiles/cgnstest.dir/cgnsReadTest.cpp.o.d
   FLAGS = -g
   INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
   OBJECT_DIR = CMakeFiles/cgnstest.dir
@@ -97,7 +97,7 @@ build CMakeFiles/cgnstest.dir/write_grid_str.cpp.o: CXX_COMPILER__cgnstest_unsca
 #############################################
 # Link the executable cgnstest
 
-build cgnstest: CXX_EXECUTABLE_LINKER__cgnstest_Debug CMakeFiles/cgnstest.dir/write_grid_str.cpp.o | src/liblibcongFD.a || src/liblibcongFD.a
+build cgnstest: CXX_EXECUTABLE_LINKER__cgnstest_Debug CMakeFiles/cgnstest.dir/cgnsReadTest.cpp.o | src/liblibcongFD.a || src/liblibcongFD.a
   FLAGS = -g
   LINK_LIBRARIES = src/liblibcongFD.a  -lcgns
   OBJECT_DIR = CMakeFiles/cgnstest.dir

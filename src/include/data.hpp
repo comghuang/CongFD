@@ -15,6 +15,7 @@ class Data
     public:
     void solInit(ind,ind);
     void init(ind,ind);
+    void setValue(real*,ind);
     //void setDim(ind,std::vector<ind>);
     real& operator() (ind,ind);
     real& operator[] (ind);
