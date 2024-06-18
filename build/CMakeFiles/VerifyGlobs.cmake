@@ -9,8 +9,10 @@ set(OLD_GLOB
   "/mnt/d/ArchLinux/CongFD/src/include/boundary.hpp"
   "/mnt/d/ArchLinux/CongFD/src/include/burgers.hpp"
   "/mnt/d/ArchLinux/CongFD/src/include/data.hpp"
+  "/mnt/d/ArchLinux/CongFD/src/include/fluxScheme.hpp"
   "/mnt/d/ArchLinux/CongFD/src/include/interScheme.hpp"
   "/mnt/d/ArchLinux/CongFD/src/include/macro.hpp"
+  "/mnt/d/ArchLinux/CongFD/src/include/zone.hpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
@@ -25,9 +27,12 @@ set(OLD_GLOB
   "/mnt/d/ArchLinux/CongFD/src/src/boudary.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/cgnsio.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/data.cpp"
+  "/mnt/d/ArchLinux/CongFD/src/src/fluxScheme.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/interScheme.cpp"
+  "/mnt/d/ArchLinux/CongFD/src/src/sp_difference.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/sp_flux.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/sp_recon.cpp"
+  "/mnt/d/ArchLinux/CongFD/src/src/zone.cpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")

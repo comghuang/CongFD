@@ -12,14 +12,14 @@ void Data::solInit(ind n_,ind nvar_)
     {
         real h=2.0/n;
         real xi=h/2.0+i*h-1.0;
-        data[i]=-sin(M_PI*xi);//for burgers equation
+        //data[i]=-sin(M_PI*xi);//for burgers equation
 
         //for sod tube 1D
-        /*
+        
         real gamma=GAMMA;
         if(xi<0)
         {
-            (*this)(i,0)=1;
+            (*this)(i,0)=1.0;
             (*this)(i,1)=0;
             (*this)(i,2)=1.0/(gamma-1)*1;
         }
@@ -28,7 +28,7 @@ void Data::solInit(ind n_,ind nvar_)
             (*this)(i,0)=0.125;
             (*this)(i,1)=0;
             (*this)(i,2)=1.0/(gamma-1)*0.1;
-        }*/
+        }
     }
 }
 void Data::init(ind n_,ind nvar_)
@@ -42,13 +42,13 @@ real& Data::operator() (ind i,ind ivar)
 {
     if (i<0) 
     {
-        return ghVertex[LEFTT](-(i+1),ivar);
+        return (*ghVertex[LEFTT])(-(i+1),ivar);
     }
     if (i>=n) 
     {
-        return ghVertex[RIGHT](i-n,ivar);
+        return (*ghVertex[RIGHT])(i-n,ivar);
     }
-    return (this->data)[i*this->nVar+ivar];
+    return data[(i0+offset*i)*nVar+ivar];
 }
 
 real& Data::operator[] (ind i)
@@ -87,33 +87,59 @@ real Data::maxElement(ind ivar)
     return res;
 }
 
-void Data::setGhostVertex(ind nL,ind igh)
+void Data::setGhostVertex(OneDBnd* bndl,OneDBnd* bndr)
 {
-    ghVertex[igh].init(nL,nVar);
+    ghVertex[LEFTT]=bndl;
+    ghVertex[RIGHT]=bndr;
 }
 
 void Data::updateGhostVertex()
 {
-    std::vector<real> res;
-    res.reserve(ghVertex[LEFTT].getN()*nVar);
-    for (ind i=0;i<ghVertex[LEFTT].getN();i++)
+    for (ind ilr = 0; ilr < 2; ilr++)
     {
-        for(ind ivar=0;ivar<nVar;ivar++)
+        std::vector<real> res;
+        switch (ghVertex[ilr]->getType())
         {
-            res.push_back((*this)(n-1-i,ivar));
+        case PERIODIC:
+            res.reserve(ghVertex[ilr]->getN()*nVar);
+            for (ind i=0;i<ghVertex[ilr]->getN();i++)
+            {
+                for(ind ivar=0;ivar<nVar;ivar++)
+                {
+                    if (ilr==LEFTT) res.push_back((*this)(n-1-i,ivar));
+                    else res.push_back((*this)(i,ivar));
+                }
+            }
+            ghVertex[ilr]->setGhostValue(&(res[0]));
+            break;
+        case DIRICLET_SODL:
+            res.reserve(ghVertex[ilr]->getN()*nVar);
+            for (ind i=0;i<ghVertex[ilr]->getN();i++)
+            {
+                res.push_back(1.0);
+                res.push_back(0.0);
+                res.push_back(1.0);
+                res.push_back(GAMMA/(GAMMA-1));
+                res.push_back(1.0);
+            }
+            ghVertex[ilr]->setGhostValue(&(res[0]));
+            break;
+        case DIRICLET_SODR:
+            res.reserve(ghVertex[ilr]->getN()*nVar);
+            for (ind i=0;i<ghVertex[ilr]->getN();i++)
+            {
+                res.push_back(0.125);
+                res.push_back(0.0);
+                res.push_back(0.1);
+                res.push_back(GAMMA/(GAMMA-1)*0.8);
+                res.push_back(0.8);
+            }
+            ghVertex[ilr]->setGhostValue(&(res[0]));
+            break;
+        default:
+            break;
         }
     }
-    ghVertex[LEFTT].setGhostValue(res);
-    res.clear();
-    res.reserve(ghVertex[RIGHT].getN()*nVar);
-    for (ind i=0;i<ghVertex[RIGHT].getN();i++)
-    {
-        for(ind ivar=0;ivar<nVar;ivar++)
-        {
-            res.push_back((*this)(i,ivar));
-        }
-    }
-    ghVertex[RIGHT].setGhostValue(res);
 
 }
 
@@ -121,8 +147,8 @@ void Data::updateGhostVertex()
 std::array<ind,2> Data::getNGhost()
 {
     std::array<ind,2> res;
-    res[LEFTT]=ghVertex[LEFTT].getN();
-    res[RIGHT]=ghVertex[RIGHT].getN();
+    res[LEFTT]=ghVertex[LEFTT]->getN();
+    res[RIGHT]=ghVertex[RIGHT]->getN();
     return res;
 }
 
@@ -137,4 +163,41 @@ void Data::setValue(real* value,ind len)
     {
         data[i]=value[i];
     }
+}
+
+void Data::operator= (Data& dat)
+{
+    if(this->n==dat.n&&this->nVar==dat.nVar)
+    {
+        for(ind i = 0; i < n*nVar; i++)
+        {
+            (*this)[i]=dat[i];
+        }
+        
+    }
+    else
+    {
+        std::cout<<"incorrect size at class Data=Data\n";
+    }
+}
+
+void Data::operator+= (std::vector<real> arr)
+{
+    if (arr.size()==n*nVar)
+    {
+        for (ind i = 0; i < n*nVar; i++)
+        {
+            (*this)[i]+=arr[i];
+        }
+        
+    }
+    else
+    {
+        std::cout<<"incorrect size at class Data += vector<real>\n";
+    }
+}
+
+void Data::setZeros()
+{
+    std::fill(data.begin(),data.end(),0.0);
 }

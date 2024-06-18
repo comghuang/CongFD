@@ -49,8 +49,8 @@ cmake_ninja_workdir = /mnt/d/ArchLinux/CongFD/build/
 
 build cmake_object_order_depends_target_congFD: phony || cmake_object_order_depends_target_libcongFD
 
-build CMakeFiles/congFD.dir/main.cpp.o: CXX_COMPILER__congFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/main.cpp || cmake_object_order_depends_target_congFD
-  DEP_FILE = CMakeFiles/congFD.dir/main.cpp.o.d
+build CMakeFiles/congFD.dir/zoneMain.cpp.o: CXX_COMPILER__congFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/zoneMain.cpp || cmake_object_order_depends_target_congFD
+  DEP_FILE = CMakeFiles/congFD.dir/zoneMain.cpp.o.d
   FLAGS = -g
   INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
   OBJECT_DIR = CMakeFiles/congFD.dir
@@ -64,7 +64,7 @@ build CMakeFiles/congFD.dir/main.cpp.o: CXX_COMPILER__congFD_unscanned_Debug /mn
 #############################################
 # Link the executable congFD
 
-build congFD: CXX_EXECUTABLE_LINKER__congFD_Debug CMakeFiles/congFD.dir/main.cpp.o | src/liblibcongFD.a || src/liblibcongFD.a
+build congFD: CXX_EXECUTABLE_LINKER__congFD_Debug CMakeFiles/congFD.dir/zoneMain.cpp.o | src/liblibcongFD.a || src/liblibcongFD.a
   FLAGS = -g
   LINK_LIBRARIES = src/liblibcongFD.a  -lcgns
   OBJECT_DIR = CMakeFiles/congFD.dir
@@ -203,8 +203,22 @@ build src/CMakeFiles/libcongFD.dir/src/data.cpp.o: CXX_COMPILER__libcongFD_unsca
   OBJECT_DIR = src/CMakeFiles/libcongFD.dir
   OBJECT_FILE_DIR = src/CMakeFiles/libcongFD.dir/src
 
+build src/CMakeFiles/libcongFD.dir/src/fluxScheme.cpp.o: CXX_COMPILER__libcongFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/src/fluxScheme.cpp || cmake_object_order_depends_target_libcongFD
+  DEP_FILE = src/CMakeFiles/libcongFD.dir/src/fluxScheme.cpp.o.d
+  FLAGS = -g
+  INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
+  OBJECT_DIR = src/CMakeFiles/libcongFD.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/libcongFD.dir/src
+
 build src/CMakeFiles/libcongFD.dir/src/interScheme.cpp.o: CXX_COMPILER__libcongFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/src/interScheme.cpp || cmake_object_order_depends_target_libcongFD
   DEP_FILE = src/CMakeFiles/libcongFD.dir/src/interScheme.cpp.o.d
+  FLAGS = -g
+  INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
+  OBJECT_DIR = src/CMakeFiles/libcongFD.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/libcongFD.dir/src
+
+build src/CMakeFiles/libcongFD.dir/src/sp_difference.cpp.o: CXX_COMPILER__libcongFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/src/sp_difference.cpp || cmake_object_order_depends_target_libcongFD
+  DEP_FILE = src/CMakeFiles/libcongFD.dir/src/sp_difference.cpp.o.d
   FLAGS = -g
   INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
   OBJECT_DIR = src/CMakeFiles/libcongFD.dir
@@ -224,6 +238,13 @@ build src/CMakeFiles/libcongFD.dir/src/sp_recon.cpp.o: CXX_COMPILER__libcongFD_u
   OBJECT_DIR = src/CMakeFiles/libcongFD.dir
   OBJECT_FILE_DIR = src/CMakeFiles/libcongFD.dir/src
 
+build src/CMakeFiles/libcongFD.dir/src/zone.cpp.o: CXX_COMPILER__libcongFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/src/zone.cpp || cmake_object_order_depends_target_libcongFD
+  DEP_FILE = src/CMakeFiles/libcongFD.dir/src/zone.cpp.o.d
+  FLAGS = -g
+  INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
+  OBJECT_DIR = src/CMakeFiles/libcongFD.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/libcongFD.dir/src
+
 
 # =============================================================================
 # Link build statements for STATIC_LIBRARY target libcongFD
@@ -232,7 +253,7 @@ build src/CMakeFiles/libcongFD.dir/src/sp_recon.cpp.o: CXX_COMPILER__libcongFD_u
 #############################################
 # Link the static library src/liblibcongFD.a
 
-build src/liblibcongFD.a: CXX_STATIC_LIBRARY_LINKER__libcongFD_Debug src/CMakeFiles/libcongFD.dir/src/SpaceDis.cpp.o src/CMakeFiles/libcongFD.dir/src/bergers.cpp.o src/CMakeFiles/libcongFD.dir/src/boudary.cpp.o src/CMakeFiles/libcongFD.dir/src/cgnsio.cpp.o src/CMakeFiles/libcongFD.dir/src/data.cpp.o src/CMakeFiles/libcongFD.dir/src/interScheme.cpp.o src/CMakeFiles/libcongFD.dir/src/sp_flux.cpp.o src/CMakeFiles/libcongFD.dir/src/sp_recon.cpp.o
+build src/liblibcongFD.a: CXX_STATIC_LIBRARY_LINKER__libcongFD_Debug src/CMakeFiles/libcongFD.dir/src/SpaceDis.cpp.o src/CMakeFiles/libcongFD.dir/src/bergers.cpp.o src/CMakeFiles/libcongFD.dir/src/boudary.cpp.o src/CMakeFiles/libcongFD.dir/src/cgnsio.cpp.o src/CMakeFiles/libcongFD.dir/src/data.cpp.o src/CMakeFiles/libcongFD.dir/src/fluxScheme.cpp.o src/CMakeFiles/libcongFD.dir/src/interScheme.cpp.o src/CMakeFiles/libcongFD.dir/src/sp_difference.cpp.o src/CMakeFiles/libcongFD.dir/src/sp_flux.cpp.o src/CMakeFiles/libcongFD.dir/src/sp_recon.cpp.o src/CMakeFiles/libcongFD.dir/src/zone.cpp.o
   LANGUAGE_COMPILE_FLAGS = -g
   OBJECT_DIR = src/CMakeFiles/libcongFD.dir
   POST_BUILD = :

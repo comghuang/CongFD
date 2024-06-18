@@ -1,12 +1,8 @@
 #pragma once
-
-#include "macro.hpp"
 #include <fstream>
 #include <cgnslib.h>
 #include "boundary.hpp"
-#include <vector>
 #include <iostream>
-#include <string>
 #include <cstring>
 #include <array>
 
@@ -19,18 +15,26 @@ class Data
     //void setDim(ind,std::vector<ind>);
     real& operator() (ind,ind);
     real& operator[] (ind);
+    void operator= (Data&);
+    void operator+= (std::vector<real>);
+    void setZeros();
     
+    //for global LF flux in burgers equation
     real maxElement(ind);
 
+    //get uniform mesh in 1D workbench
     void uniMesh();
+    //output sol to a file;
     void output(std::fstream*,ind);
 
-
-    void cgnsoutputInit();
-    void oneDsolOutput(real);
+    //output to cgns file 1D 
+    void cgnsoutputInit1D();
+    void cgnsoutputInit2D();
+    void oneDsolOutput(real,std::string);
+    
 
     //for ghost vertex
-    void setGhostVertex(ind,ind);
+    void setGhostVertex(OneDBnd*,OneDBnd*);
     void updateGhostVertex();
     std::array<ind,2> getNGhost();
 
@@ -39,5 +43,6 @@ class Data
     std::vector<real> x;
     ind n=200;
     ind nVar=1;
-    OneDGhost ghVertex[2];
+    ind i0=0,offset=1;
+    OneDBnd* ghVertex[2];
 };

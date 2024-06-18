@@ -55,16 +55,6 @@ real SpaceDis::reconR(ind i,ind ivar)
         /*WENO-JS 5 order*/
         return weno5_JSchen((*data)(i+2,ivar),(*data)(i+1,ivar),(*data)(i,ivar),(*data)(i-1,ivar),(*data)(i-2,ivar));
     }
-    else return (*data)(i-1,ivar);
+    else return (*data)(i,ivar);
 
-}
-
-std::array<real,2> SpaceDis::getLR(ind i,ind ivar)
-{
-    std::array<real,2> res;
-    if(i==0)
-    {
-
-    }
-    return res;
 }

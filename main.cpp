@@ -6,7 +6,6 @@
 #include "data.hpp"
 int main(){
     
-    //std::fstream file("data.txt",std::ios::out);
     real dt=0.001,t=0.0,tend=4-dt/4;
     ind nstep=floor((tend-t)/dt);
     ind n=200;
@@ -19,16 +18,11 @@ int main(){
     coor.init(n,1);
     coor.uniMesh();
 
-    coor.cgnsoutputInit();
+    coor.cgnsoutputInit1D();
     dat.oneDsolOutput(0);
 
-
-    /*file<<n<<' '<<nstep+1<<'\n';
-    coor.output(&file,0);
-    dat.output(&file,0);*/
-
     SpaceDis discrete(&dat,&coor,n,nVar);
-    discrete.setMethod(WCNSJS5,BURGERS);
+    discrete.setMethod(WCNSJS5,BURGERS1D);
     ind step=0;
     while(t<tend)
     {
@@ -71,8 +65,6 @@ int main(){
             real exactSol=0;
             real err=abs(dat[i*nVar+ivar]-exactSol);
             error+=err;
-
-            
         }
         std::cout<<"t=  "<<t<<"  error:  "<<error/n<<'\n';
         step++;

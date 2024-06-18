@@ -14,7 +14,7 @@ configure_file(helloConfig.h.in helloConfig.h)
 
 
 #add the executable
-add_executable(${PROJECT_NAME} main.cpp)
+add_executable(${PROJECT_NAME} zoneMain.cpp)
 
 target_link_libraries(${PROJECT_NAME} PUBLIC libcongFD)
 

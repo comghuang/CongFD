@@ -10,10 +10,42 @@ SpaceDis::SpaceDis(Data* data_,Data* coor_,ind n_,ind nVar_)
     nVar=nVar_;
     nHalf=n+1;
     flux.init(nHalf*nVar,nVar);
-    flux.setGhostVertex(2,LEFTT);
-    flux.setGhostVertex(2,RIGHT);
-    data->setGhostVertex(5,LEFTT);
-    data->setGhostVertex(5,RIGHT);
+
+    //写读网格的时候需要把这段拿掉 并且这里没有释放内存哦。
+    OneDBnd* fluxl=new OneDBnd;
+    OneDBnd* fluxr=new OneDBnd;
+    OneDBnd* datal=new OneDBnd;
+    OneDBnd* datar=new OneDBnd;
+    fluxl->init(2,nVar,TYPENULL);
+    fluxr->init(2,nVar,TYPENULL);
+    datal->init(5,nVar,DIRICLET_SODL);
+    datar->init(5,nVar,DIRICLET_SODR);
+    flux.setGhostVertex(fluxl,fluxr);
+    data->setGhostVertex(datal,datar);
+}
+
+SpaceDis::SpaceDis(){};
+
+
+void SpaceDis::init(Data* data_,Data* coor_,ind n_,ind nVar_,ind nPrim_)
+{
+    coor=coor_;
+    data=data_;
+    nPrim=nPrim_;
+    n=n_;
+    nVar=nVar_;
+    nHalf=n+1;
+    flux.init(nHalf*nVar,nVar);
+    OneDBnd* fluxl=new OneDBnd;
+    OneDBnd* fluxr=new OneDBnd;
+    OneDBnd* datal=new OneDBnd;
+    OneDBnd* datar=new OneDBnd;
+    fluxl->init(2,nVar,TYPENULL);
+    fluxr->init(2,nVar,TYPENULL);
+    datal->init(5,nPrim,DIRICLET_SODL);
+    datar->init(5,nPrim,DIRICLET_SODR);
+    flux.setGhostVertex(fluxl,fluxr);
+    data->setGhostVertex(datal,datar);
 }
 
 
@@ -22,42 +54,16 @@ std::vector<real> SpaceDis::difference()
 {
     data->updateGhostVertex();
     calFlux();
-    std::vector<real> rhs;
-    rhs.resize(n*nVar);
-    for(ind i=0;i<n;i++)
-    {
-        real h;
-        h=2.0/n;
-        for(ind j=0;j<nVar;j++)
-        {
-            rhs[i*nVar+j]=75.0/64.0*(flux(i+1,j)-flux(i,j))/h
-                         -25.0/128.0*(flux(i+2,j)-flux(i-1,j))/(3*h)
-                         +3.0/128.0*(flux(i+3,j)-flux(i-2,j))/(5*h);
-        }
-    }
-    return rhs;
+    return (this->*difMethod)();
 }
 
 void SpaceDis::calFlux()
 {
     std::array<ind,2> nGhost=flux.getNGhost();
+    flux.setZeros();
     for(ind i=0-nGhost[LEFTT];i<nHalf+nGhost[RIGHT];i++)
     {
-        switch (fluxType)
-        {
-        case LINEARCONV:
-            calFluxConv(i);
-            break;
-        case BURGERS:
-            calFluxBurgers(i);
-            break;
-        case EULER:
-            calFluxEuler(i);
-            break;
-        
-        default:
-            break;
-        }
+        (this->*calTypeFlux)(i);
     }
 }
 
@@ -67,4 +73,35 @@ void SpaceDis::setMethod(SpaceDisMethod method_,FluxType type_)
 {
     fluxType=type_;
     spDisMethod=method_;
+    switch (fluxType)
+    {
+    case LINEARCONV1D:
+        calTypeFlux=&SpaceDis::calFluxConv;
+        break;
+    case BURGERS1D:
+        calTypeFlux=&SpaceDis::calFluxBurgers;
+        break;
+    case EULER1D:
+        calTypeFlux=&SpaceDis::calFluxEuler;
+        break;
+    
+    default:
+        break;
+    }
+
+    switch (spDisMethod)
+    {
+    case FIRSTORDER:
+        difMethod=&SpaceDis::dif2Order;
+        break;
+    case MUSCL:
+        difMethod=&SpaceDis::dif2Order;
+        break;
+    case WCNSJS5:
+        difMethod=&SpaceDis::difTraditional6;
+        break;
+    
+    default:
+        break;
+    }
 }
