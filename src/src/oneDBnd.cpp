@@ -1,4 +1,4 @@
-#include "boundary.hpp"
+#include "oneDBnd.hpp"
 
 
 real& OneDBnd::operator()(ind i,ind ivar)

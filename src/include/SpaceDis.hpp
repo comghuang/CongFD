@@ -1,20 +1,19 @@
 
 #pragma once
-#include "macro.hpp"
 #include "data.hpp"
-#include <algorithm>
+#include "block.hpp"
+
 
 
 
 class SpaceDis
 {
     public:
-    SpaceDis(Data*,Data*,ind,ind);
     SpaceDis();
     std::vector<real> difference();
 
     void setMethod(SpaceDisMethod,FluxType);
-    void init(Data*,Data*,ind,ind,ind);
+    void init(std::shared_ptr<Data>,std::shared_ptr<Block>,ind,ind,ind);
 
     void calFlux();
     void (SpaceDis::*calTypeFlux)(ind);
@@ -33,7 +32,8 @@ class SpaceDis
 
 
     private:
-    Data* data,*coor;
+    std::shared_ptr<Data> data;
+    std::shared_ptr<Block> grid;
     ind n,nVar,nPrim;
     ind nHalf;
     Data flux;

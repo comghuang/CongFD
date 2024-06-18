@@ -2,34 +2,12 @@
 #include <array>
 
 
-SpaceDis::SpaceDis(Data* data_,Data* coor_,ind n_,ind nVar_)
-{
-    coor=coor_;
-    data=data_;
-    n=n_;
-    nVar=nVar_;
-    nHalf=n+1;
-    flux.init(nHalf*nVar,nVar);
-
-    //写读网格的时候需要把这段拿掉 并且这里没有释放内存哦。
-    OneDBnd* fluxl=new OneDBnd;
-    OneDBnd* fluxr=new OneDBnd;
-    OneDBnd* datal=new OneDBnd;
-    OneDBnd* datar=new OneDBnd;
-    fluxl->init(2,nVar,TYPENULL);
-    fluxr->init(2,nVar,TYPENULL);
-    datal->init(5,nVar,DIRICLET_SODL);
-    datar->init(5,nVar,DIRICLET_SODR);
-    flux.setGhostVertex(fluxl,fluxr);
-    data->setGhostVertex(datal,datar);
-}
-
 SpaceDis::SpaceDis(){};
 
 
-void SpaceDis::init(Data* data_,Data* coor_,ind n_,ind nVar_,ind nPrim_)
+void SpaceDis::init(std::shared_ptr<Data> data_,std::shared_ptr<Block> grid_,ind n_,ind nVar_,ind nPrim_)
 {
-    coor=coor_;
+    grid=grid_;
     data=data_;
     nPrim=nPrim_;
     n=n_;

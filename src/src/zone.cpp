@@ -1,21 +1,21 @@
 #include "zone.hpp"
-std::map<FluxType,std::string> fluxStr= {{LINEARCONV1D,"LINEARCONV1D"}
+static std::map<FluxType,std::string> fluxStr= {{LINEARCONV1D,"LINEARCONV1D"}
                                         ,{BURGERS1D,"BURGERS1D"}
                                         ,{EULER1D,"EULER1D"}};
-std::map<SpaceDisMethod,std::string> disStr={
+static std::map<SpaceDisMethod,std::string> disStr={
     {FIRSTORDER,"FIRSTORDER"},
     {MUSCL,"MUSCL"},
     {WCNSJS5,"WCNSJS5"}
 };
-void Zone::init(ind I_,ind J_,ind K_,ind dim_,FluxType type)
+void Zone::init(Info info_,std::shared_ptr<Block> grid_)
 {
     
-    
-    iMax[0]=I_;
-    iMax[1]=J_;
-    iMax[2]=K_;
-    dim=dim_;
-    switch (type)
+    iMax=grid_->icMax;
+    dim=grid_->dim;
+    fluxType=info_.fType;
+    spMethod=info_.spMethod;
+    grid=grid_;
+    switch (fluxType)
     {
     case LINEARCONV1D:
     case BURGERS1D:
@@ -31,27 +31,26 @@ void Zone::init(ind I_,ind J_,ind K_,ind dim_,FluxType type)
     default:
         break;
     }
-    fluxType=type;
-    len=I_*J_*K_;
-    dat.init(len,nVar);
-    prim.init(len,nPrim);
-    coor.init(len,dim);
+    len=iMax[0]*iMax[1]*iMax[2];
+    
+    
+    cons->init(len,nVar);
+    
+    prim->init(len,nPrim);
     rhs.init(len,nVar);
-    discrete.init(&prim,&coor,len,nVar,nPrim);
-    discrete.setMethod(WCNSJS5,type);
+    discrete.init(prim,grid,len,nVar,nPrim);
+    discrete.setMethod(spMethod,fluxType);
 
+    cons->solInit(len,nVar);
 
-    coor.uniMesh();
-    dat.solInit(len,nVar);
-
-    coor.cgnsoutputInit1D();
-    dat.oneDsolOutput(0,fluxStr[type]+disStr[WCNSJS5]);
+    grid->outputCgns();
+    cons->oneDsolOutput(0,fluxStr[fluxType]+disStr[spMethod]);
     
 }
 
 void Zone::RK3(real dt)
 {
-        Data tempdata=dat;
+        Data tempdata=(*cons);
 
         //third order RK
         //stage 1
@@ -61,7 +60,7 @@ void Zone::RK3(real dt)
         for(ind i=0;i<len;i++)
         for(ind ivar=0;ivar<nVar;ivar++)
         {
-            dat[i*nVar+ivar]=tempdata[i*nVar+ivar]-dt*rhs[i*nVar+ivar];
+            (*cons)[i*nVar+ivar]=tempdata[i*nVar+ivar]-dt*rhs[i*nVar+ivar];
         }
 
         //stage 2
@@ -71,9 +70,9 @@ void Zone::RK3(real dt)
         for(ind i=0;i<len;i++)
         for(ind ivar=0;ivar<nVar;ivar++)
         {
-            dat[i*nVar+ivar]=0.75*tempdata[i*nVar+ivar]
+            (*cons)[i*nVar+ivar]=0.75*tempdata[i*nVar+ivar]
                              -0.25*dt*rhs[i*nVar+ivar]
-                             +0.25*dat[i*nVar+ivar];
+                             +0.25*(*cons)[i*nVar+ivar];
         }
 
         //stage 3
@@ -83,16 +82,16 @@ void Zone::RK3(real dt)
         for(ind i=0;i<len;i++)
         for(ind ivar=0;ivar<nVar;ivar++)
         {
-            dat[i*nVar+ivar]=1.0/3.0*tempdata[i*nVar+ivar]
+            (*cons)[i*nVar+ivar]=1.0/3.0*tempdata[i*nVar+ivar]
                              -2.0/3.0*dt*rhs[i*nVar+ivar]
-                             +2.0/3.0*dat[i*nVar+ivar];
+                             +2.0/3.0*(*cons)[i*nVar+ivar];
         }
 }
 
 
 void Zone::oneDsolOutput(real t)
 {
-    dat.oneDsolOutput(t,fluxStr[fluxType]+disStr[WCNSJS5]);
+    cons->oneDsolOutput(t,fluxStr[fluxType]+disStr[WCNSJS5]);
 }
 
 void Zone::consToPrim()
@@ -101,7 +100,7 @@ void Zone::consToPrim()
     {
     case LINEARCONV1D:
     case BURGERS1D:
-        prim=dat;
+        std::copy(cons->begin(),cons->end(),prim->begin());
         break;
     case EULER1D:
         consToPrimEuler1D();
@@ -126,9 +125,9 @@ void Zone::consToPrimEuler1D()
 
     for (ind i = 0; i < iMax[0]; i++)
     {
-        real r=dat(i,0);
-        real ru=dat(i,1);
-        real rE=dat(i,2);
+        real r=(*cons)(i,0);
+        real ru=(*cons)(i,1);
+        real rE=(*cons)(i,2);
         real u=ru/r;
         real E=rE/r;
         real e=E-u*u/2;
@@ -136,11 +135,22 @@ void Zone::consToPrimEuler1D()
         real RT=(gamma-1)*e;
         real p=r*RT;
         real H=gamma/(gamma-1)*RT+u*u/2;
-        prim(i,0)=r;
-        prim(i,1)=u;
-        prim(i,2)=p;
-        prim(i,3)=H;
-        prim(i,4)=RT;
+        (*prim)(i,0)=r;
+        (*prim)(i,1)=u;
+        (*prim)(i,2)=p;
+        (*prim)(i,3)=H;
+        (*prim)(i,4)=RT;
     }
     
+}
+
+Zone::Zone()
+{
+    prim=std::make_shared<Data>();
+    cons=std::make_shared<Data>();
+}
+
+std::shared_ptr<Data> Zone::getCons()
+{
+    return cons;
 }

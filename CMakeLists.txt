@@ -4,6 +4,7 @@ cmake_minimum_required(VERSION 3.15)
 project(congFD VERSION 0.0.0)
 
 configure_file(helloConfig.h.in helloConfig.h)
+set(CMAKE_CXX_STANDARD 23)
 #string(TIMESTAMP COMPILE_TIME %Y%m%d-%H%M%S)
 
 
@@ -21,7 +22,5 @@ target_link_libraries(${PROJECT_NAME} PUBLIC libcongFD)
 add_subdirectory(src)
 add_subdirectory(utils)
 
-add_executable(cgnstest cgnsReadTest.cpp)
-target_link_libraries(cgnstest PUBLIC libcongFD)
 
 

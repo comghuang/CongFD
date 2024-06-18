@@ -13,6 +13,15 @@
 #include <stdio.h>
 #include <map>
 #include <string>
+#include <memory>
+#include <iostream>
+#include <cstring>
+#include <array>
+#include <fstream>
+#include <vector>
+#include <cgnslib.h>
+#include <map>
+#include <algorithm>
 
 
 

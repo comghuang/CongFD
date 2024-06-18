@@ -152,17 +152,14 @@ std::array<ind,2> Data::getNGhost()
     return res;
 }
 
-void Data::setValue(real* value,ind len)
+void Data::setValue(std::vector<real> value)
 {
-    if(len!=n*nVar)
+    if(value.size()!=n*nVar)
     {
         std::cout<<"vector length incorrect \n";
         return;
     }
-    for(int i=0;i<len;i++)
-    {
-        data[i]=value[i];
-    }
+    std::copy(value.begin(),value.end(),data.begin());
 }
 
 void Data::operator= (Data& dat)
@@ -200,4 +197,20 @@ void Data::operator+= (std::vector<real> arr)
 void Data::setZeros()
 {
     std::fill(data.begin(),data.end(),0.0);
+}
+
+
+
+std::vector<real>::iterator Data::begin()
+{
+    return data.begin();
+}
+std::vector<real>::iterator Data::end()
+{
+    return data.end();
+}
+
+real Data::size()
+{
+    return data.size();
 }

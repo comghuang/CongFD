@@ -43,7 +43,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-g"
+					"fragment" : "-g -std=gnu++23"
 				}
 			],
 			"includes" : 
@@ -54,19 +54,30 @@
 				}
 			],
 			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					1
+				],
+				"standard" : "23"
+			},
 			"sourceIndexes" : 
 			[
-				8,
-				9,
-				10,
-				11,
 				12,
 				13,
 				14,
 				15,
 				16,
 				17,
-				18
+				18,
+				19,
+				20,
+				21,
+				22,
+				23,
+				24,
+				25
 			]
 		}
 	],
@@ -91,24 +102,31 @@
 				4,
 				5,
 				6,
-				7
+				7,
+				8,
+				9,
+				10,
+				11
 			]
 		},
 		{
 			"name" : "Source Files",
 			"sourceIndexes" : 
 			[
-				8,
-				9,
-				10,
-				11,
 				12,
 				13,
 				14,
 				15,
 				16,
 				17,
-				18
+				18,
+				19,
+				20,
+				21,
+				22,
+				23,
+				24,
+				25
 			]
 		}
 	],
@@ -116,12 +134,17 @@
 	[
 		{
 			"backtrace" : 1,
+			"path" : "src/include/Bnds.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
 			"path" : "src/include/SpaceDis.hpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "src/include/boundary.hpp",
+			"path" : "src/include/block.hpp",
 			"sourceGroupIndex" : 0
 		},
 		{
@@ -141,12 +164,27 @@
 		},
 		{
 			"backtrace" : 1,
+			"path" : "src/include/info.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/include/initializer.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
 			"path" : "src/include/interScheme.hpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
 			"path" : "src/include/macro.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/include/oneDBnd.hpp",
 			"sourceGroupIndex" : 0
 		},
 		{
@@ -169,7 +207,7 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "src/src/boudary.cpp",
+			"path" : "src/src/bnds.cpp",
 			"sourceGroupIndex" : 1
 		},
 		{
@@ -193,7 +231,25 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
+			"path" : "src/src/grid.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/src/initializer.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
 			"path" : "src/src/interScheme.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/src/oneDBnd.cpp",
 			"sourceGroupIndex" : 1
 		},
 		{

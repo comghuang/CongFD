@@ -5,13 +5,17 @@ cmake_policy(SET CMP0009 NEW)
 # SRCS at src/CMakeLists.txt:2 (file)
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "/mnt/d/ArchLinux/CongFD/src/include/*.hpp")
 set(OLD_GLOB
+  "/mnt/d/ArchLinux/CongFD/src/include/Bnds.hpp"
   "/mnt/d/ArchLinux/CongFD/src/include/SpaceDis.hpp"
-  "/mnt/d/ArchLinux/CongFD/src/include/boundary.hpp"
+  "/mnt/d/ArchLinux/CongFD/src/include/block.hpp"
   "/mnt/d/ArchLinux/CongFD/src/include/burgers.hpp"
   "/mnt/d/ArchLinux/CongFD/src/include/data.hpp"
   "/mnt/d/ArchLinux/CongFD/src/include/fluxScheme.hpp"
+  "/mnt/d/ArchLinux/CongFD/src/include/info.hpp"
+  "/mnt/d/ArchLinux/CongFD/src/include/initializer.hpp"
   "/mnt/d/ArchLinux/CongFD/src/include/interScheme.hpp"
   "/mnt/d/ArchLinux/CongFD/src/include/macro.hpp"
+  "/mnt/d/ArchLinux/CongFD/src/include/oneDBnd.hpp"
   "/mnt/d/ArchLinux/CongFD/src/include/zone.hpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
@@ -24,11 +28,14 @@ file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "/mnt/d/ArchLinux/CongFD/src/s
 set(OLD_GLOB
   "/mnt/d/ArchLinux/CongFD/src/src/SpaceDis.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/bergers.cpp"
-  "/mnt/d/ArchLinux/CongFD/src/src/boudary.cpp"
+  "/mnt/d/ArchLinux/CongFD/src/src/bnds.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/cgnsio.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/data.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/fluxScheme.cpp"
+  "/mnt/d/ArchLinux/CongFD/src/src/grid.cpp"
+  "/mnt/d/ArchLinux/CongFD/src/src/initializer.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/interScheme.cpp"
+  "/mnt/d/ArchLinux/CongFD/src/src/oneDBnd.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/sp_difference.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/sp_flux.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/sp_recon.cpp"
