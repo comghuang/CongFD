@@ -1,0 +1,9 @@
+
+file(GLOB_RECURSE SRCS CONFIGURE_DEPENDS src/*.cpp include/*.hpp)
+
+
+
+add_library(libcongFD STATIC ${SRCS})
+target_link_libraries(libcongFD PUBLIC cgns)
+target_include_directories(libcongFD PUBLIC include/)
+

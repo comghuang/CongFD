@@ -1,26 +1,62 @@
 [
 {
   "directory": "/mnt/d/ArchLinux/CongFD/build",
-  "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/include -I/mnt/d/ArchLinux/CongFD/build -g -o CMakeFiles/helloCFD.dir/src/bergers.cpp.o -c /mnt/d/ArchLinux/CongFD/src/bergers.cpp",
-  "file": "/mnt/d/ArchLinux/CongFD/src/bergers.cpp",
-  "output": "CMakeFiles/helloCFD.dir/src/bergers.cpp.o"
+  "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/src/include -g -o CMakeFiles/congFD.dir/main.cpp.o -c /mnt/d/ArchLinux/CongFD/main.cpp",
+  "file": "/mnt/d/ArchLinux/CongFD/main.cpp",
+  "output": "CMakeFiles/congFD.dir/main.cpp.o"
 },
 {
   "directory": "/mnt/d/ArchLinux/CongFD/build",
-  "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/include -I/mnt/d/ArchLinux/CongFD/build -g -o CMakeFiles/helloCFD.dir/src/main.cpp.o -c /mnt/d/ArchLinux/CongFD/src/main.cpp",
-  "file": "/mnt/d/ArchLinux/CongFD/src/main.cpp",
-  "output": "CMakeFiles/helloCFD.dir/src/main.cpp.o"
+  "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/src/include -g -o CMakeFiles/cgnstest.dir/cgnsReadTest.cpp.o -c /mnt/d/ArchLinux/CongFD/cgnsReadTest.cpp",
+  "file": "/mnt/d/ArchLinux/CongFD/cgnsReadTest.cpp",
+  "output": "CMakeFiles/cgnstest.dir/cgnsReadTest.cpp.o"
 },
 {
   "directory": "/mnt/d/ArchLinux/CongFD/build",
-  "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/include -I/mnt/d/ArchLinux/CongFD/build -g -o CMakeFiles/helloCFD.dir/src/oneDDiscrete.cpp.o -c /mnt/d/ArchLinux/CongFD/src/oneDDiscrete.cpp",
-  "file": "/mnt/d/ArchLinux/CongFD/src/oneDDiscrete.cpp",
-  "output": "CMakeFiles/helloCFD.dir/src/oneDDiscrete.cpp.o"
+  "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/src/include -g -o src/CMakeFiles/libcongFD.dir/src/SpaceDis.cpp.o -c /mnt/d/ArchLinux/CongFD/src/src/SpaceDis.cpp",
+  "file": "/mnt/d/ArchLinux/CongFD/src/src/SpaceDis.cpp",
+  "output": "src/CMakeFiles/libcongFD.dir/src/SpaceDis.cpp.o"
 },
 {
   "directory": "/mnt/d/ArchLinux/CongFD/build",
-  "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/include -I/mnt/d/ArchLinux/CongFD/build -g -o CMakeFiles/helloCFD.dir/src/vecs.cpp.o -c /mnt/d/ArchLinux/CongFD/src/vecs.cpp",
-  "file": "/mnt/d/ArchLinux/CongFD/src/vecs.cpp",
-  "output": "CMakeFiles/helloCFD.dir/src/vecs.cpp.o"
+  "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/src/include -g -o src/CMakeFiles/libcongFD.dir/src/bergers.cpp.o -c /mnt/d/ArchLinux/CongFD/src/src/bergers.cpp",
+  "file": "/mnt/d/ArchLinux/CongFD/src/src/bergers.cpp",
+  "output": "src/CMakeFiles/libcongFD.dir/src/bergers.cpp.o"
+},
+{
+  "directory": "/mnt/d/ArchLinux/CongFD/build",
+  "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/src/include -g -o src/CMakeFiles/libcongFD.dir/src/boudary.cpp.o -c /mnt/d/ArchLinux/CongFD/src/src/boudary.cpp",
+  "file": "/mnt/d/ArchLinux/CongFD/src/src/boudary.cpp",
+  "output": "src/CMakeFiles/libcongFD.dir/src/boudary.cpp.o"
+},
+{
+  "directory": "/mnt/d/ArchLinux/CongFD/build",
+  "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/src/include -g -o src/CMakeFiles/libcongFD.dir/src/cgnsio.cpp.o -c /mnt/d/ArchLinux/CongFD/src/src/cgnsio.cpp",
+  "file": "/mnt/d/ArchLinux/CongFD/src/src/cgnsio.cpp",
+  "output": "src/CMakeFiles/libcongFD.dir/src/cgnsio.cpp.o"
+},
+{
+  "directory": "/mnt/d/ArchLinux/CongFD/build",
+  "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/src/include -g -o src/CMakeFiles/libcongFD.dir/src/data.cpp.o -c /mnt/d/ArchLinux/CongFD/src/src/data.cpp",
+  "file": "/mnt/d/ArchLinux/CongFD/src/src/data.cpp",
+  "output": "src/CMakeFiles/libcongFD.dir/src/data.cpp.o"
+},
+{
+  "directory": "/mnt/d/ArchLinux/CongFD/build",
+  "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/src/include -g -o src/CMakeFiles/libcongFD.dir/src/interScheme.cpp.o -c /mnt/d/ArchLinux/CongFD/src/src/interScheme.cpp",
+  "file": "/mnt/d/ArchLinux/CongFD/src/src/interScheme.cpp",
+  "output": "src/CMakeFiles/libcongFD.dir/src/interScheme.cpp.o"
+},
+{
+  "directory": "/mnt/d/ArchLinux/CongFD/build",
+  "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/src/include -g -o src/CMakeFiles/libcongFD.dir/src/sp_flux.cpp.o -c /mnt/d/ArchLinux/CongFD/src/src/sp_flux.cpp",
+  "file": "/mnt/d/ArchLinux/CongFD/src/src/sp_flux.cpp",
+  "output": "src/CMakeFiles/libcongFD.dir/src/sp_flux.cpp.o"
+},
+{
+  "directory": "/mnt/d/ArchLinux/CongFD/build",
+  "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/src/include -g -o src/CMakeFiles/libcongFD.dir/src/sp_recon.cpp.o -c /mnt/d/ArchLinux/CongFD/src/src/sp_recon.cpp",
+  "file": "/mnt/d/ArchLinux/CongFD/src/src/sp_recon.cpp",
+  "output": "src/CMakeFiles/libcongFD.dir/src/sp_recon.cpp.o"
 }
 ]

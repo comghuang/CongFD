@@ -2,15 +2,15 @@
 #include <vector>
 #include <math.h>
 #include <fstream>
-#include <random>
+#include <algorithm>
 
 double u0(double x)
 {
-    return 0.25+0.5*sin(M_PI*x);
+    return -sin(M_PI*x);
 }
 double du0(double x)
 {
-    return 0.5*M_PI*cos(M_PI*x);
+    return -M_PI*cos(M_PI*x);
 }
 double f(double theta,double x,double t)
 {
@@ -33,7 +33,7 @@ int main(int argc, char** argv){
     }
     else 
     {
-        n=200,tend=10,dt=0.1;
+        n=200,tend=4,dt=0.01;
     }
         std::cout<<"n=  "<<n<<"   t=  "<<tend<<"   dt=  "<<dt<<std::endl;
     std::vector<double> u;
@@ -48,23 +48,27 @@ int main(int argc, char** argv){
 
         for(int i =0;i<n;i++)
         {
-            double theta=u[i];
-            if (i>0) theta=u[i-1];
+            
             double x=h/2.0+i*h-1.0;
+            double theta=0;
+
+            if (x>0)
+            {
+                
+                theta=u[std::min(i+1,n-1)];
+            }
+            else
+            {
+                theta=u[std::max(i-1,0)];
+            }
+
             double delta=100;
             int tt=0;
             do
             {
                 delta=-f(theta,x,t)/df(theta,x,t);
-                double thetaPre=theta;
-                theta=theta+0.5*delta;
+                theta=theta+delta;
                 tt++;
-                if (tt==50) 
-                { 
-                    theta=u[i];
-                    continue;
-                }
-                //std::cout<<times<<' '<<theta<<'\n';
             } while (abs(delta)>eps);
             u[i]=theta;
             file<<x<<' '<<theta<<' '<<u0(theta)<<'\n';
