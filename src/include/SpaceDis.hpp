@@ -12,7 +12,7 @@ class SpaceDis
     SpaceDis();
     std::vector<real> difference();
 
-    void setMethod(SpaceDisMethod,FluxType);
+    void setMethod(SpaceDisMethod,EquationType);
     void init(std::shared_ptr<Data>,std::shared_ptr<Block>,ind,ind,ind);
 
     void calFlux();
@@ -37,7 +37,7 @@ class SpaceDis
     ind n,nVar,nPrim;
     ind nHalf;
     Data flux;
-    FluxType fluxType;
+    EquationType fluxType;
     SpaceDisMethod spDisMethod;
 
 

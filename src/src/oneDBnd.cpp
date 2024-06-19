@@ -20,7 +20,7 @@ void OneDBnd::init(ind n_,ind nVar_,BndType bType_)
     type=bType_;
 }
 
-void OneDBnd::setGhostValue(real* value)
+void OneDBnd::setValue(real* value)
 {
     for(ind i=0;i<n;i++)
     {

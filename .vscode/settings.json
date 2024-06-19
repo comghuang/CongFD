@@ -78,6 +78,9 @@
         "stop_token": "cpp",
         "math.h": "c",
         "stdio.h": "c",
-        "cgnslib.h": "c"
+        "cgnslib.h": "c",
+        "charconv": "cpp",
+        "format": "cpp",
+        "span": "cpp"
     }
 }

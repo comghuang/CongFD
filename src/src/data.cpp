@@ -100,7 +100,7 @@ void Data::updateGhostVertex()
         std::vector<real> res;
         switch (ghVertex[ilr]->getType())
         {
-        case PERIODIC:
+        case PERIODIC1D:
             res.reserve(ghVertex[ilr]->getN()*nVar);
             for (ind i=0;i<ghVertex[ilr]->getN();i++)
             {
@@ -110,7 +110,7 @@ void Data::updateGhostVertex()
                     else res.push_back((*this)(i,ivar));
                 }
             }
-            ghVertex[ilr]->setGhostValue(&(res[0]));
+            ghVertex[ilr]->setValue(&(res[0]));
             break;
         case DIRICLET_SODL:
             res.reserve(ghVertex[ilr]->getN()*nVar);
@@ -122,7 +122,7 @@ void Data::updateGhostVertex()
                 res.push_back(GAMMA/(GAMMA-1));
                 res.push_back(1.0);
             }
-            ghVertex[ilr]->setGhostValue(&(res[0]));
+            ghVertex[ilr]->setValue(&(res[0]));
             break;
         case DIRICLET_SODR:
             res.reserve(ghVertex[ilr]->getN()*nVar);
@@ -134,7 +134,7 @@ void Data::updateGhostVertex()
                 res.push_back(GAMMA/(GAMMA-1)*0.8);
                 res.push_back(0.8);
             }
-            ghVertex[ilr]->setGhostValue(&(res[0]));
+            ghVertex[ilr]->setValue(&(res[0]));
             break;
         default:
             break;

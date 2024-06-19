@@ -1,7 +1,7 @@
 #pragma once
 #include "data.hpp"
 #include "SpaceDis.hpp"
-
+#include "Bnds.hpp"
 #include "info.hpp"
 
 
@@ -18,14 +18,14 @@ class Zone
 
 
     private:
-    FluxType fluxType;
+    EquationType eqType;
     SpaceDisMethod spMethod;
     ind nVar,nPrim,dim,len;
     std::array<ind,3> iMax;
     ind offset,i0;
     std::shared_ptr<Data> prim,cons;
-    SpaceDis discrete;
-    Data rhs;
+    std::shared_ptr<SpaceDis> discrete;
+    std::shared_ptr<Data> rhs;
     std::shared_ptr<Block> grid;
-    std::vector<OneDBnd> bnds;
+    std::shared_ptr<Bnds> bnds;
 };

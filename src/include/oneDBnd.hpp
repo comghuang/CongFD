@@ -6,7 +6,7 @@ class OneDBnd
     public:
     real& operator()(ind,ind);
     void init(ind,ind,BndType);
-    void setGhostValue(real*);
+    void setValue(real*);
     ind getN();
     BndType getType();
 

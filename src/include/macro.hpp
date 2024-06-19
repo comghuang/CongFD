@@ -9,7 +9,6 @@
 
 
 #include <math.h>
-
 #include <stdio.h>
 #include <map>
 #include <string>
@@ -22,24 +21,30 @@
 #include <cgnslib.h>
 #include <map>
 #include <algorithm>
+#include <format>
 
 
 
 #define GAMMA 1.4
 
-enum BndType{
+constexpr enum BndType{
     TYPENULL,
-    PERIODIC,
+    PERIODIC1D,
     DIRICLET_SODL,
     DIRICLET_SODR,
 };
-enum SpaceDisMethod{
+constexpr enum SpaceDisMethod{
     FIRSTORDER,
     MUSCL,
     WCNSJS5
 };
+constexpr enum DiffMethod{
+    HDS6,
+    TRAD6,
+    TRAD2
+};
 
-enum FluxType{
+constexpr enum EquationType{
     LINEARCONV1D,
     BURGERS1D,
     EULER1D
@@ -47,3 +52,4 @@ enum FluxType{
 #define LEFTT 0
 #define RIGHT 1
 
+int index(int,int,int,std::array<int,3>);

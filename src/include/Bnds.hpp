@@ -1,34 +1,16 @@
 #pragma once
 #include "block.hpp"
+#include "info.hpp"
 
 
 
-enum bndPosition{
-    IL,
-    IR,
-    JL,
-    JR,
-    KL,
-    KR
-};
 
-class bndCache
-{
-    /*Cache for Periodical Boundary*/
-    
-    private:
-    std::vector<real> data;
-
-
-};
 
 class Bnds
 {
     public:
-    void initFromCode(std::shared_ptr<Block>);
+    void initFromCode(std::shared_ptr<Block>,Info);
 
-    OneDBnd* getBnd(bndPosition,std::array<ind,2>);
-    void setBnd(bndPosition,std::array<ind,4>);
     private:
     ind dim;
     std::array<ind,3> iMax;

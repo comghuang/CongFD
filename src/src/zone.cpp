@@ -1,5 +1,5 @@
 #include "zone.hpp"
-static std::map<FluxType,std::string> fluxStr= {{LINEARCONV1D,"LINEARCONV1D"}
+static std::map<EquationType,std::string> fluxStr= {{LINEARCONV1D,"LINEARCONV1D"}
                                         ,{BURGERS1D,"BURGERS1D"}
                                         ,{EULER1D,"EULER1D"}};
 static std::map<SpaceDisMethod,std::string> disStr={
@@ -12,10 +12,10 @@ void Zone::init(Info info_,std::shared_ptr<Block> grid_)
     
     iMax=grid_->icMax;
     dim=grid_->dim;
-    fluxType=info_.fType;
+    eqType=info_.eqType;
     spMethod=info_.spMethod;
     grid=grid_;
-    switch (fluxType)
+    switch (eqType)
     {
     case LINEARCONV1D:
     case BURGERS1D:
@@ -35,16 +35,20 @@ void Zone::init(Info info_,std::shared_ptr<Block> grid_)
     
     
     cons->init(len,nVar);
-    
     prim->init(len,nPrim);
-    rhs.init(len,nVar);
-    discrete.init(prim,grid,len,nVar,nPrim);
-    discrete.setMethod(spMethod,fluxType);
+
+
+    rhs=std::make_shared<Data>();
+    rhs->init(len,nVar);
+
+    discrete=std::make_shared<SpaceDis>();
+    discrete->init(prim,grid,len,nVar,nPrim);
+    discrete->setMethod(spMethod,eqType);
 
     cons->solInit(len,nVar);
 
     grid->outputCgns();
-    cons->oneDsolOutput(0,fluxStr[fluxType]+disStr[spMethod]);
+    cons->oneDsolOutput(0,fluxStr[eqType]+disStr[spMethod]);
     
 }
 
@@ -55,35 +59,35 @@ void Zone::RK3(real dt)
         //third order RK
         //stage 1
         consToPrim();
-        rhs.setZeros();
-        rhs+=discrete.difference();
+        rhs->setZeros();
+        (*rhs)+=discrete->difference();
         for(ind i=0;i<len;i++)
         for(ind ivar=0;ivar<nVar;ivar++)
         {
-            (*cons)[i*nVar+ivar]=tempdata[i*nVar+ivar]-dt*rhs[i*nVar+ivar];
+            (*cons)[i*nVar+ivar]=tempdata[i*nVar+ivar]-dt*(*rhs)[i*nVar+ivar];
         }
 
         //stage 2
         consToPrim();
-        rhs.setZeros();
-        rhs+=discrete.difference();
+        rhs->setZeros();
+        (*rhs)+=discrete->difference();
         for(ind i=0;i<len;i++)
         for(ind ivar=0;ivar<nVar;ivar++)
         {
             (*cons)[i*nVar+ivar]=0.75*tempdata[i*nVar+ivar]
-                             -0.25*dt*rhs[i*nVar+ivar]
+                             -0.25*dt*(*rhs)[i*nVar+ivar]
                              +0.25*(*cons)[i*nVar+ivar];
         }
 
         //stage 3
         consToPrim();
-        rhs.setZeros();
-        rhs+=discrete.difference();
+        rhs->setZeros();
+        (*rhs)+=discrete->difference();
         for(ind i=0;i<len;i++)
         for(ind ivar=0;ivar<nVar;ivar++)
         {
             (*cons)[i*nVar+ivar]=1.0/3.0*tempdata[i*nVar+ivar]
-                             -2.0/3.0*dt*rhs[i*nVar+ivar]
+                             -2.0/3.0*dt*(*rhs)[i*nVar+ivar]
                              +2.0/3.0*(*cons)[i*nVar+ivar];
         }
 }
@@ -91,12 +95,12 @@ void Zone::RK3(real dt)
 
 void Zone::oneDsolOutput(real t)
 {
-    cons->oneDsolOutput(t,fluxStr[fluxType]+disStr[WCNSJS5]);
+    cons->oneDsolOutput(t,fluxStr[eqType]+disStr[WCNSJS5]);
 }
 
 void Zone::consToPrim()
 {
-    switch (fluxType)
+    switch (eqType)
     {
     case LINEARCONV1D:
     case BURGERS1D:

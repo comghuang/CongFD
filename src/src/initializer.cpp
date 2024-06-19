@@ -3,7 +3,7 @@
 void Initializer::solInit(std::shared_ptr<Block> grid,std::shared_ptr<Data> sol,Info info)
 {
     std::vector<real> tempsol;
-    switch (info.fType)
+    switch (info.eqType)
     {
         /*case begin*/
     case LINEARCONV1D:

@@ -10,7 +10,7 @@ int main()
     ind nstep=floor((tend-t)/dt);
     ind n=200;
     ind nVar=3;
-    FluxType ftype=EULER1D;
+    EquationType ftype=EULER1D;
     Zone zone;
     zone.init(n,1,1,1,ftype);
     ind step=0;

@@ -47,7 +47,7 @@ void SpaceDis::calFlux()
 
 
 
-void SpaceDis::setMethod(SpaceDisMethod method_,FluxType type_)
+void SpaceDis::setMethod(SpaceDisMethod method_,EquationType type_)
 {
     fluxType=type_;
     spDisMethod=method_;
