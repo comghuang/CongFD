@@ -83,3 +83,18 @@ void SpaceDis::setMethod(SpaceDisMethod method_,EquationType type_)
         break;
     }
 }
+
+
+real SpaceDis::at(int i,int ivar)
+{
+    //get the values in data
+    if (i<0) 
+    {
+        return (*bndL)(-(i+1),ivar);
+    }
+    if (i>=n) 
+    {
+        return (*bndR)(i-n,ivar);
+    }
+    return (*data)[(i0+offset*i)*nVar+ivar];
+}

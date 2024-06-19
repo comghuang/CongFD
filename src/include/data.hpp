@@ -32,7 +32,7 @@ class Data
     void oneDsolOutput(real,std::string);
     
 
-    //for ghost vertex
+    //for ghost vertex //准备废弃！不应该放在这里面
     void setGhostVertex(OneDBnd*,OneDBnd*);
     void updateGhostVertex();
     std::array<ind,2> getNGhost();

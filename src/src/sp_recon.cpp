@@ -7,8 +7,8 @@ real SpaceDis::reconL(ind i,ind ivar)
     {
         real delta;
         real deltam,deltap;
-        deltam=(*data)(i-1,ivar)-(*data)(i-2,ivar);
-        deltap=(*data)(i,ivar)-(*data)(i-1,ivar);
+        deltam=at(i-1,ivar)-at(i-2,ivar);
+        deltap=at(i,ivar)-at(i-1,ivar);
         
         //minmod
         real beta=1.0;
@@ -20,13 +20,13 @@ real SpaceDis::reconL(ind i,ind ivar)
         {
             delta=std::min(0.0,std::min(std::max(beta*deltam,deltap),std::max(deltam,beta*deltap)));
         }
-        return (*data)(i-1,ivar)+delta*0.5;
+        return at(i-1,ivar)+delta*0.5;
     }
     else if(spDisMethod==WCNSJS5)
     {
-        return weno5_JSchen((*data)(i-3,ivar),(*data)(i-2,ivar),(*data)(i-1,ivar),(*data)(i,ivar),(*data)(i+1,ivar));
+        return weno5_JSchen(at(i-3,ivar),at(i-2,ivar),at(i-1,ivar),at(i,ivar),at(i+1,ivar));
     }
-    else return (*data)(i-1,ivar);
+    else return at(i-1,ivar);
 }
 
 real SpaceDis::reconR(ind i,ind ivar)
@@ -35,8 +35,8 @@ real SpaceDis::reconR(ind i,ind ivar)
     {
         real delta;
         real deltam,deltap;
-        deltam=(*data)(i,ivar)-(*data)(i-1,ivar);
-        deltap=(*data)(i-1,ivar)-(*data)(i,ivar);
+        deltam=at(i,ivar)-at(i-1,ivar);
+        deltap=at(i-1,ivar)-at(i,ivar);
         
         //minmod
         real beta=1.0;
@@ -48,13 +48,13 @@ real SpaceDis::reconR(ind i,ind ivar)
         {
             delta=std::min(0.0,std::min(std::max(beta*deltam,deltap),std::max(deltam,beta*deltap)));
         }
-        return (*data)(i,ivar)-delta*0.5;
+        return at(i,ivar)-delta*0.5;
     }
     else if(spDisMethod==WCNSJS5)
     {
         /*WENO-JS 5 order*/
-        return weno5_JSchen((*data)(i+2,ivar),(*data)(i+1,ivar),(*data)(i,ivar),(*data)(i-1,ivar),(*data)(i-2,ivar));
+        return weno5_JSchen(at(i+2,ivar),at(i+1,ivar),at(i,ivar),at(i-1,ivar),at(i-2,ivar));
     }
-    else return (*data)(i,ivar);
+    else return at(i,ivar);
 
 }

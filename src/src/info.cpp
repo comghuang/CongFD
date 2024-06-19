@@ -5,7 +5,7 @@ int Info::nGhostCell()
     
     if(WCNSJS5==spMethod && TRAD6 == diffMethod) return 5;
     else if(WCNSJS5==spMethod && HDS6 == diffMethod) return 3;
-    else if(MUSCL==spMethod && TRAD2 == diffMethod) return 1;
+    else if(MUSCL==spMethod && TRAD2 == diffMethod) return 2;
     else if(FIRSTORDER==spMethod && TRAD2 == diffMethod) return 1;
 
     else

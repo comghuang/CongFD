@@ -21,6 +21,7 @@ class SpaceDis
     void calFluxBurgers(ind);
     void calFluxEuler(ind);
 
+    real at(int,int);
     real reconL(ind,ind);
     real reconR(ind,ind);
 
@@ -34,9 +35,14 @@ class SpaceDis
     private:
     std::shared_ptr<Data> data;
     std::shared_ptr<Block> grid;
+    std::shared_ptr<Data> rhs;
+    std::shared_ptr<OneDBnd> bndL,bndR;
+    
     ind n,nVar,nPrim;
+    int i0=0,offset=1;
     ind nHalf;
     Data flux;
+    OneDBnd fBndL,fBndR;
     EquationType fluxType;
     SpaceDisMethod spDisMethod;
 
