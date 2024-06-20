@@ -6,6 +6,12 @@ class Block
     public:
     void outputCgns();
     real operator()(int,int);
+    std::array<int,3> getICMax();
+    std::array<int,3> getIMax();
+    int getDim();
+    std::vector<real> getCellCoor(int idim);
+    std::vector<real> getVertexCoor(int idim);
+    
 
 
     protected:

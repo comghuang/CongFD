@@ -53,24 +53,6 @@ real& Data::operator[] (ind i)
     return (this->data)[i];
 }
 
-void Data::uniMesh()
-{
-    real h=2.0/n;
-    for(ind i=0;i<n;i++)
-    {
-        real xi=h/2.0+i*h-1.0;
-        (*this)(i,0)=xi;
-    }
-}
-
-void Data::output(std::fstream* f,ind iVar)
-{
-    for(ind i=0;i<n;i++)
-    {
-        *f<<(*this)(i,iVar)<<' ';
-    }
-    *f<<'\n';
-}
 
 
 real Data::maxElement(ind ivar)

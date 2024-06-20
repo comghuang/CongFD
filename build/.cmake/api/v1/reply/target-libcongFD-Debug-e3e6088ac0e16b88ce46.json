@@ -64,8 +64,6 @@
 			},
 			"sourceIndexes" : 
 			[
-				12,
-				13,
 				14,
 				15,
 				16,
@@ -76,7 +74,13 @@
 				21,
 				22,
 				23,
-				24
+				24,
+				25,
+				26,
+				27,
+				28,
+				29,
+				30
 			]
 		}
 	],
@@ -105,15 +109,15 @@
 				8,
 				9,
 				10,
-				11
+				11,
+				12,
+				13
 			]
 		},
 		{
 			"name" : "Source Files",
 			"sourceIndexes" : 
 			[
-				12,
-				13,
 				14,
 				15,
 				16,
@@ -124,7 +128,13 @@
 				21,
 				22,
 				23,
-				24
+				24,
+				25,
+				26,
+				27,
+				28,
+				29,
+				30
 			]
 		}
 	],
@@ -143,6 +153,16 @@
 		{
 			"backtrace" : 1,
 			"path" : "src/include/block.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/include/blockSolver.hpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "src/include/cgnsio.hpp",
 			"sourceGroupIndex" : 0
 		},
 		{
@@ -205,7 +225,19 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
+			"path" : "src/src/blockSolver.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
 			"path" : "src/src/bnds.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/src/cgnsio.cpp",
 			"sourceGroupIndex" : 1
 		},
 		{
@@ -259,6 +291,12 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
+			"path" : "src/src/sp_difference.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
 			"path" : "src/src/sp_distributor.cpp",
 			"sourceGroupIndex" : 1
 		},
@@ -266,6 +304,12 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "src/src/sp_flux.cpp",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/src/sp_recon.cpp",
 			"sourceGroupIndex" : 1
 		}
 	],

@@ -10,12 +10,16 @@ SpaceDis::SpaceDis(int n_,std::shared_ptr<Data> data_,std::shared_ptr<Data> rhs_
     n=n_;
     nVar=info->nCons();
     nHalf=n+1;
-    flux=std::make_shared<Data>();
+    bndL=bndL_;
+    bndR=bndR_;
+    flux=std::make_shared<Data>(nHalf,nVar);
     fBndL=std::make_shared<OneDBnd>(info->nFluxPoint(),nVar,FLUXGHOST);
     fBndR=std::make_shared<OneDBnd>(info->nFluxPoint(),nVar,FLUXGHOST);
+    rhs=rhs_;
 
     fluxType=info->eqType;
     diffMethod=info->diffMethod;
+    interMethod=info->interMethod;
     switch (fluxType)
     {
     case LINEARCONV1D:
@@ -56,18 +60,17 @@ void SpaceDis::setOffset(int i0_,int offset_)
 
 
 
-std::vector<real> SpaceDis::difference()
+void SpaceDis::difference()
 {
-    data->updateGhostVertex();
     calFlux();
-    return (this->*difMethod)();
+    (this->*difMethod)();
 }
 
 void SpaceDis::calFlux()
 {
-    std::array<ind,2> nGhost=flux->getNGhost();
+    int fGhostL=fBndL->getN(),fGhostR=fBndR->getN();
     flux->setZeros();
-    for(ind i=0-nGhost[LEFTT];i<nHalf+nGhost[RIGHT];i++)
+    for(ind i=0-fGhostL;i<nHalf+fGhostR;i++)
     {
         (this->*calTypeFlux)(i);
     }
@@ -124,7 +127,7 @@ real SpaceDis::at(int i,int ivar)
     {
         return (*bndR)(i-n,ivar);
     }
-    return (*data)[(i0+offset*i)*nVar+ivar];
+    return (*data)[(i0+offset*i)*nPrim+ivar];
 }
 
 real& SpaceDis::fAt(int i,int ivar)

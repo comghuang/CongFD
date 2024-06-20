@@ -15,6 +15,7 @@ class Data
     //void setDim(ind,std::vector<ind>);
     real& operator() (ind,ind);
     real& operator[] (ind);
+    
     void operator= (Data&);
     void operator+= (std::vector<real>);
     void setZeros();
@@ -24,21 +25,6 @@ class Data
     
     //for global LF flux in burgers equation
     real maxElement(ind);
-
-    //get uniform mesh in 1D workbench
-    void uniMesh();
-    //output sol to a file;
-    void output(std::fstream*,ind);
-
-    //output to cgns file 1D 
-    void cgnsoutputInit1D();
-    void cgnsoutputInit2D();
-    void oneDsolOutput(real,std::string);
-    
-
-    //for ghost vertex //准备废弃！不应该放在这里面
-    void updateGhostVertex();
-    std::array<ind,2> getNGhost();
 
     private:
     std::vector<real> data;

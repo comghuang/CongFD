@@ -1,17 +1,14 @@
-#include"block.hpp"
+#include "cgnsio.hpp"
 
-
-void Block::outputCgns()
+void CgnsIO::BlockCgnsOutput(std::shared_ptr<Block> block,std::shared_ptr<Info> info)
 {
+   int dim=block->getDim();
+   auto iMax=block->getIMax();
    cgsize_t isize[3][dim];
    int ni,nj,nk,i,j,k;
    int index_file,icelldim,iphysdim,index_base;
    int index_zone,index_coord;
    char basename[33],zonename[33];
-
-/* create gridpoints for simple example: */
-   std::vector<real> x;
-   x.reserve(nVer);
 
 /* WRITE X, Y, Z GRID POINTS TO CGNS FILE */
 /* open CGNS file for write */
@@ -40,7 +37,7 @@ void Block::outputCgns()
     for (int idim = 0; idim < dim; idim++)
     {
         std::string name=(idim==0)? "CoordinateX":(idim==1)? "CoordinateY":"CoordinateZ";
-        for (int i=0 ; i<nVer ; i++ ) x[i]=coorVer(i,idim);
+        auto x=block->getVertexCoor(idim);
         cg_coord_write(index_file,index_base,index_zone,CGNS_ENUMV(RealDouble),
         name.c_str(),
         x.data(),&index_coord);
@@ -49,50 +46,4 @@ void Block::outputCgns()
    
 /* close CGNS file */
    cg_close(index_file);
-}
-
-
-real Block::operator()(int ic,int idim)
-{
-    return coorCel(ic,idim);
-}
-
-
-std::array<int,3> Block::getICMax()
-{
-   return icMax;
-}
-
-int Block::getDim()
-{
-   return dim;
-}
-
-std::vector<real> Block::getCellCoor(int idim)
-{
-   if (idim>=dim)
-   {
-      std::cout<<"Block error: idim is too big\n";
-   }
-   std::vector<real> res;
-   res.reserve(nCel);
-   for (int i = 0; i < nCel; i++)
-   {
-      res.push_back(coorCel(i,idim));
-   }
-   return res;
-   
-}
-std::vector<real> Block::getVertexCoor(int idim)
-{
-   std::vector<real> res;
-   res.reserve(nVer);
-   int nVerDim=nVer;
-   nVerDim/=( dim == 3 ? 1:( dim==2 ? 2 : 4));
-   for (int i = 0; i < nVerDim; i++)
-   {
-      res.push_back(coorVer(i,idim));
-   }
-   return res;
-   
 }

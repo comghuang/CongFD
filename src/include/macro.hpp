@@ -32,9 +32,10 @@ enum BndType{
     PERIODIC1D,
     DIRICLET_SODL,
     DIRICLET_SODR,
-    FLUXGHOST
+    FLUXGHOST,
+    SUPERSONICOUTLET
 };
-enum SpaceDisMethod{
+enum InterMethod{
     FIRSTORDER,
     MUSCL,
     WCNSJS5
@@ -50,7 +51,16 @@ enum EquationType{
     BURGERS1D,
     EULER1D
 };
+
+enum TimeMethod{
+    RK3SSP,
+    EulerFront};
+
+
+
 #define LEFTT 0
 #define RIGHT 1
 
 int index(int,int,int,std::array<int,3>);
+std::array<int,2> calOffset(int dim,int i,int j,std::array<int,3>);
+std::array<int,2> calOffsetInverse(int idim,int i,int j,std::array<int,3> iMax);

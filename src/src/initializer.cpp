@@ -200,6 +200,7 @@ void Initializer::initEqution(std::shared_ptr<Equation> eq,std::shared_ptr<Block
     eq->n=block->icMax[0]*block->icMax[1]*block->icMax[2];
     eq->nPrim=info->nPrim();
     eq->nCons=info->nCons();
+    eq->type=info->eqType;
     
     eq->rhs=std::make_shared<Data>(eq->n,eq->nCons);
     eq->cons=std::make_shared<Data>(eq->n,eq->nCons);
@@ -210,9 +211,9 @@ void Initializer::initEqution(std::shared_ptr<Equation> eq,std::shared_ptr<Block
 }
 
 
-void Initializer::initBnds(std::shared_ptr<Bnds> bnds)
+void Initializer::initBnds(std::shared_ptr<Bnds> bnds,std::shared_ptr<Equation> eqn,std::array<int,3> iMax)
 {
-    bnds->iMax=info->icMax();
+    bnds->iMax=iMax;
     bnds->dim=info->dim();
 
     int nGhost=info->nGhostCell();
@@ -231,19 +232,33 @@ void Initializer::initBnds(std::shared_ptr<Bnds> bnds)
     
 
     bnds->oneDBnds.resize(nBnd);
-
+    std::array<int,2> offsets;
     switch (info->eqType)
     {
     case LINEARCONV1D:
     case BURGERS1D:
-        for (int i = 0; i < 2; i++)
         {
-            bnds->oneDBnds.at(i)=std::make_shared<OneDBnd>(nGhost,nPrim,PERIODIC1D);
+            for (int i = 0; i < 2; i++)
+            {
+                bnds->oneDBnds.at(i)=std::make_shared<OneDBnd>(nGhost,nPrim,PERIODIC1D);
+            }
+            offsets=calOffsetInverse(1,0,0,bnds->iMax);
+            bnds->oneDBnds.at(0)->setUpdate(eqn->prim,offsets[0],offsets[1]);
+
+            offsets=calOffset(1,0,0,bnds->iMax);
+            bnds->oneDBnds.at(1)->setUpdate(eqn->prim,offsets[0],offsets[1]);
         }
         break;
     case EULER1D:
-        bnds->oneDBnds.at(0)=std::make_shared<OneDBnd>(nGhost,nPrim,DIRICLET_SODL);
-        bnds->oneDBnds.at(1)=std::make_shared<OneDBnd>(nGhost,nPrim,DIRICLET_SODR);
+        
+        bnds->oneDBnds.at(0)=std::make_shared<OneDBnd>(nGhost,nPrim,SUPERSONICOUTLET);
+        offsets=calOffset(1,0,0,bnds->iMax);
+        bnds->oneDBnds.at(0)->setUpdate(eqn->prim,offsets[0],offsets[1]);
+
+
+        bnds->oneDBnds.at(1)=std::make_shared<OneDBnd>(nGhost,nPrim,SUPERSONICOUTLET);
+        offsets=calOffsetInverse(1,0,0,bnds->iMax);
+        bnds->oneDBnds.at(1)->setUpdate(eqn->prim,offsets[0],offsets[1]);
         break;
     
     default:

@@ -22,7 +22,17 @@ std::array<std::shared_ptr<OneDBnd>,2> Bnds::getOneDBnd(int idim,int i,int j)
         res[0]=oneDBnds.at(index);
         res[1]=oneDBnds.at(index+1);
     }
+    return res;
     
     
+    
+}
+
+void Bnds::update()
+{
+    for (auto ibnd:oneDBnds)
+    {
+        ibnd->update();
+    }
     
 }

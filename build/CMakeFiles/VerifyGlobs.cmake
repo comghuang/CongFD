@@ -8,6 +8,8 @@ set(OLD_GLOB
   "/mnt/d/ArchLinux/CongFD/src/include/Bnds.hpp"
   "/mnt/d/ArchLinux/CongFD/src/include/SpaceDis.hpp"
   "/mnt/d/ArchLinux/CongFD/src/include/block.hpp"
+  "/mnt/d/ArchLinux/CongFD/src/include/blockSolver.hpp"
+  "/mnt/d/ArchLinux/CongFD/src/include/cgnsio.hpp"
   "/mnt/d/ArchLinux/CongFD/src/include/data.hpp"
   "/mnt/d/ArchLinux/CongFD/src/include/equation.hpp"
   "/mnt/d/ArchLinux/CongFD/src/include/fluxScheme.hpp"
@@ -28,7 +30,9 @@ file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "/mnt/d/ArchLinux/CongFD/src/s
 set(OLD_GLOB
   "/mnt/d/ArchLinux/CongFD/src/src/SpaceDis.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/block.cpp"
+  "/mnt/d/ArchLinux/CongFD/src/src/blockSolver.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/bnds.cpp"
+  "/mnt/d/ArchLinux/CongFD/src/src/cgnsio.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/data.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/equation.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/fluxScheme.cpp"
@@ -37,8 +41,10 @@ set(OLD_GLOB
   "/mnt/d/ArchLinux/CongFD/src/src/interScheme.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/macro.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/oneDBnd.cpp"
+  "/mnt/d/ArchLinux/CongFD/src/src/sp_difference.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/sp_distributor.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/sp_flux.cpp"
+  "/mnt/d/ArchLinux/CongFD/src/src/sp_recon.cpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")

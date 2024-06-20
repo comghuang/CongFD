@@ -30,3 +30,41 @@ BndType OneDBnd::getType()
 {
     return type;
 }
+
+void OneDBnd::setUpdate(std::shared_ptr<Data> prim_,int i0_,int offset_)
+{
+    prim=prim_;
+    i0=i0_;
+    offset=offset_;
+}
+
+void OneDBnd::update()
+{
+    switch (type)
+    {
+    case PERIODIC1D:
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < nVar; j++)
+            {
+                data.at(i*nVar+j)=(*prim)(i0+i*offset,j);
+            }
+            
+        }
+        break;
+    case SUPERSONICOUTLET:
+        for (int i = 0; i < n; i++) 
+        {
+            for (int j = 0; j < nVar; j++)
+            {
+                data.at(i*nVar+j)=(*prim)(i0,j);
+            }
+        }
+        break;
+    
+    default:
+        break;
+    }
+    
+    
+}

@@ -17,7 +17,7 @@ int Info::nGhostCell()
 }
 int Info::nFluxPoint()
 {
-    switch (eqType)
+    switch (diffMethod)
     {
     case TRAD2:
     case HDS6:
@@ -109,4 +109,18 @@ BndType Info::defaultBndType()
         return TYPENULL;
         break;
     }
+}
+
+static std::map<EquationType,std::string> fluxStr= {{LINEARCONV1D,"LINEARCONV1D"}
+                                        ,{BURGERS1D,"BURGERS1D"}
+                                        ,{EULER1D,"EULER1D"}};
+static std::map<InterMethod,std::string> disStr={
+    {FIRSTORDER,"FIRSTORDER"},
+    {MUSCL,"MUSCL"},
+    {WCNSJS5,"WCNSJS5"}
+};
+
+std::string Info::filename()
+{
+    return fluxStr[eqType]+disStr[spMethod];
 }

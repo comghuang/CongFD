@@ -10,7 +10,6 @@ class SpDistributor
     private:
     friend class Initializer;
 
-    std::array<int,2> calOffset(int dim,int i,int j);
     int nCons,nPrim,dim;
     std::array<int,3> iMax;
     std::shared_ptr<Data> prim,cons;
