@@ -13,9 +13,9 @@
 },
 {
   "directory": "/mnt/d/ArchLinux/CongFD/build",
-  "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/src/include -g -std=gnu++23 -o src/CMakeFiles/libcongFD.dir/src/bergers.cpp.o -c /mnt/d/ArchLinux/CongFD/src/src/bergers.cpp",
-  "file": "/mnt/d/ArchLinux/CongFD/src/src/bergers.cpp",
-  "output": "src/CMakeFiles/libcongFD.dir/src/bergers.cpp.o"
+  "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/src/include -g -std=gnu++23 -o src/CMakeFiles/libcongFD.dir/src/block.cpp.o -c /mnt/d/ArchLinux/CongFD/src/src/block.cpp",
+  "file": "/mnt/d/ArchLinux/CongFD/src/src/block.cpp",
+  "output": "src/CMakeFiles/libcongFD.dir/src/block.cpp.o"
 },
 {
   "directory": "/mnt/d/ArchLinux/CongFD/build",
@@ -25,15 +25,15 @@
 },
 {
   "directory": "/mnt/d/ArchLinux/CongFD/build",
-  "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/src/include -g -std=gnu++23 -o src/CMakeFiles/libcongFD.dir/src/cgnsio.cpp.o -c /mnt/d/ArchLinux/CongFD/src/src/cgnsio.cpp",
-  "file": "/mnt/d/ArchLinux/CongFD/src/src/cgnsio.cpp",
-  "output": "src/CMakeFiles/libcongFD.dir/src/cgnsio.cpp.o"
-},
-{
-  "directory": "/mnt/d/ArchLinux/CongFD/build",
   "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/src/include -g -std=gnu++23 -o src/CMakeFiles/libcongFD.dir/src/data.cpp.o -c /mnt/d/ArchLinux/CongFD/src/src/data.cpp",
   "file": "/mnt/d/ArchLinux/CongFD/src/src/data.cpp",
   "output": "src/CMakeFiles/libcongFD.dir/src/data.cpp.o"
+},
+{
+  "directory": "/mnt/d/ArchLinux/CongFD/build",
+  "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/src/include -g -std=gnu++23 -o src/CMakeFiles/libcongFD.dir/src/equation.cpp.o -c /mnt/d/ArchLinux/CongFD/src/src/equation.cpp",
+  "file": "/mnt/d/ArchLinux/CongFD/src/src/equation.cpp",
+  "output": "src/CMakeFiles/libcongFD.dir/src/equation.cpp.o"
 },
 {
   "directory": "/mnt/d/ArchLinux/CongFD/build",
@@ -43,9 +43,9 @@
 },
 {
   "directory": "/mnt/d/ArchLinux/CongFD/build",
-  "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/src/include -g -std=gnu++23 -o src/CMakeFiles/libcongFD.dir/src/grid.cpp.o -c /mnt/d/ArchLinux/CongFD/src/src/grid.cpp",
-  "file": "/mnt/d/ArchLinux/CongFD/src/src/grid.cpp",
-  "output": "src/CMakeFiles/libcongFD.dir/src/grid.cpp.o"
+  "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/src/include -g -std=gnu++23 -o src/CMakeFiles/libcongFD.dir/src/info.cpp.o -c /mnt/d/ArchLinux/CongFD/src/src/info.cpp",
+  "file": "/mnt/d/ArchLinux/CongFD/src/src/info.cpp",
+  "output": "src/CMakeFiles/libcongFD.dir/src/info.cpp.o"
 },
 {
   "directory": "/mnt/d/ArchLinux/CongFD/build",
@@ -61,32 +61,26 @@
 },
 {
   "directory": "/mnt/d/ArchLinux/CongFD/build",
+  "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/src/include -g -std=gnu++23 -o src/CMakeFiles/libcongFD.dir/src/macro.cpp.o -c /mnt/d/ArchLinux/CongFD/src/src/macro.cpp",
+  "file": "/mnt/d/ArchLinux/CongFD/src/src/macro.cpp",
+  "output": "src/CMakeFiles/libcongFD.dir/src/macro.cpp.o"
+},
+{
+  "directory": "/mnt/d/ArchLinux/CongFD/build",
   "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/src/include -g -std=gnu++23 -o src/CMakeFiles/libcongFD.dir/src/oneDBnd.cpp.o -c /mnt/d/ArchLinux/CongFD/src/src/oneDBnd.cpp",
   "file": "/mnt/d/ArchLinux/CongFD/src/src/oneDBnd.cpp",
   "output": "src/CMakeFiles/libcongFD.dir/src/oneDBnd.cpp.o"
 },
 {
   "directory": "/mnt/d/ArchLinux/CongFD/build",
-  "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/src/include -g -std=gnu++23 -o src/CMakeFiles/libcongFD.dir/src/sp_difference.cpp.o -c /mnt/d/ArchLinux/CongFD/src/src/sp_difference.cpp",
-  "file": "/mnt/d/ArchLinux/CongFD/src/src/sp_difference.cpp",
-  "output": "src/CMakeFiles/libcongFD.dir/src/sp_difference.cpp.o"
+  "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/src/include -g -std=gnu++23 -o src/CMakeFiles/libcongFD.dir/src/sp_distributor.cpp.o -c /mnt/d/ArchLinux/CongFD/src/src/sp_distributor.cpp",
+  "file": "/mnt/d/ArchLinux/CongFD/src/src/sp_distributor.cpp",
+  "output": "src/CMakeFiles/libcongFD.dir/src/sp_distributor.cpp.o"
 },
 {
   "directory": "/mnt/d/ArchLinux/CongFD/build",
   "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/src/include -g -std=gnu++23 -o src/CMakeFiles/libcongFD.dir/src/sp_flux.cpp.o -c /mnt/d/ArchLinux/CongFD/src/src/sp_flux.cpp",
   "file": "/mnt/d/ArchLinux/CongFD/src/src/sp_flux.cpp",
   "output": "src/CMakeFiles/libcongFD.dir/src/sp_flux.cpp.o"
-},
-{
-  "directory": "/mnt/d/ArchLinux/CongFD/build",
-  "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/src/include -g -std=gnu++23 -o src/CMakeFiles/libcongFD.dir/src/sp_recon.cpp.o -c /mnt/d/ArchLinux/CongFD/src/src/sp_recon.cpp",
-  "file": "/mnt/d/ArchLinux/CongFD/src/src/sp_recon.cpp",
-  "output": "src/CMakeFiles/libcongFD.dir/src/sp_recon.cpp.o"
-},
-{
-  "directory": "/mnt/d/ArchLinux/CongFD/build",
-  "command": "/usr/sbin/g++ -I/mnt/d/ArchLinux/CongFD/src/include -g -std=gnu++23 -o src/CMakeFiles/libcongFD.dir/src/zone.cpp.o -c /mnt/d/ArchLinux/CongFD/src/src/zone.cpp",
-  "file": "/mnt/d/ArchLinux/CongFD/src/src/zone.cpp",
-  "output": "src/CMakeFiles/libcongFD.dir/src/zone.cpp.o"
 }
 ]

@@ -1,5 +1,4 @@
 
-#include "zone.hpp"
 #include "initializer.hpp"
 
 
@@ -25,16 +24,15 @@ int main()
         
     }
     */
-   std::array<int,3> iMax{100,2,2};
-   std::array<double,6> calZone{-1,1,0,2,0,2};
-   std::shared_ptr<Block> grid(new Block);
-   grid->initUniform(iMax,calZone);
-   grid->outputCgns();
-   Info info;
-   std::shared_ptr<Zone> zone(new Zone);
-   zone->init(info,grid);
-   Initializer init;
-   init.solInit(grid,zone->getCons(),info);
+   std::shared_ptr<Info> info(new Info);
+   std::shared_ptr<Block> block(new Block);
+   std::shared_ptr<Initializer> initer(new Initializer(info));
+   std::shared_ptr<Equation> eqn(new Equation);
+   std::shared_ptr<Bnds> bnds(new Bnds);
 
+   initer->initUniformBlock(block);
+   initer->initEqution(eqn,block);
+   initer->initBnds(bnds);
+   eqn->consToPrim();
    std::cout<<"Finish\n";
 }

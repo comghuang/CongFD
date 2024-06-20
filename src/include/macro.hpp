@@ -27,24 +27,25 @@
 
 #define GAMMA 1.4
 
-constexpr enum BndType{
+enum BndType{
     TYPENULL,
     PERIODIC1D,
     DIRICLET_SODL,
     DIRICLET_SODR,
+    FLUXGHOST
 };
-constexpr enum SpaceDisMethod{
+enum SpaceDisMethod{
     FIRSTORDER,
     MUSCL,
     WCNSJS5
 };
-constexpr enum DiffMethod{
+enum DiffMethod{
     HDS6,
     TRAD6,
     TRAD2
 };
 
-constexpr enum EquationType{
+enum EquationType{
     LINEARCONV1D,
     BURGERS1D,
     EULER1D

@@ -4,9 +4,11 @@
 class OneDBnd
 {
     public:
+    OneDBnd(){};
+    OneDBnd(ind,ind,BndType);
     real& operator()(ind,ind);
-    void init(ind,ind,BndType);
-    void setValue(real*);
+
+    void setValue(std::vector<real>);
     ind getN();
     BndType getType();
 

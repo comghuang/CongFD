@@ -1,58 +1,28 @@
 #include"bnds.hpp"
 
-void Bnds::initFromCode(std::shared_ptr<Block> block,Info info)
+std::array<std::shared_ptr<OneDBnd>,2> Bnds::getOneDBnd(int idim,int i,int j)
 {
-    iMax=block->icMax;
-    dim=block->dim;
-
-    int nGhost=info.nGhostCell();
-    int nCons=info.nCons();
-    int nPrim=info.nPrim();
-
-
-
-    if(info.eqType==LINEARCONV1D)
+    std::array<std::shared_ptr<OneDBnd>,2> res;
+    int index;
+    if (idim==1)
     {
-        switch (info.nCase)
-        {
-        case 0:
-            {
-                bnds.reserve(2);
-                for (int i = 0; i < 2; i++)
-                {
-                    bnds.at(i)=std::make_shared<OneDBnd>();
-                    bnds.at(i)->init(nGhost,nPrim,PERIODIC1D);
-                }
-                
-            }
-            break;
-        
-        default:
-            break;
-        }
+        index=(i+j*iMax[2])*2;
+        res[0]=oneDBnds.at(index);
+        res[1]=oneDBnds.at(index+1);
     }
-    else if(info.eqType==BURGERS1D)
+    else if (idim==2)
     {
-        switch (info.nCase)
-        {
-        case 0:
-            /* code */
-            break;
-        
-        default:
-            break;
-        }
+        index=(iMax[1]*iMax[2]+i+j*iMax[2])*2;
+        res[0]=oneDBnds.at(index);
+        res[1]=oneDBnds.at(index+1);
     }
-    else if(info.eqType==EULER1D)
+    else if (idim==3)
     {
-        switch (info.nCase)
-        {
-        case 0:
-            /* code */
-            break;
-        
-        default:
-            break;
-        }
+        index=(iMax[1]*iMax[2]+iMax[0]*iMax[2]+i+j*iMax[1])*2;
+        res[0]=oneDBnds.at(index);
+        res[1]=oneDBnds.at(index+1);
     }
+    
+    
+    
 }

@@ -5,14 +5,16 @@
 class SpDistributor
 {
     public:
-    void consToPrim(std::shared_ptr<Data>,std::shared_ptr<Data>);
-
+    void rhsSolve();
 
     private:
-    int n,nCons,nPrim;
-    std::array<ind,3> iMax;
+    friend class Initializer;
+
+    std::array<int,2> calOffset(int dim,int i,int j);
+    int nCons,nPrim,dim;
+    std::array<int,3> iMax;
     std::shared_ptr<Data> prim,cons;
     std::shared_ptr<Data> rhs;
-    std::shared_ptr<Block> grid;
     std::shared_ptr<Bnds> bnds;
+    std::shared_ptr<Info> info;
 };

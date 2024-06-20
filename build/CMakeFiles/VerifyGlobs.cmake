@@ -8,15 +8,15 @@ set(OLD_GLOB
   "/mnt/d/ArchLinux/CongFD/src/include/Bnds.hpp"
   "/mnt/d/ArchLinux/CongFD/src/include/SpaceDis.hpp"
   "/mnt/d/ArchLinux/CongFD/src/include/block.hpp"
-  "/mnt/d/ArchLinux/CongFD/src/include/burgers.hpp"
   "/mnt/d/ArchLinux/CongFD/src/include/data.hpp"
+  "/mnt/d/ArchLinux/CongFD/src/include/equation.hpp"
   "/mnt/d/ArchLinux/CongFD/src/include/fluxScheme.hpp"
   "/mnt/d/ArchLinux/CongFD/src/include/info.hpp"
   "/mnt/d/ArchLinux/CongFD/src/include/initializer.hpp"
   "/mnt/d/ArchLinux/CongFD/src/include/interScheme.hpp"
   "/mnt/d/ArchLinux/CongFD/src/include/macro.hpp"
   "/mnt/d/ArchLinux/CongFD/src/include/oneDBnd.hpp"
-  "/mnt/d/ArchLinux/CongFD/src/include/zone.hpp"
+  "/mnt/d/ArchLinux/CongFD/src/include/sp_distributor.hpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
@@ -27,19 +27,18 @@ endif()
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "/mnt/d/ArchLinux/CongFD/src/src/*.cpp")
 set(OLD_GLOB
   "/mnt/d/ArchLinux/CongFD/src/src/SpaceDis.cpp"
-  "/mnt/d/ArchLinux/CongFD/src/src/bergers.cpp"
+  "/mnt/d/ArchLinux/CongFD/src/src/block.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/bnds.cpp"
-  "/mnt/d/ArchLinux/CongFD/src/src/cgnsio.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/data.cpp"
+  "/mnt/d/ArchLinux/CongFD/src/src/equation.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/fluxScheme.cpp"
-  "/mnt/d/ArchLinux/CongFD/src/src/grid.cpp"
+  "/mnt/d/ArchLinux/CongFD/src/src/info.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/initializer.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/interScheme.cpp"
+  "/mnt/d/ArchLinux/CongFD/src/src/macro.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/oneDBnd.cpp"
-  "/mnt/d/ArchLinux/CongFD/src/src/sp_difference.cpp"
+  "/mnt/d/ArchLinux/CongFD/src/src/sp_distributor.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/sp_flux.cpp"
-  "/mnt/d/ArchLinux/CongFD/src/src/sp_recon.cpp"
-  "/mnt/d/ArchLinux/CongFD/src/src/zone.cpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")

@@ -1,56 +1,21 @@
 #include "SpaceDis.hpp"
-#include <array>
 
 
 SpaceDis::SpaceDis(){};
-
-
-void SpaceDis::init(std::shared_ptr<Data> data_,std::shared_ptr<Block> grid_,ind n_,ind nVar_,ind nPrim_)
+SpaceDis::SpaceDis(int n_,std::shared_ptr<Data> data_,std::shared_ptr<Data> rhs_
+            ,std::shared_ptr<OneDBnd> bndL_,std::shared_ptr<OneDBnd> bndR_,std::shared_ptr<Info> info)
 {
-    grid=grid_;
     data=data_;
-    nPrim=nPrim_;
+    nPrim=info->nPrim();
     n=n_;
-    nVar=nVar_;
+    nVar=info->nCons();
     nHalf=n+1;
-    flux.init(nHalf*nVar,nVar);
-    OneDBnd* fluxl=new OneDBnd;
-    OneDBnd* fluxr=new OneDBnd;
-    OneDBnd* datal=new OneDBnd;
-    OneDBnd* datar=new OneDBnd;
-    fluxl->init(2,nVar,TYPENULL);
-    fluxr->init(2,nVar,TYPENULL);
-    datal->init(5,nPrim,DIRICLET_SODL);
-    datar->init(5,nPrim,DIRICLET_SODR);
-    flux.setGhostVertex(fluxl,fluxr);
-    data->setGhostVertex(datal,datar);
-}
+    flux=std::make_shared<Data>();
+    fBndL=std::make_shared<OneDBnd>(info->nFluxPoint(),nVar,FLUXGHOST);
+    fBndR=std::make_shared<OneDBnd>(info->nFluxPoint(),nVar,FLUXGHOST);
 
-
-
-std::vector<real> SpaceDis::difference()
-{
-    data->updateGhostVertex();
-    calFlux();
-    return (this->*difMethod)();
-}
-
-void SpaceDis::calFlux()
-{
-    std::array<ind,2> nGhost=flux.getNGhost();
-    flux.setZeros();
-    for(ind i=0-nGhost[LEFTT];i<nHalf+nGhost[RIGHT];i++)
-    {
-        (this->*calTypeFlux)(i);
-    }
-}
-
-
-
-void SpaceDis::setMethod(SpaceDisMethod method_,EquationType type_)
-{
-    fluxType=type_;
-    spDisMethod=method_;
+    fluxType=info->eqType;
+    diffMethod=info->diffMethod;
     switch (fluxType)
     {
     case LINEARCONV1D:
@@ -67,16 +32,79 @@ void SpaceDis::setMethod(SpaceDisMethod method_,EquationType type_)
         break;
     }
 
-    switch (spDisMethod)
+    switch (diffMethod)
     {
-    case FIRSTORDER:
+    case TRAD2:
         difMethod=&SpaceDis::dif2Order;
         break;
-    case MUSCL:
-        difMethod=&SpaceDis::dif2Order;
-        break;
-    case WCNSJS5:
+    case TRAD6:
         difMethod=&SpaceDis::difTraditional6;
+        break;
+    case HDS6:
+        difMethod=&SpaceDis::difHCS;
+        break;
+    
+    default:
+        break;
+    }
+}
+
+void SpaceDis::setOffset(int i0_,int offset_)
+{
+    i0=i0_;offset=offset_;
+}
+
+
+
+std::vector<real> SpaceDis::difference()
+{
+    data->updateGhostVertex();
+    calFlux();
+    return (this->*difMethod)();
+}
+
+void SpaceDis::calFlux()
+{
+    std::array<ind,2> nGhost=flux->getNGhost();
+    flux->setZeros();
+    for(ind i=0-nGhost[LEFTT];i<nHalf+nGhost[RIGHT];i++)
+    {
+        (this->*calTypeFlux)(i);
+    }
+}
+
+
+
+void SpaceDis::setMethod(EquationType type_,DiffMethod method_)
+{
+    fluxType=type_;
+    diffMethod=method_;
+    switch (fluxType)
+    {
+    case LINEARCONV1D:
+        calTypeFlux=&SpaceDis::calFluxConv;
+        break;
+    case BURGERS1D:
+        calTypeFlux=&SpaceDis::calFluxBurgers;
+        break;
+    case EULER1D:
+        calTypeFlux=&SpaceDis::calFluxEuler;
+        break;
+    
+    default:
+        break;
+    }
+
+    switch (diffMethod)
+    {
+    case TRAD2:
+        difMethod=&SpaceDis::dif2Order;
+        break;
+    case TRAD6:
+        difMethod=&SpaceDis::difTraditional6;
+        break;
+    case HDS6:
+        difMethod=&SpaceDis::difHCS;
         break;
     
     default:
@@ -97,4 +125,17 @@ real SpaceDis::at(int i,int ivar)
         return (*bndR)(i-n,ivar);
     }
     return (*data)[(i0+offset*i)*nVar+ivar];
+}
+
+real& SpaceDis::fAt(int i,int ivar)
+{
+    if (i<0) 
+    {
+        return (*fBndL)(-(i+1),ivar);
+    }
+    if (i>=n) 
+    {
+        return (*fBndR)(i-n,ivar);
+    }
+    return (*flux)[i*nVar+ivar];
 }

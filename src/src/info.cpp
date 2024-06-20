@@ -28,6 +28,7 @@ int Info::nFluxPoint()
         break;
     
     default:
+        return 0;
         break;
     }
 }
@@ -67,6 +68,45 @@ int Info::nCons()
         std::cout<<"Info error: undifined eqType in nCons()\n";
         return 0;
         
+        break;
+    }
+}
+
+
+int Info::dim()
+{
+    int dim=0;
+    for (int i = 0; i < 3; i++)
+    {
+        if (iMax[i]>2) dim++;
+    }
+    return dim;
+}
+
+std::array<int,3> Info::icMax()
+{
+    std::array<int,3> icMax;
+    for (int i = 0; i < 3; i++)
+    {
+        if (iMax[i]<2) icMax[i]=1;
+        else
+        icMax[i]=iMax[i]-1;
+    }
+    return icMax;
+}
+
+
+BndType Info::defaultBndType()
+{
+    switch (eqType)
+    {
+    case LINEARCONV1D:
+    case BURGERS1D:
+        return PERIODIC1D;
+        break;
+    
+    default:
+        return TYPENULL;
         break;
     }
 }

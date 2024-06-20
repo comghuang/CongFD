@@ -1,6 +1,12 @@
 #include "oneDBnd.hpp"
 
-
+OneDBnd::OneDBnd(ind n_,ind nVar_,BndType bType_)
+{
+    n=n_;
+    nVar=nVar_;
+    data.resize(n*nVar,0.0);
+    type=bType_;
+}
 real& OneDBnd::operator()(ind i,ind ivar)
 {
     return data[i*nVar+ivar];
@@ -12,23 +18,13 @@ ind OneDBnd::getN()
 }
 
 
-void OneDBnd::init(ind n_,ind nVar_,BndType bType_)
+void OneDBnd::setValue(std::vector<real> value)
 {
-    n=n_;
-    nVar=nVar_;
-    data.resize(n*nVar,0.0);
-    type=bType_;
-}
-
-void OneDBnd::setValue(real* value)
-{
-    for(ind i=0;i<n;i++)
+    if(value.size()!=data.size())
     {
-        for(ind ivar=0;ivar<nVar;ivar++)
-        {
-            (*this)(i,ivar)=value[i*nVar+ivar];
-        }
+        std::cout<<"OneDBnd error: setValue() incorrect size\n";
     }
+    std::copy(value.begin(),value.end(),data.begin());
 }
 BndType OneDBnd::getType()
 {

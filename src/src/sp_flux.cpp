@@ -21,7 +21,7 @@ void SpaceDis::calFluxConv(ind i)
         flux(i,0)=a*ur;
     }*/
 
-    flux(i,0)=0.5*(a*ul+a*ur-abs(a)*(ur-ul));
+    fAt(i,0)=0.5*(a*ul+a*ur-abs(a)*(ur-ul));
 }
 
 void SpaceDis::calFluxBurgers(ind i)
@@ -44,7 +44,7 @@ void SpaceDis::calFluxBurgers(ind i)
     //real a=std::max(ar,ar);
     //real a=(al+ar)/2;
     real a=aLF;
-    flux(i,0)=0.5*(ul*ul/2+ur*ur/2-a*(ur-ul));
+    fAt(i,0)=0.5*(ul*ul/2+ur*ur/2-a*(ur-ul));
 }
 typedef std::array<real,2> arr2;
 void SpaceDis::calFluxEuler(ind i)
@@ -60,7 +60,7 @@ void SpaceDis::calFluxEuler(ind i)
     //std::vector<real> iflux2=roeFlux1D(r,u,p,H,RT);
     for (ind ivar = 0; ivar < 3; ivar++)
     {
-        flux(i,ivar)=iflux[ivar];
+        fAt(i,ivar)=iflux[ivar];
     }
     
 }

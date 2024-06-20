@@ -1,10 +1,14 @@
 #pragma once
-#include "oneDBnd.hpp"
-
+#include "macro.hpp"
 
 class Data
 {
     public:
+
+    Data(){};
+    Data(int,int);
+
+
     void solInit(ind,ind);
     void init(ind,ind);
     void setValue(std::vector<real>);
@@ -33,7 +37,6 @@ class Data
     
 
     //for ghost vertex //准备废弃！不应该放在这里面
-    void setGhostVertex(OneDBnd*,OneDBnd*);
     void updateGhostVertex();
     std::array<ind,2> getNGhost();
 
@@ -41,6 +44,4 @@ class Data
     std::vector<real> data;
     ind n=200;
     ind nVar=1;
-    ind i0=0,offset=1;
-    OneDBnd* ghVertex[2];
 };
