@@ -41,8 +41,12 @@ int Info::nPrim()
     case BURGERS1D:
         return 1;
         break;
-    case EULER1D:
-        return 5;
+    case EULER:
+        {
+            if(dim()==1) return 5;
+            if(dim()==2) return 5;
+            else return 0;
+        }
         break;
     
     default:
@@ -60,8 +64,12 @@ int Info::nCons()
     case BURGERS1D:
         return 1;
         break;
-    case EULER1D:
-        return 3;
+    case EULER:
+        {
+            if(dim()==1) return 3;
+            if(dim()==2) return 4;
+            else return 0;
+        }
         break;
     
     default:
@@ -113,7 +121,7 @@ BndType Info::defaultBndType()
 
 static std::map<EquationType,std::string> fluxStr= {{LINEARCONV1D,"LINEARCONV1D"}
                                         ,{BURGERS1D,"BURGERS1D"}
-                                        ,{EULER1D,"EULER1D"}};
+                                        ,{EULER,"EULER"}};
 static std::map<InterMethod,std::string> disStr={
     {FIRSTORDER,"FIRSTORDER"},
     {MUSCL,"MUSCL"},
@@ -122,5 +130,94 @@ static std::map<InterMethod,std::string> disStr={
 
 std::string Info::filename()
 {
-    return fluxStr[eqType]+disStr[spMethod];
+    return fluxStr[eqType]+disStr[spMethod]+std::format("t={:.4f}.cgns",t);
+}
+
+std::vector<std::string> Info::getVarNameListCons()
+{
+    std::vector<std::string> res;
+    res.reserve(nCons());
+    if(dim()==1)
+    {
+        if(eqType==EULER)
+        {
+            res.push_back("rho");
+            res.push_back("rhoU");
+            res.push_back("rhoE");
+        }
+        else res.push_back("u");
+    }
+    else if (dim()==2)
+    {
+        if(eqType==EULER)
+        {
+            res.push_back("rho");
+            res.push_back("rhoU");
+            res.push_back("rhoV");
+            res.push_back("rhoE");
+        }
+    }
+    return res;
+}
+std::vector<std::string> Info::getVarNameListPrim()
+{
+    std::vector<std::string> res;
+    res.reserve(nCons());
+    if(dim()==1)
+    {
+        if(eqType==EULER)
+        {
+            res.push_back("Density");
+            res.push_back("XVelocity");
+            res.push_back("Pressure");
+            res.push_back("Total-Enthalpy");
+            res.push_back("R*Temperature");
+        }
+        else res.push_back("u");
+    }
+    else if (dim()==2)
+    {
+        if(eqType==EULER)
+        {
+            res.push_back("Density");
+            res.push_back("XVelocity");
+            res.push_back("YVelocity");
+            res.push_back("Pressure");
+            res.push_back("Total-Enthalpy");
+        }
+    }
+    return res;
+}
+
+std::vector<std::string> Info::getVarNameListRhs()
+{
+    std::vector<std::string> res;
+    res.reserve(nCons());
+    if(dim()==1)
+    {
+        if(eqType==EULER)
+        {
+            res.push_back("RHS-rho");
+            res.push_back("RHS-rhoU");
+            res.push_back("RHS-rhoE");
+        }
+        else res.push_back("RHS-u");
+    }
+    else if (dim()==2)
+    {
+        if(eqType==EULER)
+        {
+            res.push_back("RHS-rho");
+            res.push_back("RHS-rhoU");
+            res.push_back("RHS-rhoV");
+            res.push_back("RHS-rhoE");
+        }
+    }
+    return res;
+}
+
+
+real Info::geth(int idim)
+{
+    return (calZone[2*idim+1]-calZone[2*idim])/(iMax[idim]-1);
 }

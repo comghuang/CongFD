@@ -1,6 +1,6 @@
 #include"initializer.hpp"
 
-void Initializer::solInit(std::shared_ptr<Block> grid,std::shared_ptr<Data> sol)
+void Initializer::solInit(Block* grid,Data* sol)
 {
     std::vector<real> tempsol;
     switch (info->eqType)
@@ -31,7 +31,7 @@ void Initializer::solInit(std::shared_ptr<Block> grid,std::shared_ptr<Data> sol)
     /*case begin*/
     case BURGERS1D:
         if (grid->dim!=1)
-        { std::cout<<"dim error \n";return;}
+        { std::cout<<"initialize: dim error \n";return;}
         switch (info->nCase)
         {
         /*case 0 begin*/
@@ -53,10 +53,9 @@ void Initializer::solInit(std::shared_ptr<Block> grid,std::shared_ptr<Data> sol)
         break;
     /*case end*/
 
-    case EULER1D:
-        if (grid->dim!=1)
-        { std::cout<<"dim error \n";return;}
+    case EULER:
         /*case begin*/
+        if (grid->dim==1)
         switch (info->nCase)
         {
         /*case 0 begin*/
@@ -84,10 +83,64 @@ void Initializer::solInit(std::shared_ptr<Block> grid,std::shared_ptr<Data> sol)
             else std::cout<<"initialize: length error \n";
             break;
         /*case 0 end*/
+        default:
+            break;
+        }
+        else if (grid->dim==2)
+        switch (info->nCase)
+        {
+        case 0:
+            //2D Riemann Problem;
+            tempsol.reserve(grid->icMax[0]*grid->icMax[1]);
+            for(int i=0;i<grid->icMax[1];i++)
+            for(int j=0;j<grid->icMax[0];j++)
+            {
+                real x=(*grid)(i*grid->icMax[0]+j,0);
+                real y=(*grid)(i*grid->icMax[0]+j,1);
+                real gamma=GAMMA;
+                if (x>0.25)
+                {
+                    if (y>0.25)
+                    {
+                        tempsol.push_back(1.5);
+                        tempsol.push_back(0);
+                        tempsol.push_back(0);
+                        tempsol.push_back(1.0/(gamma-1)*1.5);
+                    }
+                    else
+                    {
+                        tempsol.push_back(0.5323);
+                        tempsol.push_back(0);
+                        tempsol.push_back(0.5323*1.206);
+                        tempsol.push_back(1.0/(gamma-1)*0.3+0.5323*1.206*1.206/2);
+                    }
+                }
+                else
+                {
+                    if (y>0.25)
+                    {
+                        tempsol.push_back(0.5323);
+                        tempsol.push_back(0.5323*1.206);
+                        tempsol.push_back(0);
+                        tempsol.push_back(1.0/(gamma-1)*0.3+0.5323*1.206*1.206/2);
+                    }
+                    else
+                    {
+                        tempsol.push_back(0.138);
+                        tempsol.push_back(0.138*1.206);
+                        tempsol.push_back(0.138*1.206);
+                        tempsol.push_back(1.0/(gamma-1)*0.029+0.138*1.206*1.206);
+                    }
+                }
+            }
+            if (tempsol.size()==sol->size()) sol->setValue(tempsol);
+                else std::cout<<"initialize: length error \n";
+            break;
         
         default:
             break;
         }
+        
     /*case end*/
     default:
         break;
@@ -95,7 +148,7 @@ void Initializer::solInit(std::shared_ptr<Block> grid,std::shared_ptr<Data> sol)
 }
 
 
-void Initializer::initUniformBlock(std::shared_ptr<Block> block)
+void Initializer::initUniformBlock(Block* block)
 {
     if(!block)
     {
@@ -184,13 +237,13 @@ Initializer::Initializer()
 
 }
 
-Initializer::Initializer(std::shared_ptr<Info> info_)
+Initializer::Initializer(Info* info_)
 {
     info=info_;
 }
 
 
-void Initializer::initEqution(std::shared_ptr<Equation> eq,std::shared_ptr<Block> block)
+void Initializer::initEqution(Equation* eq,Block* block)
 {
     if(!eq||!block)
     {
@@ -201,17 +254,22 @@ void Initializer::initEqution(std::shared_ptr<Equation> eq,std::shared_ptr<Block
     eq->nPrim=info->nPrim();
     eq->nCons=info->nCons();
     eq->type=info->eqType;
+    eq->dim=block->dim;
+
     
-    eq->rhs=std::make_shared<Data>(eq->n,eq->nCons);
-    eq->cons=std::make_shared<Data>(eq->n,eq->nCons);
-    eq->prim=std::make_shared<Data>(eq->n,eq->nPrim);
+    eq->rhs=new Data(eq->n,eq->nCons);
+    eq->cons=new Data(eq->n,eq->nCons);
+    eq->prim=new Data(eq->n,eq->nPrim);
     eq->inited=true;
+    eq->cons->setvarName(info->getVarNameListCons());
+    eq->prim->setvarName(info->getVarNameListPrim());
+    eq->rhs->setvarName(info->getVarNameListRhs());
 
     solInit(block,eq->cons);
 }
 
 
-void Initializer::initBnds(std::shared_ptr<Bnds> bnds,std::shared_ptr<Equation> eqn,std::array<int,3> iMax)
+void Initializer::initBnds(Bnds* bnds,Equation* eqn,std::array<int,3> iMax)
 {
     bnds->iMax=iMax;
     bnds->dim=info->dim();
@@ -249,16 +307,45 @@ void Initializer::initBnds(std::shared_ptr<Bnds> bnds,std::shared_ptr<Equation> 
             bnds->oneDBnds.at(1)->setUpdate(eqn->prim,offsets[0],offsets[1]);
         }
         break;
-    case EULER1D:
+    case EULER:
+        if(eqn->dim==1)
+        {
+            bnds->oneDBnds.at(0)=std::make_shared<OneDBnd>(nGhost,nPrim,SUPERSONICOUTLET);
+            offsets=calOffset(1,0,0,bnds->iMax);
+            bnds->oneDBnds.at(0)->setUpdate(eqn->prim,offsets[0],offsets[1]);
+
+
+            bnds->oneDBnds.at(1)=std::make_shared<OneDBnd>(nGhost,nPrim,SUPERSONICOUTLET);
+            offsets=calOffsetInverse(1,0,0,bnds->iMax);
+            bnds->oneDBnds.at(1)->setUpdate(eqn->prim,offsets[0],offsets[1]);
+        }
+        else if (eqn->dim==2)
+        {
+            for (int i = 0; i < iMax[1]; i++)
+            {
+                bnds->oneDBnds.at(2*i)=std::make_shared<OneDBnd>(nGhost,nPrim,SUPERSONICOUTLET);
+                offsets=calOffset(1,i,0,bnds->iMax);
+                bnds->oneDBnds.at(2*i)->setUpdate(eqn->prim,offsets[0],offsets[1]);
+
+                bnds->oneDBnds.at(2*i+1)=std::make_shared<OneDBnd>(nGhost,nPrim,SUPERSONICOUTLET);
+                offsets=calOffsetInverse(1,i,0,bnds->iMax);
+                bnds->oneDBnds.at(2*i+1)->setUpdate(eqn->prim,offsets[0],offsets[1]);
+            }
+
+            for (int i = 0; i < iMax[0]; i++)
+            {
+                bnds->oneDBnds.at(2*i+iMax[1]*2)=std::make_shared<OneDBnd>(nGhost,nPrim,SUPERSONICOUTLET);
+                offsets=calOffset(2,i,0,bnds->iMax);
+                bnds->oneDBnds.at(2*i+iMax[1]*2)->setUpdate(eqn->prim,offsets[0],offsets[1]);
+
+                bnds->oneDBnds.at(2*i+1+iMax[1]*2)=std::make_shared<OneDBnd>(nGhost,nPrim,SUPERSONICOUTLET);
+                offsets=calOffsetInverse(2,i,0,bnds->iMax);
+                bnds->oneDBnds.at(2*i+1+iMax[1]*2)->setUpdate(eqn->prim,offsets[0],offsets[1]);
+            }
+            
+        }
         
-        bnds->oneDBnds.at(0)=std::make_shared<OneDBnd>(nGhost,nPrim,SUPERSONICOUTLET);
-        offsets=calOffset(1,0,0,bnds->iMax);
-        bnds->oneDBnds.at(0)->setUpdate(eqn->prim,offsets[0],offsets[1]);
 
-
-        bnds->oneDBnds.at(1)=std::make_shared<OneDBnd>(nGhost,nPrim,SUPERSONICOUTLET);
-        offsets=calOffsetInverse(1,0,0,bnds->iMax);
-        bnds->oneDBnds.at(1)->setUpdate(eqn->prim,offsets[0],offsets[1]);
         break;
     
     default:
@@ -267,8 +354,8 @@ void Initializer::initBnds(std::shared_ptr<Bnds> bnds,std::shared_ptr<Equation> 
     
 }
 
-void Initializer::initSpDistributor(std::shared_ptr<SpDistributor> spDis,std::shared_ptr<Equation> eqn
-                                    ,std::shared_ptr<Block> block,std::shared_ptr<Bnds> bnds)
+void Initializer::initSpDistributor(SpDistributor* spDis,Equation* eqn
+                                    ,Block* block,Bnds* bnds)
 {
     
     spDis->nCons=info->nCons();

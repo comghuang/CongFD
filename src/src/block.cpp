@@ -63,6 +63,12 @@ std::array<int,3> Block::getICMax()
    return icMax;
 }
 
+std::array<int,3> Block::getIMax()
+{
+   return iMax;
+}
+
+
 int Block::getDim()
 {
    return dim;

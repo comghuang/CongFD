@@ -7,13 +7,13 @@ Data::Data(int n_,int nVar_)
     data.resize(nVar*n,0.0);
 }
 
-void Data::solInit(ind n_,ind nvar_)
+void Data::solInit(int n_,int nvar_)
 {
     n=n_;
     nVar=nvar_;
     data.resize(nVar*n,0.0);
 
-    for(ind i=0;i<n;i++)
+    for(int i=0;i<n;i++)
     {
         real h=2.0/n;
         real xi=h/2.0+i*h-1.0;
@@ -36,26 +36,27 @@ void Data::solInit(ind n_,ind nvar_)
         }
     }
 }
-void Data::init(ind n_,ind nvar_)
+void Data::init(int n_,int nvar_)
 {
     n=n_;
     nVar=nvar_;
     data.resize(nVar*n,0.0);
 }
 
-real& Data::operator() (ind i,ind ivar)
+real& Data::operator() (int i,int ivar)
 {
     return data[i*nVar+ivar];
 }
 
-real& Data::operator[] (ind i)
+real& Data::operator[] (int i)
 {
-    return (this->data)[i];
+    //return (this->data)[i];
+    return data[i];
 }
 
 
 
-real Data::maxElement(ind ivar)
+real Data::maxElement(int ivar)
 {
     if(data.empty()) return 0;
     real res=data[0];
@@ -70,7 +71,7 @@ real Data::maxElement(ind ivar)
 
 void Data::setValue(std::vector<real> value)
 {
-    if(value.size()!=n*nVar)
+    if(value.size()!=data.size())
     {
         std::cout<<"vector length incorrect \n";
         return;
@@ -78,27 +79,27 @@ void Data::setValue(std::vector<real> value)
     std::copy(value.begin(),value.end(),data.begin());
 }
 
-void Data::operator= (Data& dat)
-{
-    if(this->n==dat.n&&this->nVar==dat.nVar)
-    {
-        for(ind i = 0; i < n*nVar; i++)
-        {
-            (*this)[i]=dat[i];
-        }
+// void Data::operator= (Data& dat)
+// {
+//     if(this->n==dat.n&&this->nVar==dat.nVar)
+//     {
+//         for(ind i = 0; i < n*nVar; i++)
+//         {
+//             (*this)[i]=dat[i];
+//         }
         
-    }
-    else
-    {
-        std::cout<<"incorrect size at class Data=Data\n";
-    }
-}
+//     }
+//     else
+//     {
+//         std::cout<<"incorrect size at class Data=Data\n";
+//     }
+// }
 
 void Data::operator+= (std::vector<real> arr)
 {
     if (arr.size()==n*nVar)
     {
-        for (ind i = 0; i < n*nVar; i++)
+        for (int i = 0; i < n*nVar; i++)
         {
             (*this)[i]+=arr[i];
         }
@@ -129,4 +130,50 @@ std::vector<real>::iterator Data::end()
 real Data::size()
 {
     return data.size();
+}
+
+
+int Data::getNVar()
+{
+    return nVar;
+}
+int Data::getN()
+{
+    return n;
+}
+
+std::vector<real> Data::getIVar(int ivar)
+{
+    std::vector<real> res;
+    if (ivar>=nVar)
+    {
+        std::cout<<"Data error: ivar >= nVar\n";
+        return res;
+    }
+    
+    
+    res.reserve(n);
+    for (int i = 0; i < n; i++)
+    {
+        res.push_back((*this)(i,ivar));
+    }
+    return res;
+    
+}
+
+Data::Data(const Data& origin_)
+{
+    n=origin_.n;
+    nVar=origin_.nVar;
+    data.resize(n*nVar);
+    std::copy(origin_.data.begin(),origin_.data.end(),data.begin());
+
+}
+
+void Data::setvarName(std::vector<std::string>&& varName_)
+{
+    if(nVar!=varName_.size())
+    {std::cout<<"Data error: varName size incorrect\n";return;}
+    varName.resize(nVar);
+    std::copy(varName_.begin(),varName_.end(),varName.begin());
 }

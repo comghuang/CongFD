@@ -7,7 +7,7 @@
             "program": "${workspaceFolder}/build/congFD",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}/cases/test",
+            "cwd": "${workspaceFolder}/cases/test/data",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",

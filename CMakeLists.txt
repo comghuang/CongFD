@@ -13,14 +13,29 @@ set(CMAKE_CXX_STANDARD 23)
 
 
 
-
+find_package(OpenMP)
 #add the executable
 add_executable(${PROJECT_NAME} zoneMain.cpp)
 
-target_link_libraries(${PROJECT_NAME} PUBLIC libcongFD)
+target_link_libraries(${PROJECT_NAME} PUBLIC libcongFD OpenMP::OpenMP_CXX)
+
+
+
 
 add_subdirectory(src)
 add_subdirectory(utils)
+
+include(CMakePrintHelpers)
+
+cmake_print_properties(
+TARGETS
+OpenMP::OpenMP_CXX
+PROPERTIES
+INTERFACE_COMPILE_OPTIONS
+INTERFACE_INCLUDE_DIRECTORIES
+INTERFACE_LINK_LIBRARIES
+)
+
 
 
 

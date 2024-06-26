@@ -2,10 +2,11 @@
 
 
 SpaceDis::SpaceDis(){};
-SpaceDis::SpaceDis(int n_,std::shared_ptr<Data> data_,std::shared_ptr<Data> rhs_
-            ,std::shared_ptr<OneDBnd> bndL_,std::shared_ptr<OneDBnd> bndR_,std::shared_ptr<Info> info)
+SpaceDis::SpaceDis(int n_,Data* data_,Data* rhs_
+            ,std::shared_ptr<OneDBnd> bndL_,std::shared_ptr<OneDBnd> bndR_,Info* info_)
 {
     data=data_;
+    info=info_;
     nPrim=info->nPrim();
     n=n_;
     nVar=info->nCons();
@@ -13,6 +14,7 @@ SpaceDis::SpaceDis(int n_,std::shared_ptr<Data> data_,std::shared_ptr<Data> rhs_
     bndL=bndL_;
     bndR=bndR_;
     flux=std::make_shared<Data>(nHalf,nVar);
+
     fBndL=std::make_shared<OneDBnd>(info->nFluxPoint(),nVar,FLUXGHOST);
     fBndR=std::make_shared<OneDBnd>(info->nFluxPoint(),nVar,FLUXGHOST);
     rhs=rhs_;
@@ -28,8 +30,11 @@ SpaceDis::SpaceDis(int n_,std::shared_ptr<Data> data_,std::shared_ptr<Data> rhs_
     case BURGERS1D:
         calTypeFlux=&SpaceDis::calFluxBurgers;
         break;
-    case EULER1D:
-        calTypeFlux=&SpaceDis::calFluxEuler;
+    case EULER:
+        if (info->dim()==1)
+        calTypeFlux=&SpaceDis::calFluxEuler1D;
+        else if (info->dim()==2)calTypeFlux=&SpaceDis::calFluxEuler2D;
+        
         break;
     
     default:
@@ -70,7 +75,7 @@ void SpaceDis::calFlux()
 {
     int fGhostL=fBndL->getN(),fGhostR=fBndR->getN();
     flux->setZeros();
-    for(ind i=0-fGhostL;i<nHalf+fGhostR;i++)
+    for(int i=0-fGhostL;i<nHalf+fGhostR;i++)
     {
         (this->*calTypeFlux)(i);
     }
@@ -90,8 +95,8 @@ void SpaceDis::setMethod(EquationType type_,DiffMethod method_)
     case BURGERS1D:
         calTypeFlux=&SpaceDis::calFluxBurgers;
         break;
-    case EULER1D:
-        calTypeFlux=&SpaceDis::calFluxEuler;
+    case EULER:
+        calTypeFlux=&SpaceDis::calFluxEuler1D;
         break;
     
     default:
@@ -130,15 +135,26 @@ real SpaceDis::at(int i,int ivar)
     return (*data)[(i0+offset*i)*nPrim+ivar];
 }
 
-real& SpaceDis::fAt(int i,int ivar)
+real& SpaceDis::fluxAt(int i,int ivar)
 {
     if (i<0) 
     {
         return (*fBndL)(-(i+1),ivar);
     }
-    if (i>=n) 
+    if (i>=nHalf) 
     {
-        return (*fBndR)(i-n,ivar);
+        return (*fBndR)(i-nHalf,ivar);
     }
     return (*flux)[i*nVar+ivar];
+}
+
+void SpaceDis::setConstNorm(std::array<real,3>&& norm_)
+{
+    norm=norm_;
+}
+
+void SpaceDis::setIDim(int idim_)
+{
+    //x:0,y:1,z:2 要直接用来作索引
+    idim=idim_;
 }

@@ -1,7 +1,7 @@
 #include "SpaceDis.hpp"
 #include "interScheme.hpp"
 
-real SpaceDis::reconL(ind i,ind ivar)
+real SpaceDis::reconL(int i,int ivar)
 {
     if(interMethod==MUSCL)
     {
@@ -29,7 +29,7 @@ real SpaceDis::reconL(ind i,ind ivar)
     else return at(i-1,ivar);
 }
 
-real SpaceDis::reconR(ind i,ind ivar)
+real SpaceDis::reconR(int i,int ivar)
 {
     if(interMethod==MUSCL)
     {

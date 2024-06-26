@@ -6,12 +6,12 @@ class OneDBnd
 {
     public:
     OneDBnd(){};
-    OneDBnd(ind,ind,BndType);
-    real& operator()(ind,ind);
+    OneDBnd(int,int,BndType);
+    real& operator()(int,int);
 
-    ind getN();
+    int getN();
     BndType getType();
-    void setUpdate(std::shared_ptr<Data>,int,int);
+    void setUpdate(Data*,int,int);
 
     void update();
 
@@ -19,8 +19,8 @@ class OneDBnd
     void setValue(std::vector<real>);
     BndType type=TYPENULL;
     std::vector<real> data;
-    std::shared_ptr<Data> prim;
+    Data* prim;
     int i0=0,offset=1;
-    ind n=0;
-    ind nVar=0;
+    int n=0;
+    int nVar=0;
 };

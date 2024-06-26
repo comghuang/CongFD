@@ -1,18 +1,18 @@
 #include "oneDBnd.hpp"
 
-OneDBnd::OneDBnd(ind n_,ind nVar_,BndType bType_)
+OneDBnd::OneDBnd(int n_,int nVar_,BndType bType_)
 {
     n=n_;
     nVar=nVar_;
     data.resize(n*nVar,0.0);
     type=bType_;
 }
-real& OneDBnd::operator()(ind i,ind ivar)
+real& OneDBnd::operator()(int i,int ivar)
 {
     return data[i*nVar+ivar];
 }
 
-ind OneDBnd::getN()
+int OneDBnd::getN()
 {
     return n;
 }
@@ -31,7 +31,7 @@ BndType OneDBnd::getType()
     return type;
 }
 
-void OneDBnd::setUpdate(std::shared_ptr<Data> prim_,int i0_,int offset_)
+void OneDBnd::setUpdate(Data* prim_,int i0_,int offset_)
 {
     prim=prim_;
     i0=i0_;
@@ -47,7 +47,7 @@ void OneDBnd::update()
         {
             for (int j = 0; j < nVar; j++)
             {
-                data.at(i*nVar+j)=(*prim)(i0+i*offset,j);
+                data[i*nVar+j]=(*prim)(i0+i*offset,j);
             }
             
         }
@@ -57,7 +57,7 @@ void OneDBnd::update()
         {
             for (int j = 0; j < nVar; j++)
             {
-                data.at(i*nVar+j)=(*prim)(i0,j);
+                data[i*nVar+j]=(*prim)(i0,j);
             }
         }
         break;

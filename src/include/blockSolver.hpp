@@ -1,20 +1,34 @@
 #pragma once
 #include "initializer.hpp"
+#include "cgnsio.hpp"
+
 class BlockSolver
 {
     public:
     BlockSolver();
-    BlockSolver(std::shared_ptr<Info>);
+    BlockSolver(Info);
     void solve();
+    ~BlockSolver();
+
+
+    void outputGrid();
+    void outputCons();
+    void outputPrim();
+
+
+    void stepsLoop();
+    void Test();
+
     private:
-    std::shared_ptr<Info> info;
-    std::shared_ptr<Block> block;
-    std::shared_ptr<Initializer> initer;
-    std::shared_ptr<Equation> eqn;
-    std::shared_ptr<Bnds> bnds;
-    std::shared_ptr<SpDistributor> spDis;
-    std::shared_ptr<Data> cons,rhs;
+    
+    CgnsIO cgnsIO;
+    Info* info;
+    Block* block;
+    Initializer* initer;
+    Equation* eqn;
+    Bnds* bnds;
+    SpDistributor* spDis;
+    Data* cons,*rhs;
     void RK3();
     TimeMethod timeMethod=RK3SSP;
-    double dt=0.001;
 };

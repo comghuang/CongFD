@@ -9,15 +9,16 @@ class Initializer
 {
     public:
     Initializer();
-    Initializer(std::shared_ptr<Info>);
-    void solInit(std::shared_ptr<Block>,std::shared_ptr<Data>);
-    void initUniformBlock(std::shared_ptr<Block>);
-    void initEqution(std::shared_ptr<Equation>,std::shared_ptr<Block>);
-    void initBnds(std::shared_ptr<Bnds> bnds,std::shared_ptr<Equation>,std::array<int,3> iMax);
-    void initSpDistributor(std::shared_ptr<SpDistributor>,std::shared_ptr<Equation>,std::shared_ptr<Block>,std::shared_ptr<Bnds>);
+    Initializer(Info*);
+    void solInit(Block*,Data*);
+    void initUniformBlock(Block*);
+    void initEqution(Equation*,Block*);
+    void initBnds(Bnds* bnds,Equation*,std::array<int,3> iMax);
+    void initSpDistributor(SpDistributor*,Equation*,Block*,Bnds*);
+
 
     private:
-    std::shared_ptr<Info> info;
+    Info* info;
     
     
 };

@@ -8,8 +8,11 @@ void Equation::consToPrim()
     case BURGERS1D:
         std::copy(cons->begin(),cons->end(),prim->begin());
         break;
-    case EULER1D:
-        consToPrimEuler1D();
+    case EULER:
+        {
+            if (dim==1) consToPrimEuler1D();
+            else if(dim==2) consToPrimEuler2D();
+        }
         break;
     
     default:
@@ -24,7 +27,7 @@ void Equation::consToPrimEuler1D()
         std::cout<<"Equation error: Euler 1d equation variable number error \n";
     }
 
-    for (ind i = 0; i < n; i++)
+    for (int i = 0; i < n; i++)
     {
         real r=(*cons)(i,0);
         real ru=(*cons)(i,1);
@@ -44,18 +47,47 @@ void Equation::consToPrimEuler1D()
     }
     
 }
+void Equation::consToPrimEuler2D()
+{
+    if(nCons!=3,nPrim!=5)
+    {
+        std::cout<<"Equation error: Euler 1d equation variable number error \n";
+    }
 
-std::shared_ptr<Data> Equation::getPrim()
+    for (int i = 0; i < n; i++)
+    {
+        real r=(*cons)(i,0);
+        real ru=(*cons)(i,1);
+        real rv=(*cons)(i,2);
+        real rE=(*cons)(i,3);
+        real u=ru/r;
+        real v=rv/r;
+        real E=rE/r;
+        real q2=(u*u+v*v)/2;
+        real e=E-q2;
+        real gamma=GAMMA;
+        real RT=(gamma-1)*e;
+        real p=r*RT;
+        real H=gamma/(gamma-1)*RT+q2;
+        (*prim)(i,0)=r;
+        (*prim)(i,1)=u;
+        (*prim)(i,2)=v;
+        (*prim)(i,3)=p;
+        (*prim)(i,4)=H;
+    }
+}
+
+Data* Equation::getPrim()
 {
     return prim;
 }
 
-std::shared_ptr<Data> Equation::getCons()
+Data* Equation::getCons()
 {
     return cons;
 }
 
-std::shared_ptr<Data> Equation::getRhs()
+Data* Equation::getRhs()
 {
     return rhs;
 }

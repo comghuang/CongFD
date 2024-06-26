@@ -7,27 +7,34 @@ class Data
 
     Data(){};
     Data(int,int);
+    Data(const Data&);
 
-
-    void solInit(ind,ind);
-    void init(ind,ind);
+    void solInit(int,int);
+    void init(int,int);
     void setValue(std::vector<real>);
-    //void setDim(ind,std::vector<ind>);
-    real& operator() (ind,ind);
-    real& operator[] (ind);
+    void setvarName(std::vector<std::string>&&);
+    //void setDim(int,std::vector<int>);
+    real& operator() (int,int);
+    real& operator[] (int);
     
-    void operator= (Data&);
+    //void operator= (Data&);
     void operator+= (std::vector<real>);
     void setZeros();
     real size();
+    int getNVar();
+    int getN();
+
+
+    std::vector<real> getIVar(int);
     std::vector<real>::iterator begin();
     std::vector<real>::iterator end();
     
     //for global LF flux in burgers equation
-    real maxElement(ind);
+    real maxElement(int);
+    std::vector<std::string> varName;
 
     private:
     std::vector<real> data;
-    ind n=200;
-    ind nVar=1;
+    int n=200;
+    int nVar=1;
 };

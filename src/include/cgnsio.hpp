@@ -9,7 +9,8 @@
 class CgnsIO
 {
     public:
-    void BlockCgnsOutput(std::shared_ptr<Block> block,std::shared_ptr<Info> info);
-
+    void BlockCgnsOutput(Block* block,Info* info);
+    void solCgnsOutput(Data* data,Info* info);
+    void oneDsolOutput(Info* info);
     private:
 };

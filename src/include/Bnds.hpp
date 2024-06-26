@@ -15,8 +15,8 @@ class Bnds
 
     private:
     friend class Initializer;
-    ind dim;
-    std::array<ind,3> iMax;
+    int dim;
+    std::array<int,3> iMax;
     //idim*
     std::vector<std::shared_ptr<OneDBnd>> oneDBnds;//JK*2+IK*2+IJ*2
 };
