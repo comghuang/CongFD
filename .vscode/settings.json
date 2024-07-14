@@ -81,6 +81,8 @@
         "cgnslib.h": "c",
         "charconv": "cpp",
         "format": "cpp",
-        "span": "cpp"
+        "span": "cpp",
+        "source_location": "cpp",
+        "stdfloat": "cpp"
     }
 }

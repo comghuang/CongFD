@@ -51,7 +51,7 @@ real& Data::operator() (int i,int ivar)
 real& Data::operator[] (int i)
 {
     //return (this->data)[i];
-    return data[i];
+    return data.at(i);
 }
 
 
@@ -71,11 +71,7 @@ real Data::maxElement(int ivar)
 
 void Data::setValue(std::vector<real> value)
 {
-    if(value.size()!=data.size())
-    {
-        std::cout<<"vector length incorrect \n";
-        return;
-    }
+    assert(value.size()==data.size());
     std::copy(value.begin(),value.end(),data.begin());
 }
 
@@ -97,18 +93,12 @@ void Data::setValue(std::vector<real> value)
 
 void Data::operator+= (std::vector<real> arr)
 {
-    if (arr.size()==n*nVar)
+    assert(arr.size()==n*nVar);
+    for (int i = 0; i < n*nVar; i++)
     {
-        for (int i = 0; i < n*nVar; i++)
-        {
-            (*this)[i]+=arr[i];
-        }
+        (*this)[i]+=arr[i];
+    }
         
-    }
-    else
-    {
-        std::cout<<"incorrect size at class Data += vector<real>\n";
-    }
 }
 
 void Data::setZeros()
@@ -145,11 +135,7 @@ int Data::getN()
 std::vector<real> Data::getIVar(int ivar)
 {
     std::vector<real> res;
-    if (ivar>=nVar)
-    {
-        std::cout<<"Data error: ivar >= nVar\n";
-        return res;
-    }
+    assert(ivar<=nVar);
     
     
     res.reserve(n);
@@ -172,8 +158,39 @@ Data::Data(const Data& origin_)
 
 void Data::setvarName(std::vector<std::string>&& varName_)
 {
-    if(nVar!=varName_.size())
-    {std::cout<<"Data error: varName size incorrect\n";return;}
+    assert(nVar==varName_.size());
     varName.resize(nVar);
     std::copy(varName_.begin(),varName_.end(),varName.begin());
+}
+
+real Data::getL2(int ivar)
+{
+    if(ivar>= nVar)
+    {
+        std::cout<<"Data error: ivar >= nVar";
+        return 0;
+    }
+    real res=0;
+    for (int i = 0; i < n; i++)
+    {
+        res+=pow((*this)(i,ivar),2);
+    }
+    res=sqrt(res/n);
+    return res;
+    
+}
+real Data::getLinf(int ivar)
+{
+    if(ivar>= nVar)
+    {
+        std::cout<<"Data error: ivar >= nVar";
+        return 0;
+    }
+    real res=abs((*this)(0,ivar));
+    for (int i = 1; i < n; i++)
+    {
+        if(res<abs((*this)(i,ivar))) res=abs((*this)(i,ivar));
+    }
+    return res;
+    
 }

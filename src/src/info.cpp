@@ -3,15 +3,15 @@
 int Info::nGhostCell()
 {
     
-    if(WCNSJS5==spMethod && TRAD6 == diffMethod) return 5;
-    else if(WCNSJS5==spMethod && HDS6 == diffMethod) return 3;
+    if(WCNS5==spMethod && TRAD6 == diffMethod) return 5;
+    else if(WCNS5==spMethod && HDS6 == diffMethod) return 3;
+    else if(WCNS5==spMethod && MND6 == diffMethod) return 4;
     else if(MUSCL==spMethod && TRAD2 == diffMethod) return 2;
     else if(FIRSTORDER==spMethod && TRAD2 == diffMethod) return 1;
 
     else
     {
         std::cout<<"Info error: undifined spMethod and diffMethod combination\n";
-        
     }
     return 0;
 }
@@ -22,6 +22,9 @@ int Info::nFluxPoint()
     case TRAD2:
     case HDS6:
         return 0;
+        break;
+    case MND6:
+        return 1;
         break;
     case TRAD6:
         return 2;
@@ -37,14 +40,15 @@ int Info::nPrim()
 {
     switch (eqType)
     {
+    case ACCURACYTEST:
     case LINEARCONV1D:
     case BURGERS1D:
         return 1;
         break;
     case EULER:
         {
-            if(dim()==1) return 5;
-            if(dim()==2) return 5;
+            if(dim==1) return 3;
+            if(dim==2) return 4;
             else return 0;
         }
         break;
@@ -60,14 +64,15 @@ int Info::nCons()
 {
     switch (eqType)
     {
+    case ACCURACYTEST:
     case LINEARCONV1D:
     case BURGERS1D:
         return 1;
         break;
     case EULER:
         {
-            if(dim()==1) return 3;
-            if(dim()==2) return 4;
+            if(dim==1) return 3;
+            if(dim==2) return 4;
             else return 0;
         }
         break;
@@ -81,7 +86,7 @@ int Info::nCons()
 }
 
 
-int Info::dim()
+int Info::getDim()
 {
     int dim=0;
     for (int i = 0; i < 3; i++)
@@ -121,11 +126,13 @@ BndType Info::defaultBndType()
 
 static std::map<EquationType,std::string> fluxStr= {{LINEARCONV1D,"LINEARCONV1D"}
                                         ,{BURGERS1D,"BURGERS1D"}
-                                        ,{EULER,"EULER"}};
+                                        ,{EULER,"EULER"}
+                                        ,{ACCURACYTEST,"ACCURACYTEST"}};
 static std::map<InterMethod,std::string> disStr={
     {FIRSTORDER,"FIRSTORDER"},
     {MUSCL,"MUSCL"},
-    {WCNSJS5,"WCNSJS5"}
+    {WCNS5,"WCNS5"},
+    {WCNSZ5,"WCNSZ5"}
 };
 
 std::string Info::filename()
@@ -137,7 +144,7 @@ std::vector<std::string> Info::getVarNameListCons()
 {
     std::vector<std::string> res;
     res.reserve(nCons());
-    if(dim()==1)
+    if(dim==1)
     {
         if(eqType==EULER)
         {
@@ -147,7 +154,7 @@ std::vector<std::string> Info::getVarNameListCons()
         }
         else res.push_back("u");
     }
-    else if (dim()==2)
+    else if (dim==2)
     {
         if(eqType==EULER)
         {
@@ -162,20 +169,21 @@ std::vector<std::string> Info::getVarNameListCons()
 std::vector<std::string> Info::getVarNameListPrim()
 {
     std::vector<std::string> res;
-    res.reserve(nCons());
-    if(dim()==1)
+    res.reserve(nPrim());
+    if(dim==1)
     {
         if(eqType==EULER)
         {
             res.push_back("Density");
             res.push_back("XVelocity");
             res.push_back("Pressure");
-            res.push_back("Total-Enthalpy");
-            res.push_back("R*Temperature");
+            // res.push_back("Density");
+            // res.push_back("u+c");
+            // res.push_back("u-c");
         }
         else res.push_back("u");
     }
-    else if (dim()==2)
+    else if (dim==2)
     {
         if(eqType==EULER)
         {
@@ -183,7 +191,6 @@ std::vector<std::string> Info::getVarNameListPrim()
             res.push_back("XVelocity");
             res.push_back("YVelocity");
             res.push_back("Pressure");
-            res.push_back("Total-Enthalpy");
         }
     }
     return res;
@@ -193,7 +200,7 @@ std::vector<std::string> Info::getVarNameListRhs()
 {
     std::vector<std::string> res;
     res.reserve(nCons());
-    if(dim()==1)
+    if(dim==1)
     {
         if(eqType==EULER)
         {
@@ -203,7 +210,7 @@ std::vector<std::string> Info::getVarNameListRhs()
         }
         else res.push_back("RHS-u");
     }
-    else if (dim()==2)
+    else if (dim==2)
     {
         if(eqType==EULER)
         {
@@ -220,4 +227,9 @@ std::vector<std::string> Info::getVarNameListRhs()
 real Info::geth(int idim)
 {
     return (calZone[2*idim+1]-calZone[2*idim])/(iMax[idim]-1);
+}
+
+Info::Info()
+{
+    dim=getDim();
 }

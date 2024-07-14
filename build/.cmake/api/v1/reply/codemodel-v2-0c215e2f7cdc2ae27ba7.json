@@ -20,7 +20,8 @@
 					"source" : ".",
 					"targetIndexes" : 
 					[
-						0
+						0,
+						1
 					]
 				},
 				{
@@ -35,7 +36,7 @@
 					"source" : "src",
 					"targetIndexes" : 
 					[
-						1
+						2
 					]
 				},
 				{
@@ -64,7 +65,8 @@
 					"targetIndexes" : 
 					[
 						0,
-						1
+						1,
+						2
 					]
 				}
 			],
@@ -72,15 +74,22 @@
 			[
 				{
 					"directoryIndex" : 0,
+					"id" : "accuracyTest::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-accuracyTest-Debug-a526d6b80190ae5ef716.json",
+					"name" : "accuracyTest",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
 					"id" : "congFD::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-congFD-Debug-5a67885eddabc0b001ca.json",
+					"jsonFile" : "target-congFD-Debug-6fdc8573abd2e522e3ab.json",
 					"name" : "congFD",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 1,
 					"id" : "libcongFD::@145eef247bfb46b6828c",
-					"jsonFile" : "target-libcongFD-Debug-b1e39141b282f141da5b.json",
+					"jsonFile" : "target-libcongFD-Debug-ab574642fbf2ae4cd0ed.json",
 					"name" : "libcongFD",
 					"projectIndex" : 0
 				}

@@ -9,23 +9,24 @@ enum{
     R
 };
 
-typedef std::array<real,2> arr2;
-std::vector<real> roeFlux1D(arr2 r, arr2 u, arr2 p, arr2 H, arr2 RT)
+std::vector<real> roeFlux1D(real rl,real rr,real ul,real ur,real pl,real pr)
 {
     std::vector<real> res;
     res.resize(3);
     
     real gamma=GAMMA;
+    arr2 H={pl/rl*GAMMA/(GAMMA-1)+(ul*ul)/2
+        ,pr/rr*GAMMA/(GAMMA-1)+(ur*ur)/2};
 
-    real rBar=sqrt(r[L]*r[R]);
-    real uBar=(u[L]*sqrt(r[L])+u[R]*sqrt(r[R]))/(sqrt(r[L])+sqrt(r[R]));
-    real HBar=(H[L]*sqrt(r[L])+H[R]*sqrt(r[R]))/(sqrt(r[L])+sqrt(r[R]));
+    real rBar=sqrt(rl*rr);
+    real uBar=(ul*sqrt(rl)+ur*sqrt(rr))/(sqrt(rl)+sqrt(rr));
+    real HBar=(H[L]*sqrt(rl)+H[R]*sqrt(rr))/(sqrt(rl)+sqrt(rr));
     real cBar=sqrt((gamma-1)*(HBar-uBar*uBar/2));
     real cBar2=(gamma-1)*(HBar-uBar*uBar/2);
 
-    real dr=r[R]-r[L];
-    real du=u[R]-u[L];
-    real dp=p[R]-p[L];
+    real dr=rr-rl;
+    real du=ur-ul;
+    real dp=pr-pl;
 
     real K1[3]={1,uBar,uBar*uBar/2};
     real K2[3]={1,uBar-cBar,HBar-uBar*cBar};
@@ -50,14 +51,14 @@ std::vector<real> roeFlux1D(arr2 r, arr2 u, arr2 p, arr2 H, arr2 RT)
     }*/
 
     real FL[3]={
-        r[L]*u[L],
-        r[L]*u[L]*u[L]+p[L],
-        r[L]*H[L]*u[L]
+        rl*ul,
+        rl*ul*ul+pl,
+        rl*H[L]*ul
     };
     real FR[3]={
-        r[R]*u[R],
-        r[R]*u[R]*u[R]+p[R],
-        r[R]*H[R]*u[R]
+        rr*ur,
+        rr*ur*ur+pr,
+        rr*H[R]*ur
     };
 
     for (int i = 0; i < 3; i++)
@@ -73,7 +74,7 @@ std::vector<real> roeFlux1D(arr2 r, arr2 u, arr2 p, arr2 H, arr2 RT)
 
 }
 
-std::vector<real> roeFlux1D2(arr2 r, arr2 u, arr2 p, arr2 H, arr2 RT)
+std::vector<real> roeFlux1D2(real rl,real rr,real ul,real ur,real pl,real pr)
 {
     //reference: https://blog.csdn.net/Tankrun1997/article/details/132743487
     std::vector<real> res;
@@ -81,15 +82,18 @@ std::vector<real> roeFlux1D2(arr2 r, arr2 u, arr2 p, arr2 H, arr2 RT)
     
     real gamma=GAMMA;
 
-    real rBar=sqrt(r[L]*r[R]);
-    real uBar=(u[L]*sqrt(r[L])+u[R]*sqrt(r[R]))/(sqrt(r[L])+sqrt(r[R]));
-    real HBar=(H[L]*sqrt(r[L])+H[R]*sqrt(r[R]))/(sqrt(r[L])+sqrt(r[R]));
+    arr2 H={pl/rl*GAMMA/(GAMMA-1)+(ul*ul)/2
+           ,pr/rr*GAMMA/(GAMMA-1)+(ur*ur)/2};
+
+    real rBar=sqrt(rl*rr);
+    real uBar=(ul*sqrt(rl)+ur*sqrt(rr))/(sqrt(rl)+sqrt(rr));
+    real HBar=(H[L]*sqrt(rl)+H[R]*sqrt(rr))/(sqrt(rl)+sqrt(rr));
     real cBar=sqrt((gamma-1)*(HBar-uBar*uBar/2));
     real cBar2=(gamma-1)*(HBar-uBar*uBar/2);
 
-    real dr=r[R]-r[L];
-    real du=u[R]-u[L];
-    real dp=p[R]-p[L];
+    real dr=rr-rl;
+    real du=ur-ul;
+    real dp=pr-pl;
 
     real K1[3]={1,uBar,uBar*uBar/2};
     real K2[3]={1,uBar-cBar,HBar-uBar*cBar};
@@ -118,14 +122,14 @@ std::vector<real> roeFlux1D2(arr2 r, arr2 u, arr2 p, arr2 H, arr2 RT)
     alpha[4]=cBar*(alpha[1]-alpha[2]);
 
     real FL[3]={
-        r[L]*u[L],
-        r[L]*u[L]*u[L]+p[L],
-        r[L]*H[L]*u[L]
+        rl*ul,
+        rl*ul*ul+pl,
+        rl*H[L]*ul
     };
     real FR[3]={
-        r[R]*u[R],
-        r[R]*u[R]*u[R]+p[R],
-        r[R]*H[R]*u[R]
+        rr*ur,
+        rr*ur*ur+pr,
+        rr*H[R]*ur
     };
 
     for (int i = 0; i < 3; i++)

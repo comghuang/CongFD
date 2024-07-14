@@ -10,46 +10,60 @@
 
 #include <math.h>
 #include <stdio.h>
-#include <map>
 #include <string>
 #include <memory>
 #include <iostream>
 #include <cstring>
 #include <array>
-#include <fstream>
 #include <vector>
-#include <cgnslib.h>
-#include <map>
+
 #include <algorithm>
+#include <map>
 #include <format>
+#include <assert.h>
 
 
 
 #define GAMMA 1.4
+//#define GAMMA 5.0/3.0
 
 enum BndType{
     TYPENULL,
     PERIODIC1D,
+    DIRICLET,
     DIRICLET_SODL,
     DIRICLET_SODR,
     FLUXGHOST,
-    SUPERSONICOUTLET
+    SUPERSONICOUTLET,
+    SYMMETRYX,//only for 2D
+    SYMMETRYY, //only for 2D
+    DoubleMachUp
 };
 enum InterMethod{
     FIRSTORDER,
     MUSCL,
-    WCNSJS5
+    WCNS5,
+    WCNSZ5,
+    WCNS5Char,
+    WCNSZ5Char,
+    WCNS5CONG,
+    WCNS5CONGSORT,
+    WCNS5CONGINCR,
+    WCNS5CONGABS,
+    TCNS5
 };
 enum DiffMethod{
     HDS6,
     TRAD6,
-    TRAD2
+    TRAD2,
+    MND6
 };
 
 enum EquationType{
     LINEARCONV1D,
     BURGERS1D,
     EULER,
+    ACCURACYTEST
 };
 
 enum FluxMethod{
@@ -61,6 +75,10 @@ enum FluxMethod{
 enum TimeMethod{
     RK3SSP,
     EulerFront};
+
+enum SourceType{
+    SOURCENULL,
+    GRAVITY};
 
 
 

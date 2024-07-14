@@ -13,7 +13,13 @@ class Initializer
     void solInit(Block*,Data*);
     void initUniformBlock(Block*);
     void initEqution(Equation*,Block*);
-    void initBnds(Bnds* bnds,Equation*,std::array<int,3> iMax);
+
+
+
+    void initBnds(Bnds* bnds,Equation*,std::array<int,3> iMax,Block* block);
+    void initDoubleMachBnds(Bnds* bnds,Equation* eqn,std::array<int,3> iMax,Block* block);
+
+
     void initSpDistributor(SpDistributor*,Equation*,Block*,Bnds*);
 
 

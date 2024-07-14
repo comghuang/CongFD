@@ -1,5 +1,6 @@
 #pragma once
 #include"data.hpp"
+#include <cgnslib.h>
 
 class Block
 {
@@ -8,6 +9,7 @@ class Block
     real operator()(int,int);
     std::array<int,3> getICMax();
     std::array<int,3> getIMax();
+    real getMinDh(int i);
     int getDim();
     std::vector<real> getCellCoor(int idim);
     std::vector<real> getVertexCoor(int idim);

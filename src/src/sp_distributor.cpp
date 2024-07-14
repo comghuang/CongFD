@@ -12,8 +12,6 @@ void SpDistributor::rhsSolve()
     
     if (dim>=1)
     {
-        
-        omp_set_num_threads(20);
         #pragma omp parallel for collapse(2) 
         for (int i = 0; i < iMax[1]; i++)
         for (int j = 0; j < iMax[2]; j++)
@@ -32,7 +30,7 @@ void SpDistributor::rhsSolve()
 
     if (dim>=2)
     {
-        omp_set_num_threads(20);
+        
         #pragma omp parallel for collapse(2) 
         for (int i = 0; i < iMax[0]; i++)
         for (int j = 0; j < iMax[2]; j++)
@@ -51,7 +49,6 @@ void SpDistributor::rhsSolve()
 
     if (dim>=3)
     {
-        omp_set_num_threads(20);
         #pragma omp parallel for collapse(2) 
         for (int i = 0; i < iMax[0]; i++)
         for (int j = 0; j < iMax[1]; j++)

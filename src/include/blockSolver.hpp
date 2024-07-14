@@ -1,13 +1,14 @@
 #pragma once
 #include "initializer.hpp"
 #include "cgnsio.hpp"
+#include "SourceTerm.hpp"
 
 class BlockSolver
 {
     public:
     BlockSolver();
-    BlockSolver(Info);
-    void solve();
+    BlockSolver(Info*);
+    void solve(real);
     ~BlockSolver();
 
 
@@ -17,6 +18,8 @@ class BlockSolver
 
 
     void stepsLoop();
+    void stepsLoopCFL();
+    void stepsLoopDTS();
     void Test();
 
     private:
@@ -29,6 +32,9 @@ class BlockSolver
     Bnds* bnds;
     SpDistributor* spDis;
     Data* cons,*rhs;
-    void RK3();
+    SourceTerm* sourceTerm;
+    void RK3_SSP(real);
+    void DTS_Euler(real);
+    std::vector<real> calLocalCFL();
     TimeMethod timeMethod=RK3SSP;
 };

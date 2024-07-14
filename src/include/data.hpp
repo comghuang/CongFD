@@ -31,6 +31,9 @@ class Data
     
     //for global LF flux in burgers equation
     real maxElement(int);
+
+    real getL2(int ivar);
+    real getLinf(int ivar);
     std::vector<std::string> varName;
 
     private:

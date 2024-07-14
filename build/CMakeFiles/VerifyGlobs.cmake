@@ -6,6 +6,7 @@ cmake_policy(SET CMP0009 NEW)
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "/mnt/d/ArchLinux/CongFD/src/include/*.hpp")
 set(OLD_GLOB
   "/mnt/d/ArchLinux/CongFD/src/include/Bnds.hpp"
+  "/mnt/d/ArchLinux/CongFD/src/include/SourceTerm.hpp"
   "/mnt/d/ArchLinux/CongFD/src/include/SpaceDis.hpp"
   "/mnt/d/ArchLinux/CongFD/src/include/block.hpp"
   "/mnt/d/ArchLinux/CongFD/src/include/blockSolver.hpp"
@@ -41,6 +42,8 @@ set(OLD_GLOB
   "/mnt/d/ArchLinux/CongFD/src/src/interScheme.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/macro.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/oneDBnd.cpp"
+  "/mnt/d/ArchLinux/CongFD/src/src/sourceTerm.cpp"
+  "/mnt/d/ArchLinux/CongFD/src/src/sp_circularBuffer.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/sp_difference.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/sp_distributor.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/sp_flux.cpp"

@@ -443,6 +443,30 @@ src/oneDBnd.cpp.s:
 	cd /mnt/d/ArchLinux/CongFD/release && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/oneDBnd.cpp.s
 .PHONY : src/oneDBnd.cpp.s
 
+src/sp_circularBuffer.o: src/sp_circularBuffer.cpp.o
+.PHONY : src/sp_circularBuffer.o
+
+# target to build an object file
+src/sp_circularBuffer.cpp.o:
+	cd /mnt/d/ArchLinux/CongFD/release && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/sp_circularBuffer.cpp.o
+.PHONY : src/sp_circularBuffer.cpp.o
+
+src/sp_circularBuffer.i: src/sp_circularBuffer.cpp.i
+.PHONY : src/sp_circularBuffer.i
+
+# target to preprocess a source file
+src/sp_circularBuffer.cpp.i:
+	cd /mnt/d/ArchLinux/CongFD/release && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/sp_circularBuffer.cpp.i
+.PHONY : src/sp_circularBuffer.cpp.i
+
+src/sp_circularBuffer.s: src/sp_circularBuffer.cpp.s
+.PHONY : src/sp_circularBuffer.s
+
+# target to generate assembly for a file
+src/sp_circularBuffer.cpp.s:
+	cd /mnt/d/ArchLinux/CongFD/release && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/sp_circularBuffer.cpp.s
+.PHONY : src/sp_circularBuffer.cpp.s
+
 src/sp_difference.o: src/sp_difference.cpp.o
 .PHONY : src/sp_difference.o
 
@@ -587,6 +611,9 @@ help:
 	@echo "... src/oneDBnd.o"
 	@echo "... src/oneDBnd.i"
 	@echo "... src/oneDBnd.s"
+	@echo "... src/sp_circularBuffer.o"
+	@echo "... src/sp_circularBuffer.i"
+	@echo "... src/sp_circularBuffer.s"
 	@echo "... src/sp_difference.o"
 	@echo "... src/sp_difference.i"
 	@echo "... src/sp_difference.s"

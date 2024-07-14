@@ -3,6 +3,7 @@
 #include "block.hpp"
 #include "oneDBnd.hpp"
 #include "info.hpp"
+#include <boost/circular_buffer.hpp>
 
 
 
@@ -23,6 +24,7 @@ class SpaceDis
 
 
     private:
+    
     Data* data;
     Data* rhs;
     Info* info;
@@ -33,31 +35,55 @@ class SpaceDis
     void calFluxBurgers(int);
     void calFluxEuler1D(int);
     void calFluxEuler2D(int);
+    void calFluxEuler1DHLLC(int i);
+    void calFluxAccuracyTest(int i);
     void (SpaceDis::*calTypeFlux)(int);
 
-    real at(int,int);
+    real& at(int,int);
     real& fluxAt(int,int);
-    real reconL(int,int);
-    real reconR(int,int);
+    std::vector<real> (SpaceDis::*reconLMethod)(int i);
+    std::vector<real> (SpaceDis::*reconRMethod)(int i);
+    std::vector<real> reconL(int);
+    std::vector<real> reconLprim(int);
+    std::vector<real> reconLChar1D(int i);
+    std::vector<real> reconLChar2D(int i);
+    std::vector<real> reconR(int);
+    std::vector<real> reconRprim(int);
+    std::vector<real> reconRChar1D(int i);
+    std::vector<real> reconRChar2D(int i);
+
+
+    real (*inter5) (std::array<real,5>)=nullptr;
+    real (*inter5Positive) (std::array<real,5>)=nullptr;
 
 
     void difHCS();
     void difTraditional6();
     void dif2Order();
+    void difMND6();
     void (SpaceDis::*difMethod)();
     
     int n,nVar,nPrim;
     int idim;
     int i0=0,offset=1;
+    int center=0,centerOffset=1;
     int nHalf;
 
     std::array<real,3> norm;
 
-    std::shared_ptr<Data> flux;
+    std::shared_ptr<Data> flux_d;
     std::shared_ptr<OneDBnd> fBndL,fBndR;
     EquationType fluxType;
     DiffMethod diffMethod=TRAD2;
     InterMethod interMethod=FIRSTORDER;
 
+    //circular_buffer method
+    //尝试用循环数组减小内存开销，觉得没啥意思算了
+    //boost::circular_buffer<real> flux,var,fluxNode;
+    // std::vector<boost::circular_buffer<real>> flux,var,fluxNode;
+    // void initBuffer();
+    // std::vector<real> getEulerPrim(int i);
+    // std::vector<real> (SpaceDis::*variablesGetter)(int i)=&getEulerPrim;
+    
 
 };

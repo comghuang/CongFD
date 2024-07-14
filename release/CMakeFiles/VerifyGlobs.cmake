@@ -41,6 +41,7 @@ set(OLD_GLOB
   "/mnt/d/ArchLinux/CongFD/src/src/interScheme.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/macro.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/oneDBnd.cpp"
+  "/mnt/d/ArchLinux/CongFD/src/src/sp_circularBuffer.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/sp_difference.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/sp_distributor.cpp"
   "/mnt/d/ArchLinux/CongFD/src/src/sp_flux.cpp"

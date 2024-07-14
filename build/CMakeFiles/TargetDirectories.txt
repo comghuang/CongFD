@@ -1,4 +1,5 @@
 /mnt/d/ArchLinux/CongFD/build/CMakeFiles/congFD.dir
+/mnt/d/ArchLinux/CongFD/build/CMakeFiles/accuracyTest.dir
 /mnt/d/ArchLinux/CongFD/build/CMakeFiles/package.dir
 /mnt/d/ArchLinux/CongFD/build/CMakeFiles/package_source.dir
 /mnt/d/ArchLinux/CongFD/build/CMakeFiles/edit_cache.dir

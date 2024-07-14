@@ -9,7 +9,7 @@ OneDBnd::OneDBnd(int n_,int nVar_,BndType bType_)
 }
 real& OneDBnd::operator()(int i,int ivar)
 {
-    return data[i*nVar+ivar];
+    return data.at(i*nVar+ivar);
 }
 
 int OneDBnd::getN()
@@ -61,6 +61,60 @@ void OneDBnd::update()
             }
         }
         break;
+    case SYMMETRYX:
+        //only for 2D
+        for (int i = 0; i < n; i++) 
+        {
+            data[i*nVar+0]=(*prim)(i0,0);
+            data[i*nVar+1]=-(*prim)(i0,1);
+            data[i*nVar+2]=(*prim)(i0,2);
+            data[i*nVar+3]=(*prim)(i0,3);
+
+            // data[i*nVar+0]=(*prim)(i0+i*offset,0);
+            // data[i*nVar+1]=-(*prim)(i0+i*offset,1);
+            // data[i*nVar+2]=(*prim)(i0+i*offset,2);
+            // data[i*nVar+3]=(*prim)(i0+i*offset,3);
+        }
+        break;
+    case SYMMETRYY:
+        //only for 2D
+        for (int i = 0; i < n; i++) 
+        {
+            // data[i*nVar+0]=(*prim)(i0+i*offset,0);
+            // data[i*nVar+1]=(*prim)(i0+i*offset,1);
+            // data[i*nVar+2]=-(*prim)(i0+i*offset,2);
+            // data[i*nVar+3]=(*prim)(i0+i*offset,3);
+
+            data[i*nVar+0]=(*prim)(i0,0);
+            data[i*nVar+1]=(*prim)(i0,1);
+            data[i*nVar+2]=-(*prim)(i0,2);
+            data[i*nVar+3]=(*prim)(i0,3);
+        }
+        break;
+    case DoubleMachUp:
+        //only for 2D
+        {
+        for (int i = 0; i < n; i++) 
+        {
+            real x=coor[0];
+            real y=-dh[1]/2+i*dh[1];
+            real gt=1.0/6.0+sqrt(3.0)/3.0*(1.0+20*info->t);
+            std::array<real,4> exactValues;
+            if(y>sqrt(3.0)*(x-gt))
+            {
+                exactValues={8.0,8.25*cos(M_PI/6),-8.25*sin(M_PI/6),116.5};
+            }
+            else{
+                exactValues={1.4,0,0,1.0};
+            }
+            
+                data[i*nVar+0]=exactValues[0];
+                data[i*nVar+1]=exactValues[1];
+                data[i*nVar+2]=exactValues[2];
+                data[i*nVar+3]=exactValues[3];
+        }
+        }
+        break;
     
     default:
         break;
@@ -68,3 +122,6 @@ void OneDBnd::update()
     
     
 }
+
+void OneDBnd::setInfo(Info* info_){info=info_;}
+void OneDBnd::setCoor(std::array<real,3> coor_,std::array<real,3> dh_){coor=coor_;dh=dh_;}

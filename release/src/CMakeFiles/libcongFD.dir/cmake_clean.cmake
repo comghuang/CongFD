@@ -25,6 +25,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/libcongFD.dir/src/macro.cpp.o.d"
   "CMakeFiles/libcongFD.dir/src/oneDBnd.cpp.o"
   "CMakeFiles/libcongFD.dir/src/oneDBnd.cpp.o.d"
+  "CMakeFiles/libcongFD.dir/src/sp_circularBuffer.cpp.o"
+  "CMakeFiles/libcongFD.dir/src/sp_circularBuffer.cpp.o.d"
   "CMakeFiles/libcongFD.dir/src/sp_difference.cpp.o"
   "CMakeFiles/libcongFD.dir/src/sp_difference.cpp.o.d"
   "CMakeFiles/libcongFD.dir/src/sp_distributor.cpp.o"

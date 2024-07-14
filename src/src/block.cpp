@@ -76,10 +76,7 @@ int Block::getDim()
 
 std::vector<real> Block::getCellCoor(int idim)
 {
-   if (idim>=dim)
-   {
-      std::cout<<"Block error: idim is too big\n";
-   }
+   assert(idim<=dim);
    std::vector<real> res;
    res.reserve(nCel);
    for (int i = 0; i < nCel; i++)
@@ -101,4 +98,12 @@ std::vector<real> Block::getVertexCoor(int idim)
    }
    return res;
    
+}
+
+real Block::getMinDh(int i)
+{
+   real res=coorVer(i+1,0)-coorVer(i,0);
+   if(dim>=2) res=std::min(coorVer(i+iMax[0],1)-coorVer(i,1),res);
+   if(dim>=3) res=std::min(coorVer(i+iMax[0]*iMax[1],2)-coorVer(i,2),res);
+   return res;
 }
