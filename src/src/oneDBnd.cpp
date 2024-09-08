@@ -65,30 +65,43 @@ void OneDBnd::update()
         //only for 2D
         for (int i = 0; i < n; i++) 
         {
-            data[i*nVar+0]=(*prim)(i0,0);
-            data[i*nVar+1]=-(*prim)(i0,1);
-            data[i*nVar+2]=(*prim)(i0,2);
-            data[i*nVar+3]=(*prim)(i0,3);
+            // data[i*nVar+0]=(*prim)(i0,0);
+            // data[i*nVar+1]=-(*prim)(i0,1);
+            // data[i*nVar+2]=(*prim)(i0,2);
+            // data[i*nVar+3]=(*prim)(i0,3);
 
-            // data[i*nVar+0]=(*prim)(i0+i*offset,0);
-            // data[i*nVar+1]=-(*prim)(i0+i*offset,1);
-            // data[i*nVar+2]=(*prim)(i0+i*offset,2);
-            // data[i*nVar+3]=(*prim)(i0+i*offset,3);
+            data[i*nVar+0]=(*prim)(i0+i*offset,0);
+            data[i*nVar+1]=-(*prim)(i0+i*offset,1);
+            data[i*nVar+2]=(*prim)(i0+i*offset,2);
+            data[i*nVar+3]=(*prim)(i0+i*offset,3);
+        }
+        break;
+    case SYMMETRY1D:
+        for (int i = 0; i < n; i++) 
+        {
+            // data[i*nVar+0]=(*prim)(i0,0);
+            // data[i*nVar+1]=-(*prim)(i0,1);
+            // data[i*nVar+2]=(*prim)(i0,2);
+            // data[i*nVar+3]=(*prim)(i0,3);
+
+            data[i*nVar+0]=(*prim)(i0+i*offset,0);
+            data[i*nVar+1]=-(*prim)(i0+i*offset,1);
+            data[i*nVar+2]=(*prim)(i0+i*offset,2);
         }
         break;
     case SYMMETRYY:
         //only for 2D
         for (int i = 0; i < n; i++) 
         {
-            // data[i*nVar+0]=(*prim)(i0+i*offset,0);
-            // data[i*nVar+1]=(*prim)(i0+i*offset,1);
-            // data[i*nVar+2]=-(*prim)(i0+i*offset,2);
-            // data[i*nVar+3]=(*prim)(i0+i*offset,3);
+            data[i*nVar+0]=(*prim)(i0+i*offset,0);
+            data[i*nVar+1]=(*prim)(i0+i*offset,1);
+            data[i*nVar+2]=-(*prim)(i0+i*offset,2);
+            data[i*nVar+3]=(*prim)(i0+i*offset,3);
 
-            data[i*nVar+0]=(*prim)(i0,0);
-            data[i*nVar+1]=(*prim)(i0,1);
-            data[i*nVar+2]=-(*prim)(i0,2);
-            data[i*nVar+3]=(*prim)(i0,3);
+            // data[i*nVar+0]=(*prim)(i0,0);
+            // data[i*nVar+1]=(*prim)(i0,1);
+            // data[i*nVar+2]=-(*prim)(i0,2);
+            // data[i*nVar+3]=(*prim)(i0,3);
         }
         break;
     case DoubleMachUp:
@@ -97,7 +110,8 @@ void OneDBnd::update()
         for (int i = 0; i < n; i++) 
         {
             real x=coor[0];
-            real y=-dh[1]/2+i*dh[1];
+            //real y=-dh[1]/2+i*dh[1];
+            real y=dh[1]/2;
             real gt=1.0/6.0+sqrt(3.0)/3.0*(1.0+20*info->t);
             std::array<real,4> exactValues;
             if(y>sqrt(3.0)*(x-gt))

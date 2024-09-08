@@ -23,6 +23,11 @@
 #include <assert.h>
 
 
+#include <chrono> 
+inline long timepp=0;
+inline long timesss=0;
+
+
 
 #define GAMMA 1.4
 //#define GAMMA 5.0/3.0
@@ -30,6 +35,7 @@
 enum BndType{
     TYPENULL,
     PERIODIC1D,
+    SYMMETRY1D,
     DIRICLET,
     DIRICLET_SODL,
     DIRICLET_SODR,
@@ -47,8 +53,8 @@ enum InterMethod{
     WCNS5Char,
     WCNSZ5Char,
     WCNS5CONG,
-    WCNS5CONGSORT,
-    WCNS5CONGINCR,
+    WCNSCONGPOLY,
+    WCNS5CONGZ,
     WCNS5CONGABS,
     TCNS5
 };

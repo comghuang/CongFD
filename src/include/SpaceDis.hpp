@@ -20,6 +20,9 @@ class SpaceDis
     void setIDim(int);
 
     void setConstNorm(std::array<real,3>&&);
+
+    //计时相关
+    long long timep=0;
     
 
 
@@ -51,6 +54,14 @@ class SpaceDis
     std::vector<real> reconRprim(int);
     std::vector<real> reconRChar1D(int i);
     std::vector<real> reconRChar2D(int i);
+
+    std::vector<real> recon1DBVD(int i);
+    std::vector<real> recon1DBVDPrim(int i);
+    std::vector<real> recon1DBVD2(int i);
+    void calFluxEuler1DBVD(int i);
+    std::vector<real> recon2DBVD(int i);
+    std::vector<real> recon2DBVD2(int i);
+    void calFluxEuler2DBVD(int i);
 
 
     real (*inter5) (std::array<real,5>)=nullptr;

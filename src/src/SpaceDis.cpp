@@ -36,8 +36,11 @@ SpaceDis::SpaceDis(int n_,Data* data_,Data* rhs_
         break;
     case EULER:
         if (info->dim==1)
-        calTypeFlux=&SpaceDis::calFluxEuler1D;
-        else if (info->dim==2)calTypeFlux=&SpaceDis::calFluxEuler2D;
+        {   if(info->BVD) calTypeFlux=&SpaceDis::calFluxEuler1DBVD;
+            else calTypeFlux=&SpaceDis::calFluxEuler1D;}
+        else if (info->dim==2)
+        {   if(info->BVD) calTypeFlux=&SpaceDis::calFluxEuler2DBVD;
+            else calTypeFlux=&SpaceDis::calFluxEuler2D;}
         
         break;
     
@@ -122,9 +125,9 @@ SpaceDis::SpaceDis(int n_,Data* data_,Data* rhs_
         reconLMethod=&SpaceDis::reconLprim;
         reconRMethod=&SpaceDis::reconRprim;}
         break;
-    case WCNS5CONGSORT:
-        inter5=&Teno5_CongSort;
-        inter5Positive=&Teno5_CongSort;
+    case WCNSCONGPOLY:
+        inter5=&Teno5_Cong2;
+        inter5Positive=&Teno5_Cong2;
         if(fluxType==EULER){
         reconLMethod=(info->dim==1)?(&SpaceDis::reconLChar1D):(&SpaceDis::reconLChar2D);
         reconRMethod=(info->dim==1)?(&SpaceDis::reconRChar1D):(&SpaceDis::reconRChar2D);}
@@ -132,9 +135,9 @@ SpaceDis::SpaceDis(int n_,Data* data_,Data* rhs_
         reconLMethod=&SpaceDis::reconLprim;
         reconRMethod=&SpaceDis::reconRprim;}
         break;
-    case WCNS5CONGINCR:
-        inter5=&Teno5_CongIncrease;
-        inter5Positive=&Teno5_CongIncrease;
+    case WCNS5CONGZ:
+        inter5=&Teno5_CongZ;
+        inter5Positive=&Teno5_CongZ;
         if(fluxType==EULER){
         reconLMethod=(info->dim==1)?(&SpaceDis::reconLChar1D):(&SpaceDis::reconLChar2D);
         reconRMethod=(info->dim==1)?(&SpaceDis::reconRChar1D):(&SpaceDis::reconRChar2D);}
@@ -171,7 +174,6 @@ void SpaceDis::difference()
     calFlux();
     (this->*difMethod)();
 }
-
 void SpaceDis::calFlux()
 {
     int fGhostL=fBndL->getN(),fGhostR=fBndR->getN();

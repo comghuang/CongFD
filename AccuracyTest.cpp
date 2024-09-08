@@ -55,7 +55,8 @@ std::array<real,3> getError(real h,real k)
     info->eqType=ACCURACYTEST;
     info->diffMethod=MND6;
     info->spMethod=WCNS5;
-    info->interMethod=WCNS5CONGSORT;
+    info->interMethod=TCNS5;
+    info->BVD=true;
     info->calZone={-1.0,1.0,0,0,0,0};
     info->iMax={n+1,2,2};
     info->dim=1;

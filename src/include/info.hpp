@@ -30,6 +30,7 @@ class Info
     DiffMethod diffMethod=TRAD6;
     InterMethod interMethod=WCNS5;//只影响插值权
     SourceType sourceType=SOURCENULL;
+    bool BVD=false;
 
     std::array<int,3> iMax{201,201,2};
     std::array<double,6> calZone{0,0.3,0,0.3,0,2};
@@ -40,7 +41,12 @@ class Info
     int nPrim();
     int nCons();
     int getDim();
+
+    bool constH=true;
+    real interval=0;
     real geth(int);
+
+
     BndType defaultBndType();
     std::array<int,3> icMax();
     std::string filename();

@@ -34,7 +34,9 @@ class BlockSolver
     Data* cons,*rhs;
     SourceTerm* sourceTerm;
     void RK3_SSP(real);
+    void RK4_SSP(real);
     void DTS_Euler(real);
     std::vector<real> calLocalCFL();
+    real getTimeIntervalExplicit();
     TimeMethod timeMethod=RK3SSP;
 };

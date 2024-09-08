@@ -133,6 +133,87 @@ void Initializer::solInit(Block* grid,Data* sol)
             if (tempsol.size()==sol->size()) sol->setValue(tempsol);
             else std::cout<<"initialize: length error \n";
             break;
+
+            case 3:
+            //sedov
+            tempsol.reserve(grid->icMax[0]);
+            for(int i=0;i<grid->icMax[0];i++)
+            {
+                real x=(*grid)(i,0);
+                
+                real gamma=GAMMA;
+                real r,u,E;
+                if (abs(x)<1e-10)
+                {
+                    real dx=(*grid)(i,0)-(*grid)(i-1,0);
+                    r=1;u=0;E=3200000.0/dx;
+                }
+                else
+                {
+                    r=1;u=0;E=1e-12;
+                }
+                tempsol.push_back(r);
+                tempsol.push_back(r*u);
+                tempsol.push_back(r*E);
+                
+            }
+            if (tempsol.size()==sol->size()) sol->setValue(tempsol);
+            else std::cout<<"initialize: length error \n";
+            break;
+
+            case 4:
+            //Woodward-Colella
+            tempsol.reserve(grid->icMax[0]);
+            for(int i=0;i<grid->icMax[0];i++)
+            {
+                real x=(*grid)(i,0);
+                real gamma=GAMMA;
+                real r,u,p;
+                if (x<0.1)
+                {
+                    r=1;u=0;p=1000;
+                }
+                else if (x>=0.9)
+                {
+                    r=1;u=0;p=100;
+                }
+                else
+                {
+                    r=1;u=0;p=0.01;
+                }
+                tempsol.push_back(r);
+                tempsol.push_back(r*u);
+                tempsol.push_back(1.0/(gamma-1)*p+r*u*u/2);
+                
+            }
+            if (tempsol.size()==sol->size()) sol->setValue(tempsol);
+            else std::cout<<"initialize: length error \n";
+            break;
+
+        case 5:
+            //双稀疏波
+            tempsol.reserve(grid->icMax[0]);
+            for(int i=0;i<grid->icMax[0];i++)
+            {
+                real x=(*grid)(i,0);
+                real gamma=GAMMA;
+                real r,u,p;
+                if (x<0)
+                {
+                    r=1;u=-2;p=0.4;
+                }
+                else
+                {
+                    r=1;u=2;p=0.4;
+                }
+                tempsol.push_back(r);
+                tempsol.push_back(r*u);
+                tempsol.push_back(1.0/(gamma-1)*p+r*u*u/2);
+                
+            }
+            if (tempsol.size()==sol->size()) sol->setValue(tempsol);
+            else std::cout<<"initialize: length error \n";
+            break;
         /*case 0 end*/
         default:
             break;
@@ -149,9 +230,9 @@ void Initializer::solInit(Block* grid,Data* sol)
                 real x=(*grid)(i*grid->icMax[0]+j,0);
                 real y=(*grid)(i*grid->icMax[0]+j,1);
                 real gamma=GAMMA;
-                if (x>0.25)
+                if (x>0.3)
                 {
-                    if (y>0.25)
+                    if (y>0.3)
                     {
                         tempsol.push_back(1.5);
                         tempsol.push_back(0);
@@ -168,7 +249,7 @@ void Initializer::solInit(Block* grid,Data* sol)
                 }
                 else
                 {
-                    if (y>0.25)
+                    if (y>0.3)
                     {
                         tempsol.push_back(0.5323);
                         tempsol.push_back(0.5323*1.206);
@@ -272,12 +353,12 @@ void Initializer::solInit(Block* grid,Data* sol)
                 if(y<=0.5){
                     r=2.0;u=0;p=2.0*y+1.0;
                     real c=sqrt(GAMMA*p/r);
-                    v=-0.025*c*cos(8.0*M_PI*x);
+                    v=-0.025*c*cos(8.0*M_PI*(x<0.125?x:(0.25-x)));
                 }
                 else{
                     r=1.0;u=0;p=y+3.0/2.0;
                     real c=sqrt(GAMMA*p/r);
-                    v=-0.025*c*cos(8.0*M_PI*x);
+                    v=-0.025*c*cos(8.0*M_PI*(x<0.125?x:(0.25-x)));
                 }
                 tempsol.push_back(r);
                 tempsol.push_back(r*u);
@@ -348,14 +429,26 @@ void Initializer::initUniformBlock(Block* block)
     block->iMax=iMax;
     block->coorVer.init(nVer,dim);
     block->coorCel.init(nCel,dim);
+    block->intervalCel.init(nCel,dim);
     block->inited=true;
+
+    //consth related
+    info->interval=0;
+    std::array<real,3> inters;
+    double cmin=info->calZone[0];
+    double cmax=info->calZone[1];
+    double interval=(cmax-cmin)/(iMax[0]-1);
+    info->interval=interval;
+    if (abs(*std::max_element(inters.begin(),inters.end())-*std::min_element(inters.begin(),inters.end()))>1e-10)
+    std::cout<<"Initalize error: interval incorrect\n";
+    info->constH=true;
 
     //for vertex
     for (int idim = 0; idim < dim; idim++)
     {
         double cmin=info->calZone[idim*2];
         double cmax=info->calZone[idim*2+1];
-        double interval=(cmax-cmin)/(iMax[idim]-1);
+        double interval=info->interval;
 
         int l,m,n;
         int* onedIndex=((idim == 0 ) ? &l : ( idim == 1 ? &m : &n));
@@ -365,7 +458,8 @@ void Initializer::initUniformBlock(Block* block)
         for (n = 0; n < iMax[2]; n++)
         {
             int globalIndex=l+m*iMax[0]+n*iMax[0]*iMax[1];
-            block->coorVer(globalIndex,idim)=cmin+(*onedIndex)*interval;
+            block->coorVer(globalIndex,idim)=0.5*((cmin+(*onedIndex)*interval)+(cmax-(iMax[idim]-1-(*onedIndex))*interval));//对称求法
+            //block->coorVer(globalIndex,idim)=cmin+(*onedIndex)*interval;
         }
     }
     
@@ -396,12 +490,14 @@ void Initializer::initUniformBlock(Block* block)
                 index[6]=iVerGlobal+iMax[0]+iMax[0]*iMax[1];
                 index[7]=iVerGlobal+iMax[0]+1+iMax[0]*iMax[1];
             }
-
-            for(auto iver:index) 
-            temp+=block->coorVer(iver,idim);
-            
-            
+            real tempInterval;
+            for(auto iver:index) temp+=block->coorVer(iver,idim);
             block->coorCel(iCelGlobal,idim)=temp/iLen;
+
+            //only lower line approximate
+            if(idim==0) block->intervalCel(iCelGlobal,idim)=block->coorVer(index[1],idim)-block->coorVer(index[0],idim);
+            if(idim==1) block->intervalCel(iCelGlobal,idim)=block->coorVer(index[2],idim)-block->coorVer(index[0],idim);
+            if(idim==2) block->intervalCel(iCelGlobal,idim)=block->coorVer(index[4],idim)-block->coorVer(index[0],idim);
             
         }
     }
@@ -486,12 +582,14 @@ void Initializer::initBnds(Bnds* bnds,Equation* eqn,std::array<int,3> iMax,Block
     case EULER:
         if(eqn->dim==1)
         {
-            bnds->oneDBnds.at(0)=std::make_shared<OneDBnd>(nGhost,nPrim,SUPERSONICOUTLET);
+            BndType Xtype=SUPERSONICOUTLET;
+            if(info->nCase==4) {Xtype=SYMMETRY1D;}
+            bnds->oneDBnds.at(0)=std::make_shared<OneDBnd>(nGhost,nPrim,Xtype);
             offsets=calOffset(1,0,0,bnds->iMax);
             bnds->oneDBnds.at(0)->setUpdate(eqn->prim,offsets[0],offsets[1]);
 
 
-            bnds->oneDBnds.at(1)=std::make_shared<OneDBnd>(nGhost,nPrim,SUPERSONICOUTLET);
+            bnds->oneDBnds.at(1)=std::make_shared<OneDBnd>(nGhost,nPrim,Xtype);
             offsets=calOffsetInverse(1,0,0,bnds->iMax);
             bnds->oneDBnds.at(1)->setUpdate(eqn->prim,offsets[0],offsets[1]);
         }

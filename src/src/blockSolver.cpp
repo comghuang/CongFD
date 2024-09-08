@@ -91,6 +91,7 @@ void BlockSolver::RK3_SSP(real dt)
     info->t-=dt/2;
 }
 
+
 void BlockSolver::DTS_Euler(real dt)
 {
     
@@ -190,26 +191,7 @@ void BlockSolver::stepsLoopCFL()
             outputPrim(); 
         }
 
-        real dt,lambda=0;
-        if(info->eqType==EULER)
-        {
-            Data* prim=eqn->getPrim();
-            int n=prim->getN();
-            eqn->consToPrim();
-            #pragma omp parallel for reduction(max:lambda)
-            for(int i=0;i<n;i++)
-            {
-                real iLambda;
-                real dh=block->getMinDh(i);
-                real RT=sqrt(GAMMA*(*prim)(i,2)/(*prim)(i,0))+abs((*prim)(i,1));
-                if(info->dim==2) iLambda=(sqrt(GAMMA*(*prim)(i,3)/(*prim)(i,0))+abs((*prim)(i,1))+abs((*prim)(i,2)))/dh;
-                else if(info->dim==1)   iLambda=(sqrt(GAMMA*(*prim)(i,2)/(*prim)(i,0))+abs((*prim)(i,1)))/dh;
-                lambda=std::max(lambda,iLambda);
-            }
-        }
-        else
-        { std::cout<<"Block Solver error: CFL Loop with not EULER solver\n"; lambda=1;}
-        dt=info->CFL/lambda;
+        auto dt=getTimeIntervalExplicit();
         // dt=info->dt;
         if(info->outputT+dt>info->outputDt)
         {
@@ -306,4 +288,38 @@ void BlockSolver::stepsLoopDTS()
     }
     outputGrid();
     outputPrim();
+}
+
+real BlockSolver::getTimeIntervalExplicit()
+{
+    real dt,lambda=0;
+    int dim=info->dim;
+    if(info->eqType==EULER)
+    {
+        Data* prim=eqn->getPrim();
+        int n=prim->getN();
+        eqn->consToPrim();
+        std::vector<real> lambdas(dim);
+        for(int idim=0;idim<dim;idim++)
+        {
+            real maxLambda=0;
+            #pragma omp parallel for reduction(max:maxLambda)
+            for(int i=0;i<n;i++)
+            {
+                real iLambda;
+                auto dhs=block->getCellInterval(i);
+                real dh=dhs.at(idim);
+                iLambda=(sqrt(GAMMA*(*prim)(i,dim+1)/(*prim)(i,0))+abs((*prim)(i,idim+1)))/dh;
+                maxLambda=std::max(maxLambda,iLambda);
+            }
+            lambdas[idim]=maxLambda;
+        }
+        lambda=0;
+        for(auto iLambda:lambdas) lambda+=iLambda;
+
+    }
+    else
+    { std::cout<<"Block Solver error: CFL Loop with not EULER solver\n"; lambda=1;}
+    dt=info->CFL/lambda;
+    return dt;
 }

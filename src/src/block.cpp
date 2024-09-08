@@ -99,6 +99,16 @@ std::vector<real> Block::getVertexCoor(int idim)
    return res;
    
 }
+std::vector<real> Block::getCellInterval(int i)
+{
+   std::vector<real> res;
+   res.reserve(nVer);
+   for (int idim = 0; idim < dim; idim++)
+   {
+      res.push_back(intervalCel(i,idim));
+   }
+   return res;
+}
 
 real Block::getMinDh(int i)
 {

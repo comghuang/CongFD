@@ -13,6 +13,7 @@ class Block
     int getDim();
     std::vector<real> getCellCoor(int idim);
     std::vector<real> getVertexCoor(int idim);
+    std::vector<real> getCellInterval(int);
     
 
 
@@ -20,6 +21,7 @@ class Block
     friend class Initializer;
     Data coorVer;
     Data coorCel;
+    Data intervalCel;
     int nVer,nCel;
     bool inited=false;
     int dim;

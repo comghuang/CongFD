@@ -226,6 +226,7 @@ std::vector<std::string> Info::getVarNameListRhs()
 
 real Info::geth(int idim)
 {
+    if(constH) return interval;
     return (calZone[2*idim+1]-calZone[2*idim])/(iMax[idim]-1);
 }
 
