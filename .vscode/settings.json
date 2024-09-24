@@ -75,6 +75,15 @@
         "concepts": "cpp",
         "numbers": "cpp",
         "semaphore": "cpp",
-        "stop_token": "cpp"
+        "stop_token": "cpp",
+        "math.h": "c",
+        "stdio.h": "c",
+        "cgnslib.h": "c",
+        "charconv": "cpp",
+        "format": "cpp",
+        "span": "cpp",
+        "source_location": "cpp",
+        "stdfloat": "cpp",
+        "text_encoding": "cpp"
     }
 }
