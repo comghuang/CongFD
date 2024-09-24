@@ -51,7 +51,7 @@ build cmake_object_order_depends_target_congFD: phony || cmake_object_order_depe
 
 build CMakeFiles/congFD.dir/zoneMain.cpp.o: CXX_COMPILER__congFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/zoneMain.cpp || cmake_object_order_depends_target_congFD
   DEP_FILE = CMakeFiles/congFD.dir/zoneMain.cpp.o.d
-  FLAGS = -g -w -O3 -g -std=gnu++23 -fopenmp
+  FLAGS = -g -std=gnu++23 -fopenmp
   INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
   OBJECT_DIR = CMakeFiles/congFD.dir
   OBJECT_FILE_DIR = CMakeFiles/congFD.dir
@@ -65,7 +65,7 @@ build CMakeFiles/congFD.dir/zoneMain.cpp.o: CXX_COMPILER__congFD_unscanned_Debug
 # Link the executable congFD
 
 build congFD: CXX_EXECUTABLE_LINKER__congFD_Debug CMakeFiles/congFD.dir/zoneMain.cpp.o | src/liblibcongFD.a /usr/lib/libgomp.so /usr/lib/libpthread.a || src/liblibcongFD.a
-  FLAGS = -g -w -O3 -g
+  FLAGS = -g
   LINK_LIBRARIES = src/liblibcongFD.a  /usr/lib/libgomp.so  /usr/lib/libpthread.a  -lcgns
   OBJECT_DIR = CMakeFiles/congFD.dir
   POST_BUILD = :
@@ -84,7 +84,7 @@ build cmake_object_order_depends_target_accuracyTest: phony || cmake_object_orde
 
 build CMakeFiles/accuracyTest.dir/accuracyTest.cpp.o: CXX_COMPILER__accuracyTest_unscanned_Debug /mnt/d/ArchLinux/CongFD/accuracyTest.cpp || cmake_object_order_depends_target_accuracyTest
   DEP_FILE = CMakeFiles/accuracyTest.dir/accuracyTest.cpp.o.d
-  FLAGS = -g -w -O3 -g -std=gnu++23 -fopenmp
+  FLAGS = -g -std=gnu++23 -fopenmp
   INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
   OBJECT_DIR = CMakeFiles/accuracyTest.dir
   OBJECT_FILE_DIR = CMakeFiles/accuracyTest.dir
@@ -98,7 +98,7 @@ build CMakeFiles/accuracyTest.dir/accuracyTest.cpp.o: CXX_COMPILER__accuracyTest
 # Link the executable accuracyTest
 
 build accuracyTest: CXX_EXECUTABLE_LINKER__accuracyTest_Debug CMakeFiles/accuracyTest.dir/accuracyTest.cpp.o | src/liblibcongFD.a /usr/lib/libgomp.so /usr/lib/libpthread.a || src/liblibcongFD.a
-  FLAGS = -g -w -O3 -g
+  FLAGS = -g
   LINK_LIBRARIES = src/liblibcongFD.a  /usr/lib/libgomp.so  /usr/lib/libpthread.a  -lcgns
   OBJECT_DIR = CMakeFiles/accuracyTest.dir
   POST_BUILD = :
@@ -170,133 +170,140 @@ build cmake_object_order_depends_target_libcongFD: phony || .
 
 build src/CMakeFiles/libcongFD.dir/src/SpaceDis.cpp.o: CXX_COMPILER__libcongFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/src/SpaceDis.cpp || cmake_object_order_depends_target_libcongFD
   DEP_FILE = src/CMakeFiles/libcongFD.dir/src/SpaceDis.cpp.o.d
-  FLAGS = -g -w -O3 -g -std=gnu++23 -fopenmp
+  FLAGS = -g -std=gnu++23 -fopenmp
   INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
   OBJECT_DIR = src/CMakeFiles/libcongFD.dir
   OBJECT_FILE_DIR = src/CMakeFiles/libcongFD.dir/src
 
 build src/CMakeFiles/libcongFD.dir/src/block.cpp.o: CXX_COMPILER__libcongFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/src/block.cpp || cmake_object_order_depends_target_libcongFD
   DEP_FILE = src/CMakeFiles/libcongFD.dir/src/block.cpp.o.d
-  FLAGS = -g -w -O3 -g -std=gnu++23 -fopenmp
+  FLAGS = -g -std=gnu++23 -fopenmp
   INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
   OBJECT_DIR = src/CMakeFiles/libcongFD.dir
   OBJECT_FILE_DIR = src/CMakeFiles/libcongFD.dir/src
 
 build src/CMakeFiles/libcongFD.dir/src/blockSolver.cpp.o: CXX_COMPILER__libcongFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/src/blockSolver.cpp || cmake_object_order_depends_target_libcongFD
   DEP_FILE = src/CMakeFiles/libcongFD.dir/src/blockSolver.cpp.o.d
-  FLAGS = -g -w -O3 -g -std=gnu++23 -fopenmp
+  FLAGS = -g -std=gnu++23 -fopenmp
   INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
   OBJECT_DIR = src/CMakeFiles/libcongFD.dir
   OBJECT_FILE_DIR = src/CMakeFiles/libcongFD.dir/src
 
 build src/CMakeFiles/libcongFD.dir/src/bnds.cpp.o: CXX_COMPILER__libcongFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/src/bnds.cpp || cmake_object_order_depends_target_libcongFD
   DEP_FILE = src/CMakeFiles/libcongFD.dir/src/bnds.cpp.o.d
-  FLAGS = -g -w -O3 -g -std=gnu++23 -fopenmp
+  FLAGS = -g -std=gnu++23 -fopenmp
   INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
   OBJECT_DIR = src/CMakeFiles/libcongFD.dir
   OBJECT_FILE_DIR = src/CMakeFiles/libcongFD.dir/src
 
 build src/CMakeFiles/libcongFD.dir/src/cgnsio.cpp.o: CXX_COMPILER__libcongFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/src/cgnsio.cpp || cmake_object_order_depends_target_libcongFD
   DEP_FILE = src/CMakeFiles/libcongFD.dir/src/cgnsio.cpp.o.d
-  FLAGS = -g -w -O3 -g -std=gnu++23 -fopenmp
+  FLAGS = -g -std=gnu++23 -fopenmp
   INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
   OBJECT_DIR = src/CMakeFiles/libcongFD.dir
   OBJECT_FILE_DIR = src/CMakeFiles/libcongFD.dir/src
 
 build src/CMakeFiles/libcongFD.dir/src/data.cpp.o: CXX_COMPILER__libcongFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/src/data.cpp || cmake_object_order_depends_target_libcongFD
   DEP_FILE = src/CMakeFiles/libcongFD.dir/src/data.cpp.o.d
-  FLAGS = -g -w -O3 -g -std=gnu++23 -fopenmp
+  FLAGS = -g -std=gnu++23 -fopenmp
+  INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
+  OBJECT_DIR = src/CMakeFiles/libcongFD.dir
+  OBJECT_FILE_DIR = src/CMakeFiles/libcongFD.dir/src
+
+build src/CMakeFiles/libcongFD.dir/src/eigenSystem.cpp.o: CXX_COMPILER__libcongFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/src/eigenSystem.cpp || cmake_object_order_depends_target_libcongFD
+  DEP_FILE = src/CMakeFiles/libcongFD.dir/src/eigenSystem.cpp.o.d
+  FLAGS = -g -std=gnu++23 -fopenmp
   INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
   OBJECT_DIR = src/CMakeFiles/libcongFD.dir
   OBJECT_FILE_DIR = src/CMakeFiles/libcongFD.dir/src
 
 build src/CMakeFiles/libcongFD.dir/src/equation.cpp.o: CXX_COMPILER__libcongFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/src/equation.cpp || cmake_object_order_depends_target_libcongFD
   DEP_FILE = src/CMakeFiles/libcongFD.dir/src/equation.cpp.o.d
-  FLAGS = -g -w -O3 -g -std=gnu++23 -fopenmp
+  FLAGS = -g -std=gnu++23 -fopenmp
   INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
   OBJECT_DIR = src/CMakeFiles/libcongFD.dir
   OBJECT_FILE_DIR = src/CMakeFiles/libcongFD.dir/src
 
 build src/CMakeFiles/libcongFD.dir/src/fluxScheme.cpp.o: CXX_COMPILER__libcongFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/src/fluxScheme.cpp || cmake_object_order_depends_target_libcongFD
   DEP_FILE = src/CMakeFiles/libcongFD.dir/src/fluxScheme.cpp.o.d
-  FLAGS = -g -w -O3 -g -std=gnu++23 -fopenmp
+  FLAGS = -g -std=gnu++23 -fopenmp
   INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
   OBJECT_DIR = src/CMakeFiles/libcongFD.dir
   OBJECT_FILE_DIR = src/CMakeFiles/libcongFD.dir/src
 
 build src/CMakeFiles/libcongFD.dir/src/info.cpp.o: CXX_COMPILER__libcongFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/src/info.cpp || cmake_object_order_depends_target_libcongFD
   DEP_FILE = src/CMakeFiles/libcongFD.dir/src/info.cpp.o.d
-  FLAGS = -g -w -O3 -g -std=gnu++23 -fopenmp
+  FLAGS = -g -std=gnu++23 -fopenmp
   INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
   OBJECT_DIR = src/CMakeFiles/libcongFD.dir
   OBJECT_FILE_DIR = src/CMakeFiles/libcongFD.dir/src
 
 build src/CMakeFiles/libcongFD.dir/src/initializer.cpp.o: CXX_COMPILER__libcongFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/src/initializer.cpp || cmake_object_order_depends_target_libcongFD
   DEP_FILE = src/CMakeFiles/libcongFD.dir/src/initializer.cpp.o.d
-  FLAGS = -g -w -O3 -g -std=gnu++23 -fopenmp
+  FLAGS = -g -std=gnu++23 -fopenmp
   INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
   OBJECT_DIR = src/CMakeFiles/libcongFD.dir
   OBJECT_FILE_DIR = src/CMakeFiles/libcongFD.dir/src
 
 build src/CMakeFiles/libcongFD.dir/src/interScheme.cpp.o: CXX_COMPILER__libcongFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/src/interScheme.cpp || cmake_object_order_depends_target_libcongFD
   DEP_FILE = src/CMakeFiles/libcongFD.dir/src/interScheme.cpp.o.d
-  FLAGS = -g -w -O3 -g -std=gnu++23 -fopenmp
+  FLAGS = -g -std=gnu++23 -fopenmp
   INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
   OBJECT_DIR = src/CMakeFiles/libcongFD.dir
   OBJECT_FILE_DIR = src/CMakeFiles/libcongFD.dir/src
 
 build src/CMakeFiles/libcongFD.dir/src/macro.cpp.o: CXX_COMPILER__libcongFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/src/macro.cpp || cmake_object_order_depends_target_libcongFD
   DEP_FILE = src/CMakeFiles/libcongFD.dir/src/macro.cpp.o.d
-  FLAGS = -g -w -O3 -g -std=gnu++23 -fopenmp
+  FLAGS = -g -std=gnu++23 -fopenmp
   INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
   OBJECT_DIR = src/CMakeFiles/libcongFD.dir
   OBJECT_FILE_DIR = src/CMakeFiles/libcongFD.dir/src
 
 build src/CMakeFiles/libcongFD.dir/src/oneDBnd.cpp.o: CXX_COMPILER__libcongFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/src/oneDBnd.cpp || cmake_object_order_depends_target_libcongFD
   DEP_FILE = src/CMakeFiles/libcongFD.dir/src/oneDBnd.cpp.o.d
-  FLAGS = -g -w -O3 -g -std=gnu++23 -fopenmp
+  FLAGS = -g -std=gnu++23 -fopenmp
   INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
   OBJECT_DIR = src/CMakeFiles/libcongFD.dir
   OBJECT_FILE_DIR = src/CMakeFiles/libcongFD.dir/src
 
 build src/CMakeFiles/libcongFD.dir/src/sourceTerm.cpp.o: CXX_COMPILER__libcongFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/src/sourceTerm.cpp || cmake_object_order_depends_target_libcongFD
   DEP_FILE = src/CMakeFiles/libcongFD.dir/src/sourceTerm.cpp.o.d
-  FLAGS = -g -w -O3 -g -std=gnu++23 -fopenmp
+  FLAGS = -g -std=gnu++23 -fopenmp
   INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
   OBJECT_DIR = src/CMakeFiles/libcongFD.dir
   OBJECT_FILE_DIR = src/CMakeFiles/libcongFD.dir/src
 
 build src/CMakeFiles/libcongFD.dir/src/sp_circularBuffer.cpp.o: CXX_COMPILER__libcongFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/src/sp_circularBuffer.cpp || cmake_object_order_depends_target_libcongFD
   DEP_FILE = src/CMakeFiles/libcongFD.dir/src/sp_circularBuffer.cpp.o.d
-  FLAGS = -g -w -O3 -g -std=gnu++23 -fopenmp
+  FLAGS = -g -std=gnu++23 -fopenmp
   INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
   OBJECT_DIR = src/CMakeFiles/libcongFD.dir
   OBJECT_FILE_DIR = src/CMakeFiles/libcongFD.dir/src
 
 build src/CMakeFiles/libcongFD.dir/src/sp_difference.cpp.o: CXX_COMPILER__libcongFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/src/sp_difference.cpp || cmake_object_order_depends_target_libcongFD
   DEP_FILE = src/CMakeFiles/libcongFD.dir/src/sp_difference.cpp.o.d
-  FLAGS = -g -w -O3 -g -std=gnu++23 -fopenmp
+  FLAGS = -g -std=gnu++23 -fopenmp
   INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
   OBJECT_DIR = src/CMakeFiles/libcongFD.dir
   OBJECT_FILE_DIR = src/CMakeFiles/libcongFD.dir/src
 
 build src/CMakeFiles/libcongFD.dir/src/sp_distributor.cpp.o: CXX_COMPILER__libcongFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/src/sp_distributor.cpp || cmake_object_order_depends_target_libcongFD
   DEP_FILE = src/CMakeFiles/libcongFD.dir/src/sp_distributor.cpp.o.d
-  FLAGS = -g -w -O3 -g -std=gnu++23 -fopenmp
+  FLAGS = -g -std=gnu++23 -fopenmp
   INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
   OBJECT_DIR = src/CMakeFiles/libcongFD.dir
   OBJECT_FILE_DIR = src/CMakeFiles/libcongFD.dir/src
 
 build src/CMakeFiles/libcongFD.dir/src/sp_flux.cpp.o: CXX_COMPILER__libcongFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/src/sp_flux.cpp || cmake_object_order_depends_target_libcongFD
   DEP_FILE = src/CMakeFiles/libcongFD.dir/src/sp_flux.cpp.o.d
-  FLAGS = -g -w -O3 -g -std=gnu++23 -fopenmp
+  FLAGS = -g -std=gnu++23 -fopenmp
   INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
   OBJECT_DIR = src/CMakeFiles/libcongFD.dir
   OBJECT_FILE_DIR = src/CMakeFiles/libcongFD.dir/src
 
 build src/CMakeFiles/libcongFD.dir/src/sp_recon.cpp.o: CXX_COMPILER__libcongFD_unscanned_Debug /mnt/d/ArchLinux/CongFD/src/src/sp_recon.cpp || cmake_object_order_depends_target_libcongFD
   DEP_FILE = src/CMakeFiles/libcongFD.dir/src/sp_recon.cpp.o.d
-  FLAGS = -g -w -O3 -g -std=gnu++23 -fopenmp
+  FLAGS = -g -std=gnu++23 -fopenmp
   INCLUDES = -I/mnt/d/ArchLinux/CongFD/src/include
   OBJECT_DIR = src/CMakeFiles/libcongFD.dir
   OBJECT_FILE_DIR = src/CMakeFiles/libcongFD.dir/src
@@ -309,8 +316,8 @@ build src/CMakeFiles/libcongFD.dir/src/sp_recon.cpp.o: CXX_COMPILER__libcongFD_u
 #############################################
 # Link the static library src/liblibcongFD.a
 
-build src/liblibcongFD.a: CXX_STATIC_LIBRARY_LINKER__libcongFD_Debug src/CMakeFiles/libcongFD.dir/src/SpaceDis.cpp.o src/CMakeFiles/libcongFD.dir/src/block.cpp.o src/CMakeFiles/libcongFD.dir/src/blockSolver.cpp.o src/CMakeFiles/libcongFD.dir/src/bnds.cpp.o src/CMakeFiles/libcongFD.dir/src/cgnsio.cpp.o src/CMakeFiles/libcongFD.dir/src/data.cpp.o src/CMakeFiles/libcongFD.dir/src/equation.cpp.o src/CMakeFiles/libcongFD.dir/src/fluxScheme.cpp.o src/CMakeFiles/libcongFD.dir/src/info.cpp.o src/CMakeFiles/libcongFD.dir/src/initializer.cpp.o src/CMakeFiles/libcongFD.dir/src/interScheme.cpp.o src/CMakeFiles/libcongFD.dir/src/macro.cpp.o src/CMakeFiles/libcongFD.dir/src/oneDBnd.cpp.o src/CMakeFiles/libcongFD.dir/src/sourceTerm.cpp.o src/CMakeFiles/libcongFD.dir/src/sp_circularBuffer.cpp.o src/CMakeFiles/libcongFD.dir/src/sp_difference.cpp.o src/CMakeFiles/libcongFD.dir/src/sp_distributor.cpp.o src/CMakeFiles/libcongFD.dir/src/sp_flux.cpp.o src/CMakeFiles/libcongFD.dir/src/sp_recon.cpp.o
-  LANGUAGE_COMPILE_FLAGS = -g -w -O3 -g
+build src/liblibcongFD.a: CXX_STATIC_LIBRARY_LINKER__libcongFD_Debug src/CMakeFiles/libcongFD.dir/src/SpaceDis.cpp.o src/CMakeFiles/libcongFD.dir/src/block.cpp.o src/CMakeFiles/libcongFD.dir/src/blockSolver.cpp.o src/CMakeFiles/libcongFD.dir/src/bnds.cpp.o src/CMakeFiles/libcongFD.dir/src/cgnsio.cpp.o src/CMakeFiles/libcongFD.dir/src/data.cpp.o src/CMakeFiles/libcongFD.dir/src/eigenSystem.cpp.o src/CMakeFiles/libcongFD.dir/src/equation.cpp.o src/CMakeFiles/libcongFD.dir/src/fluxScheme.cpp.o src/CMakeFiles/libcongFD.dir/src/info.cpp.o src/CMakeFiles/libcongFD.dir/src/initializer.cpp.o src/CMakeFiles/libcongFD.dir/src/interScheme.cpp.o src/CMakeFiles/libcongFD.dir/src/macro.cpp.o src/CMakeFiles/libcongFD.dir/src/oneDBnd.cpp.o src/CMakeFiles/libcongFD.dir/src/sourceTerm.cpp.o src/CMakeFiles/libcongFD.dir/src/sp_circularBuffer.cpp.o src/CMakeFiles/libcongFD.dir/src/sp_difference.cpp.o src/CMakeFiles/libcongFD.dir/src/sp_distributor.cpp.o src/CMakeFiles/libcongFD.dir/src/sp_flux.cpp.o src/CMakeFiles/libcongFD.dir/src/sp_recon.cpp.o
+  LANGUAGE_COMPILE_FLAGS = -g
   OBJECT_DIR = src/CMakeFiles/libcongFD.dir
   POST_BUILD = :
   PRE_LINK = :

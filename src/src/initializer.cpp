@@ -21,6 +21,17 @@ void Initializer::solInit(Block* grid,Data* sol)
             if (tempsol.size()==sol->size()) sol->setValue(tempsol);
             else std::cout<<"initialize: length error \n";
             break;
+        case 1:
+            //ADR
+            tempsol.reserve(grid->icMax[0]);
+            for(int i=0;i<grid->icMax[0];i++)
+            {
+                real x=(*grid)(i,0);
+                tempsol.push_back(1+sin(x));
+            }
+            if (tempsol.size()==sol->size()) sol->setValue(tempsol);
+            else std::cout<<"initialize: length error \n";
+            break;
         
         default:
             break;
@@ -437,6 +448,7 @@ void Initializer::initUniformBlock(Block* block)
     std::array<real,3> inters;
     double cmin=info->calZone[0];
     double cmax=info->calZone[1];
+    // double interval=round((cmax-cmin)/(iMax[0]-1)*1e8)/1e8;
     double interval=(cmax-cmin)/(iMax[0]-1);
     info->interval=interval;
     if (abs(*std::max_element(inters.begin(),inters.end())-*std::min_element(inters.begin(),inters.end()))>1e-10)
@@ -458,12 +470,48 @@ void Initializer::initUniformBlock(Block* block)
         for (n = 0; n < iMax[2]; n++)
         {
             int globalIndex=l+m*iMax[0]+n*iMax[0]*iMax[1];
-            block->coorVer(globalIndex,idim)=0.5*((cmin+(*onedIndex)*interval)+(cmax-(iMax[idim]-1-(*onedIndex))*interval));//对称求法
+            block->coorVer(globalIndex,idim)=(cmin+(*onedIndex)*interval);
             //block->coorVer(globalIndex,idim)=cmin+(*onedIndex)*interval;
         }
     }
     
     //for cellcenter
+    // for (int idim = 0; idim < dim; idim++)
+    // {
+    //     int l,m,n,iLen=(dim==1?2:dim==2? 4:8);
+    //     std::vector<int> index;
+    //     index.resize(iLen);
+    //     for (l = 0; l < icMax[0]; l++)
+    //     for (m = 0; m < icMax[1]; m++)
+    //     for (n = 0; n < icMax[2]; n++)
+    //     {
+    //         int iVerGlobal=l+m*iMax[0]+n*iMax[0]*iMax[1];
+    //         int iCelGlobal=l+m*icMax[0]+n*icMax[0]*icMax[1];
+    //         double temp=0;
+    //         index[0]=iVerGlobal;
+    //         index[1]=iVerGlobal+1;
+    //         if (dim>=2)
+    //         {
+    //             index[2]=iVerGlobal+iMax[0];
+    //             index[3]=iVerGlobal+iMax[0]+1;
+    //         }
+    //         if (dim>=3)
+    //         {
+    //             index[4]=iVerGlobal+iMax[0]*iMax[1];
+    //             index[5]=iVerGlobal+1+iMax[0]*iMax[1];
+    //             index[6]=iVerGlobal+iMax[0]+iMax[0]*iMax[1];
+    //             index[7]=iVerGlobal+iMax[0]+1+iMax[0]*iMax[1];
+    //         }
+    //         real tempInterval;
+    //         for(auto iver:index) temp+=block->coorVer(iver,idim);
+    //         block->coorCel(iCelGlobal,idim)=temp/iLen;
+    //         //only lower line approximate
+    //         if(idim==0) block->intervalCel(iCelGlobal,idim)=block->coorVer(index[1],idim)-block->coorVer(index[0],idim);
+    //         if(idim==1) block->intervalCel(iCelGlobal,idim)=block->coorVer(index[2],idim)-block->coorVer(index[0],idim);
+    //         if(idim==2) block->intervalCel(iCelGlobal,idim)=block->coorVer(index[4],idim)-block->coorVer(index[0],idim);
+    //     }
+    // }
+
     for (int idim = 0; idim < dim; idim++)
     {
         int l,m,n,iLen=(dim==1?2:dim==2? 4:8);
@@ -473,32 +521,13 @@ void Initializer::initUniformBlock(Block* block)
         for (m = 0; m < icMax[1]; m++)
         for (n = 0; n < icMax[2]; n++)
         {
-            int iVerGlobal=l+m*iMax[0]+n*iMax[0]*iMax[1];
             int iCelGlobal=l+m*icMax[0]+n*icMax[0]*icMax[1];
-            double temp=0;
-            index[0]=iVerGlobal;
-            index[1]=iVerGlobal+1;
-            if (dim>=2)
-            {
-                index[2]=iVerGlobal+iMax[0];
-                index[3]=iVerGlobal+iMax[0]+1;
-            }
-            if (dim>=3)
-            {
-                index[4]=iVerGlobal+iMax[0]*iMax[1];
-                index[5]=iVerGlobal+1+iMax[0]*iMax[1];
-                index[6]=iVerGlobal+iMax[0]+iMax[0]*iMax[1];
-                index[7]=iVerGlobal+iMax[0]+1+iMax[0]*iMax[1];
-            }
-            real tempInterval;
-            for(auto iver:index) temp+=block->coorVer(iver,idim);
-            block->coorCel(iCelGlobal,idim)=temp/iLen;
-
+            int* onedIndex=((idim == 0 ) ? &l : ( idim == 1 ? &m : &n));
+            block->coorCel(iCelGlobal,idim)=(cmin+((*onedIndex)+0.5)*interval);
             //only lower line approximate
-            if(idim==0) block->intervalCel(iCelGlobal,idim)=block->coorVer(index[1],idim)-block->coorVer(index[0],idim);
-            if(idim==1) block->intervalCel(iCelGlobal,idim)=block->coorVer(index[2],idim)-block->coorVer(index[0],idim);
-            if(idim==2) block->intervalCel(iCelGlobal,idim)=block->coorVer(index[4],idim)-block->coorVer(index[0],idim);
-            
+            if(idim==0) block->intervalCel(iCelGlobal,idim)=interval;
+            if(idim==1) block->intervalCel(iCelGlobal,idim)=interval;
+            if(idim==2) block->intervalCel(iCelGlobal,idim)=interval;
         }
     }
 }

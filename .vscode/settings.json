@@ -83,6 +83,7 @@
         "format": "cpp",
         "span": "cpp",
         "source_location": "cpp",
-        "stdfloat": "cpp"
+        "stdfloat": "cpp",
+        "text_encoding": "cpp"
     }
 }

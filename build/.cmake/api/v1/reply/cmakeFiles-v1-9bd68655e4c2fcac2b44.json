@@ -1,4 +1,57 @@
 {
+	"globsDependent" : 
+	[
+		{
+			"expression" : "/mnt/e/CPP/CongFD/src/include/*.hpp",
+			"paths" : 
+			[
+				"/mnt/e/CPP/CongFD/src/include/Bnds.hpp",
+				"/mnt/e/CPP/CongFD/src/include/SourceTerm.hpp",
+				"/mnt/e/CPP/CongFD/src/include/SpaceDis.hpp",
+				"/mnt/e/CPP/CongFD/src/include/block.hpp",
+				"/mnt/e/CPP/CongFD/src/include/blockSolver.hpp",
+				"/mnt/e/CPP/CongFD/src/include/cgnsio.hpp",
+				"/mnt/e/CPP/CongFD/src/include/data.hpp",
+				"/mnt/e/CPP/CongFD/src/include/eigenSystem.hpp",
+				"/mnt/e/CPP/CongFD/src/include/equation.hpp",
+				"/mnt/e/CPP/CongFD/src/include/fluxScheme.hpp",
+				"/mnt/e/CPP/CongFD/src/include/info.hpp",
+				"/mnt/e/CPP/CongFD/src/include/initializer.hpp",
+				"/mnt/e/CPP/CongFD/src/include/interScheme.hpp",
+				"/mnt/e/CPP/CongFD/src/include/macro.hpp",
+				"/mnt/e/CPP/CongFD/src/include/oneDBnd.hpp",
+				"/mnt/e/CPP/CongFD/src/include/sp_distributor.hpp"
+			],
+			"recurse" : true
+		},
+		{
+			"expression" : "/mnt/e/CPP/CongFD/src/src/*.cpp",
+			"paths" : 
+			[
+				"/mnt/e/CPP/CongFD/src/src/SpaceDis.cpp",
+				"/mnt/e/CPP/CongFD/src/src/block.cpp",
+				"/mnt/e/CPP/CongFD/src/src/blockSolver.cpp",
+				"/mnt/e/CPP/CongFD/src/src/bnds.cpp",
+				"/mnt/e/CPP/CongFD/src/src/cgnsio.cpp",
+				"/mnt/e/CPP/CongFD/src/src/data.cpp",
+				"/mnt/e/CPP/CongFD/src/src/eigenSystem.cpp",
+				"/mnt/e/CPP/CongFD/src/src/equation.cpp",
+				"/mnt/e/CPP/CongFD/src/src/fluxScheme.cpp",
+				"/mnt/e/CPP/CongFD/src/src/info.cpp",
+				"/mnt/e/CPP/CongFD/src/src/initializer.cpp",
+				"/mnt/e/CPP/CongFD/src/src/interScheme.cpp",
+				"/mnt/e/CPP/CongFD/src/src/macro.cpp",
+				"/mnt/e/CPP/CongFD/src/src/oneDBnd.cpp",
+				"/mnt/e/CPP/CongFD/src/src/sourceTerm.cpp",
+				"/mnt/e/CPP/CongFD/src/src/sp_circularBuffer.cpp",
+				"/mnt/e/CPP/CongFD/src/src/sp_difference.cpp",
+				"/mnt/e/CPP/CongFD/src/src/sp_distributor.cpp",
+				"/mnt/e/CPP/CongFD/src/src/sp_flux.cpp",
+				"/mnt/e/CPP/CongFD/src/src/sp_recon.cpp"
+			],
+			"recurse" : true
+		}
+	],
 	"inputs" : 
 	[
 		{
@@ -6,7 +59,7 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "build/CMakeFiles/3.29.2/CMakeSystem.cmake"
+			"path" : "build/CMakeFiles/3.30.3/CMakeSystem.cmake"
 		},
 		{
 			"isCMake" : true,
@@ -20,11 +73,11 @@
 		},
 		{
 			"isGenerated" : true,
-			"path" : "build/CMakeFiles/3.29.2/CMakeCCompiler.cmake"
+			"path" : "build/CMakeFiles/3.30.3/CMakeCCompiler.cmake"
 		},
 		{
 			"isGenerated" : true,
-			"path" : "build/CMakeFiles/3.29.2/CMakeCXXCompiler.cmake"
+			"path" : "build/CMakeFiles/3.30.3/CMakeCXXCompiler.cmake"
 		},
 		{
 			"isCMake" : true,
@@ -184,12 +237,12 @@
 	"kind" : "cmakeFiles",
 	"paths" : 
 	{
-		"build" : "/mnt/d/ArchLinux/CongFD/build",
-		"source" : "/mnt/d/ArchLinux/CongFD"
+		"build" : "/mnt/e/CPP/CongFD/build",
+		"source" : "/mnt/e/CPP/CongFD"
 	},
 	"version" : 
 	{
 		"major" : 1,
-		"minor" : 0
+		"minor" : 1
 	}
 }

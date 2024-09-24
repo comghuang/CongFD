@@ -201,7 +201,11 @@ void BlockSolver::stepsLoopCFL()
         }
         else info->outputT+=dt;
 
+        auto start = std::chrono::high_resolution_clock::now(); 
         solve(dt);
+        auto stop = std::chrono::high_resolution_clock::now(); 
+        auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start).count(); 
+        timesss+=duration;
         std::cout<<std::format("time = {:.4f} dt={:.10f}  rhoLinf = {:.4f}  \n",info->t,dt,rhs->getLinf(0));
     }
     outputGrid();
@@ -308,7 +312,7 @@ real BlockSolver::getTimeIntervalExplicit()
             {
                 real iLambda;
                 auto dhs=block->getCellInterval(i);
-                real dh=dhs.at(idim);
+                real dh=info->constH?info->geth(idim):dhs.at(idim);
                 iLambda=(sqrt(GAMMA*(*prim)(i,dim+1)/(*prim)(i,0))+abs((*prim)(i,idim+1)))/dh;
                 maxLambda=std::max(maxLambda,iLambda);
             }

@@ -1,5 +1,6 @@
 #include "SpaceDis.hpp"
 #include "interScheme.hpp"
+
 std::vector<real> SpaceDis::reconR(int i)
 {
     std::vector<real> res(nPrim);
@@ -57,8 +58,10 @@ std::vector<real> SpaceDis::reconLChar1D(int i)
     {
         int iLocal=j-i+3;
         q1[iLocal]=at(j,R)-at(j,P)/(cRef*cRef);
-        q2[iLocal]=(at(j,P)+at(j,U)*cRef*rRef)/2;
-        q3[iLocal]=(at(j,P)-at(j,U)*cRef*rRef)/2;
+        // q2[iLocal]=(at(j,P)+at(j,U)*cRef*rRef)/2;
+        // q3[iLocal]=(at(j,P)-at(j,U)*cRef*rRef)/2;
+        q2[iLocal]=at(j,P);
+        q3[iLocal]=at(j,U);
     }
     auto start = std::chrono::high_resolution_clock::now(); 
     real Q1=(*this->inter5Positive)(q1);
@@ -67,7 +70,8 @@ std::vector<real> SpaceDis::reconLChar1D(int i)
     auto stop = std::chrono::high_resolution_clock::now(); 
     auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count(); 
     timep+=duration;
-    return {Q1+(Q2+Q3)/(cRef*cRef),(Q2-Q3)/cRef/rRef,Q2+Q3};
+    // return {Q1+(Q2+Q3)/(cRef*cRef),(Q2-Q3)/cRef/rRef,Q2+Q3};
+    return {Q1+(Q2)/(cRef*cRef),Q3,Q2};
 }
 std::vector<real> SpaceDis::reconRChar1D(int i)
 {
@@ -80,8 +84,10 @@ std::vector<real> SpaceDis::reconRChar1D(int i)
     {
         int iLocal=i+2-j;
         q1[iLocal]=at(j,R)-at(j,P)/(cRef*cRef);
-        q2[iLocal]=(at(j,P)+at(j,U)*cRef*rRef)/2;
-        q3[iLocal]=(at(j,P)-at(j,U)*cRef*rRef)/2;
+        // q2[iLocal]=(at(j,P)+at(j,U)*cRef*rRef)/2;
+        // q3[iLocal]=(at(j,P)-at(j,U)*cRef*rRef)/2;
+        q2[iLocal]=at(j,P);
+        q3[iLocal]=at(j,U);
     }
     auto start = std::chrono::high_resolution_clock::now(); 
     real Q1=(*this->inter5Positive)(q1);
@@ -90,7 +96,8 @@ std::vector<real> SpaceDis::reconRChar1D(int i)
     auto stop = std::chrono::high_resolution_clock::now(); 
     auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count(); 
     timep+=duration;
-    return {Q1+(Q2+Q3)/(cRef*cRef),(Q2-Q3)/cRef/rRef,Q2+Q3};
+    // return {Q1+(Q2+Q3)/(cRef*cRef),(Q2-Q3)/cRef/rRef,Q2+Q3};
+    return {Q1+(Q2)/(cRef*cRef),Q3,Q2};
 }
 
 static std::array<real,2> minDif(real u1L,real u2L,real u1R,real u2R)
@@ -396,26 +403,61 @@ std::vector<real> SpaceDis::recon2DBVD2(int i)
     return {Q1[0],Q1[1],Q2[0],Q2[1],Q3[0],Q3[1],Q4[0],Q4[1]};
 }
 
+
+std::vector<real> SpaceDis::recon2DFaceCenter(int i)
+{
+    std::array<real,4> primL,primR;
+    memcpy(&primL[0],&at(i-1,0),nVar*sizeof(real));
+    memcpy(&primR[0],&at(i,0),nVar*sizeof(real));
+    eig=eigensystemEuler2D(primL,primR,norm);
+    std::array<real,5> q1L,q2L,q3L,q4L,q1R,q2R,q3R,q4R;
+    for(int j=i-3;j<i+3;j++)
+    {
+        enum{R,U,V,P};
+        auto charTemp=eig.primToChar({at(j,R),at(j,U),at(j,V),at(j,P)});
+
+        int iLocal=j-i+3;
+        if(iLocal<5){
+        q1L[iLocal]=charTemp[0];
+        q2L[iLocal]=charTemp[1];
+        q3L[iLocal]=charTemp[2];
+        q4L[iLocal]=charTemp[3];}
+
+        iLocal=i+2-j;
+        if(iLocal<5){
+        q1R[iLocal]=charTemp[0];
+        q2R[iLocal]=charTemp[1];
+        q3R[iLocal]=charTemp[2];
+        q4R[iLocal]=charTemp[3];}
+    }
+    bool flagL1,flagR1,flagL2,flagR2,flagL3,flagR3,flagL4,flagR4;
+    auto Q1LL=inter5(q1L);
+    auto Q1RR=inter5(q1R);
+    auto Q2LL=inter5(q2L);
+    auto Q2RR=inter5(q2R);
+    auto Q3LL=inter5(q3L);
+    auto Q3RR=inter5(q3R);
+    auto Q4LL=inter5(q4L);
+    auto Q4RR=inter5(q4R);
+
+    auto resTempL=eig.charToPrim({Q1LL,Q2LL,Q3LL,Q4LL});
+    auto resTempR=eig.charToPrim({Q1RR,Q2RR,Q3RR,Q4RR});
+    return {resTempL[0],resTempL[1],resTempL[2],resTempL[3],resTempR[0],resTempR[1],resTempR[2],resTempR[3]};
+}
 std::vector<real> SpaceDis::reconLChar2D(int i)
 {
     assert(info->dim==2);
     assert(info->eqType==EULER);
     enum{R,U,V,P};
-    real rRef=at(i-1,R);
-    real pRef=at(i-1,P);
-    real cRef=sqrt(GAMMA*(pRef/rRef));
-    // real rRef=(at(i-1,R)+at(i,R))/2;
-    // real pRef=(at(i-1,P)+at(i,P))/2;
-    // real cRef=sqrt(GAMMA*(pRef/rRef));
     std::array<real,5> q1,q2,q3,q4;
     for(int j=i-3;j<i+2;j++)
     {
         int iLocal=j-i+3;
-        real Vn=(norm[1]>norm[0])?at(j,V):at(j,U);
-        q1[iLocal]=(norm[1]>norm[0])?at(j,U):at(j,V);
-        q2[iLocal]=at(j,R)-at(j,P)/(cRef*cRef);
-        q3[iLocal]=(Vn*cRef*rRef+at(j,P))/2;
-        q4[iLocal]=(-Vn*cRef*rRef+at(j,P))/2;
+        auto charTemp=eig.primToChar({at(j,R),at(j,U),at(j,V),at(j,P)});
+        q1[iLocal]=charTemp[0];
+        q2[iLocal]=charTemp[1];
+        q3[iLocal]=charTemp[2];
+        q4[iLocal]=charTemp[3];
     }
     auto start = std::chrono::high_resolution_clock::now(); 
     real Q1=(*this->inter5)(q1);
@@ -425,29 +467,24 @@ std::vector<real> SpaceDis::reconLChar2D(int i)
     auto stop = std::chrono::high_resolution_clock::now(); 
     auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count(); 
     timep+=duration;
-    std::vector<real> res={Q2+(Q3+Q4)/(cRef*cRef)
-            ,(norm[1]>norm[0]? Q1 : (Q3-Q4)/cRef/rRef )
-            ,(norm[1]>norm[0]? (Q3-Q4)/cRef/rRef  : Q1)
-            ,Q3+Q4};
-    return res;
+    auto resTemp=eig.charToPrim({Q1,Q2,Q3,Q4});
+    return {resTemp[0],resTemp[1],resTemp[2],resTemp[3]};
 }
 
 std::vector<real> SpaceDis::reconRChar2D(int i)
 {
     assert(info->dim==2);
+    
     enum{R,U,V,P};
-    real rRef=at(i,R);
-    real pRef=at(i,P);
-    real cRef=sqrt(GAMMA*(pRef/rRef));
     std::array<real,5> q1,q2,q3,q4;
     for(int j=i+2;j>i-3;j--)
     {
         int iLocal=i+2-j;
-        real Vn=(norm[1]>norm[0])?at(j,V):at(j,U);
-        q1[iLocal]=(norm[1]>norm[0])?at(j,U):at(j,V);
-        q2[iLocal]=at(j,R)-at(j,P)/(cRef*cRef);
-        q3[iLocal]=(Vn*cRef*rRef+at(j,P))/2;
-        q4[iLocal]=(-Vn*cRef*rRef+at(j,P))/2;
+        auto charTemp=eig.primToChar({at(j,R),at(j,U),at(j,V),at(j,P)});
+        q1[iLocal]=charTemp[0];
+        q2[iLocal]=charTemp[1];
+        q3[iLocal]=charTemp[2];
+        q4[iLocal]=charTemp[3];
     }
     auto start = std::chrono::high_resolution_clock::now(); 
     real Q1=(*this->inter5)(q1);
@@ -457,13 +494,103 @@ std::vector<real> SpaceDis::reconRChar2D(int i)
     auto stop = std::chrono::high_resolution_clock::now(); 
     auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count(); 
     timep+=duration;
-
-    std::vector<real> res={Q2+(Q3+Q4)/(cRef*cRef)
-            ,(norm[1]>norm[0]? Q1 : (Q3-Q4)/cRef/rRef )
-            ,(norm[1]>norm[0]? (Q3-Q4)/cRef/rRef  : Q1)
-            ,Q3+Q4};
-    return res;
+    auto resTemp=eig.charToPrim({Q1,Q2,Q3,Q4});
+    return {resTemp[0],resTemp[1],resTemp[2],resTemp[3]};
 }
+
+// std::vector<real> SpaceDis::reconLChar2D(int i)
+// {
+//     assert(info->dim==2);
+//     assert(info->eqType==EULER);
+//     enum{R,U,V,P};
+//     double rhoAvg,uAvg,vAvg,HAvg,cAvg,VnAvg,q_2Avg,coef1,coef2;
+//     std::array<real,2> H;
+//     real rl=at(i-1,R),ul=at(i-1,U),vl=at(i-1,V),pl=at(i-1,P);
+//     real rr=at(i,R),ur=at(i,U),vr=at(i,V),pr=at(i,P);
+//     enum{LL,RR};
+//     H[LL]=(ul*ul+vl*vl)/2+pl/rl*GAMMA/(GAMMA-1);
+//     H[RR]=(ur*ur+vr*vr)/2+pr/rr*GAMMA/(GAMMA-1);
+//     coef1=sqrt(rl);
+//     coef2=sqrt(rr);
+//     real divisor=1.0/(sqrt(rl)+sqrt(rr));
+//     real rRef=sqrt(rl*rr);
+//     uAvg=(coef1*ul+coef2*ur)*divisor;
+//     vAvg=(coef1*vl+coef2*vr)*divisor;
+//     HAvg=(coef1*H[LL]+coef2*H[RR])*divisor;
+//     q_2Avg=(uAvg*uAvg+vAvg*vAvg)*0.5;
+//     real cRef=sqrt((GAMMA-1)*(HAvg-q_2Avg));
+//     std::array<real,5> q1,q2,q3,q4;
+//     for(int j=i-3;j<i+2;j++)
+//     {
+//         int iLocal=j-i+3;
+//         real Vn=(norm[1]>norm[0])?at(j,V):at(j,U);
+//         q1[iLocal]=(norm[1]>norm[0])?at(j,U):at(j,V);
+//         q2[iLocal]=at(j,R)-at(j,P)/(cRef*cRef);
+//         q3[iLocal]=Vn+at(j,P)/(cRef*rRef);
+//         q4[iLocal]=-Vn+at(j,P)/(cRef*rRef);
+//     }
+//     auto start = std::chrono::high_resolution_clock::now(); 
+//     real Q1=(*this->inter5)(q1);
+//     real Q2=(*this->inter5Positive)(q2);
+//     real Q3=(*this->inter5)(q3);
+//     real Q4=(*this->inter5)(q4);
+//     auto stop = std::chrono::high_resolution_clock::now(); 
+//     auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count(); 
+//     timep+=duration;
+//     std::vector<real> res={Q2+(Q3+Q4)*0.5*rRef/cRef
+//             ,(norm[1]>norm[0]? Q1 : (Q3-Q4)*0.5 )
+//             ,(norm[1]>norm[0]? (Q3-Q4)*0.5  : Q1)
+//             ,(Q3+Q4)*(cRef*rRef)*0.5};
+//     return res;
+// }
+
+// std::vector<real> SpaceDis::reconRChar2D(int i)
+// {
+//     assert(info->dim==2);
+//     enum{R,U,V,P};
+
+//     double rhoAvg,uAvg,vAvg,HAvg,cAvg,VnAvg,q_2Avg,coef1,coef2;
+//     std::array<real,2> H;
+//     real rl=at(i-1,R),ul=at(i-1,U),vl=at(i-1,V),pl=at(i-1,P);
+//     real rr=at(i,R),ur=at(i,U),vr=at(i,V),pr=at(i,P);
+//     enum{LL,RR};
+//     H[LL]=(ul*ul+vl*vl)/2+pl/rl*GAMMA/(GAMMA-1);
+//     H[RR]=(ur*ur+vr*vr)/2+pr/rr*GAMMA/(GAMMA-1);
+//     coef1=sqrt(rl);
+//     coef2=sqrt(rr);
+//     real divisor=1.0/(sqrt(rl)+sqrt(rr));
+//     real rRef=sqrt(rl*rr);
+//     uAvg=(coef1*ul+coef2*ur)*divisor;
+//     vAvg=(coef1*vl+coef2*vr)*divisor;
+//     HAvg=(coef1*H[LL]+coef2*H[RR])*divisor;
+//     q_2Avg=(uAvg*uAvg+vAvg*vAvg)*0.5;
+//     real cRef=sqrt((GAMMA-1)*(HAvg-q_2Avg));
+    
+
+//     std::array<real,5> q1,q2,q3,q4;
+//     for(int j=i+2;j>i-3;j--)
+//     {
+//         int iLocal=i+2-j;
+//         real Vn=(norm[1]>norm[0])?at(j,V):at(j,U);
+//         q1[iLocal]=(norm[1]>norm[0])?at(j,U):at(j,V);
+//         q2[iLocal]=at(j,R)-at(j,P)/(cRef*cRef);
+//         q3[iLocal]=Vn+at(j,P)/(cRef*rRef);
+//         q4[iLocal]=-Vn+at(j,P)/(cRef*rRef);
+//     }
+//     auto start = std::chrono::high_resolution_clock::now(); 
+//     real Q1=(*this->inter5)(q1);
+//     real Q2=(*this->inter5Positive)(q2);
+//     real Q3=(*this->inter5)(q3);
+//     real Q4=(*this->inter5)(q4);
+//     auto stop = std::chrono::high_resolution_clock::now(); 
+//     auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count(); 
+//     timep+=duration;
+//     std::vector<real> res={Q2+(Q3+Q4)*0.5*rRef/cRef
+//             ,(norm[1]>norm[0]? Q1 : (Q3-Q4)*0.5 )
+//             ,(norm[1]>norm[0]? (Q3-Q4)*0.5  : Q1)
+//             ,(Q3+Q4)*(cRef*rRef)*0.5};
+//     return res;
+// }
 
 std::vector<real> SpaceDis::reconRprim(int i)
 {

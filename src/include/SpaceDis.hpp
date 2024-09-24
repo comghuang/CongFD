@@ -4,6 +4,7 @@
 #include "oneDBnd.hpp"
 #include "info.hpp"
 #include <boost/circular_buffer.hpp>
+#include "eigenSystem.hpp"
 
 
 
@@ -63,6 +64,8 @@ class SpaceDis
     std::vector<real> recon2DBVD2(int i);
     void calFluxEuler2DBVD(int i);
 
+    std::vector<real> recon2DFaceCenter(int i);
+
 
     real (*inter5) (std::array<real,5>)=nullptr;
     real (*inter5Positive) (std::array<real,5>)=nullptr;
@@ -87,6 +90,8 @@ class SpaceDis
     EquationType fluxType;
     DiffMethod diffMethod=TRAD2;
     InterMethod interMethod=FIRSTORDER;
+
+    eigensystemEuler2D eig;
 
     //circular_buffer method
     //尝试用循环数组减小内存开销，觉得没啥意思算了
