@@ -5,7 +5,6 @@
 
 int main()
 {
-
     // std::array<real,4> prim0={1.0,0.75,-0.5,1.0};
     // std::array<real,4> prim={2.0,-0.75,0.5,1.0};
     // eigensystemEuler2D eig=eigensystemEuler2D(prim0,{1,0,0});
@@ -13,7 +12,7 @@ int main()
     // auto prim2=eig.charToPrim(eigValues);
     // std::cout<<"finish\n";
 
-    omp_set_num_threads(0);
+    omp_set_num_threads(1);
 
     Info* info=new Info;
 
@@ -28,7 +27,7 @@ int main()
     //info->interMethod=WCNS5Char;
     //info->interMethod=WCNS5CONG;
     //info->interMethod=WCNSCONGPOLY;
-    //info->interMethod=WCNS5CONGZ;
+    info->interMethod=WCNS5CONGZ;
 
     //Shu-Osher
     info->endStep=1;
@@ -105,7 +104,7 @@ int main()
     // info->dim=2;
 
     //Riemann 1
-    // real endt=0.6;
+    // real endt=0.3;
     // int outputsteps=1;
     // info->endStep=outputsteps;
     // info->outputDt=endt/outputsteps;
@@ -116,25 +115,25 @@ int main()
     // info->dim=2;
 
     //Riemann 2 vortex
-    // info->endStep=1;
-    // info->outputDt=0.3;
-    // info->CFL=0.5;
-    // info->nCase=1;
-    // info->calZone={-0.5,0.5,-0.5,0.5,0,0};
-    // info->iMax={801,801,2};
-    // info->dim=2;
+    info->endStep=1;
+    info->outputDt=0.3;
+    info->CFL=0.5;
+    info->nCase=1;
+    info->calZone={-0.5,0.5,-0.5,0.5,0,0};
+    info->iMax={401,401,2};
+    info->dim=2;
 
     //RT instability
     //记得改GAMMA
-    info->endStep=1;
-    info->outputDt=1.95;
-    info->CFL=0.5;
-    info->nCase=3;
-    info->calZone={0,0.25,0,1,0,0};
-    info->iMax={101,401,2};
-    info->iMax={65,257,2};
-    info->dim=2;
-    info->sourceType=GRAVITY;
+    // info->endStep=1;
+    // info->outputDt=1.95;
+    // info->CFL=0.5;
+    // info->nCase=3;
+    // info->calZone={0,0.25,0,1,0,0};
+    // info->iMax={101,401,2};
+    // info->iMax={65,257,2};
+    // info->dim=2;
+    // info->sourceType=GRAVITY;
 
 
     //info->diffMethod=HDS6;
@@ -163,7 +162,8 @@ int main()
     
     
 
-    std::cout<<"totaltime="<<duration<<"   Finish\n";
-   std::cout<<"time="<<timepp/1e6<<"   Finish\n";
-   std::cout<<timesss<<'\n';
+   std::cout<<"totaltime= "<<duration<<"   Finish\n";
+   std::cout<<"time= "<<timepp/1e6<<"   Finish\n";
+   std::cout<<"timesteps= "<<bSolver.timesteps<<"   Finish\n";
+   std::cout<<"solvertime= "<<timesss<<'\n';
 }

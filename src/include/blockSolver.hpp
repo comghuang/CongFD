@@ -10,6 +10,7 @@ class BlockSolver
     BlockSolver(Info*);
     void solve(real);
     ~BlockSolver();
+    long timesteps=0;
 
 
     void outputGrid();
@@ -33,6 +34,7 @@ class BlockSolver
     SpDistributor* spDis;
     Data* cons,*rhs;
     SourceTerm* sourceTerm;
+    
     void RK3_SSP(real);
     void RK4_SSP(real);
     void DTS_Euler(real);

@@ -172,8 +172,8 @@ void BlockSolver::stepsLoop()
         }
 
         real dt=info->dt;
-
         solve(dt);
+        timesteps++;
         std::cout<<std::format("time = {:.4f}  rhoL2 = {:.4f}  \n",info->t,rhs->getL2(0));
     }
     outputGrid();
@@ -206,6 +206,7 @@ void BlockSolver::stepsLoopCFL()
         auto stop = std::chrono::high_resolution_clock::now(); 
         auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start).count(); 
         timesss+=duration;
+        timesteps++;
         std::cout<<std::format("time = {:.4f} dt={:.10f}  rhoLinf = {:.4f}  \n",info->t,dt,rhs->getLinf(0));
     }
     outputGrid();
