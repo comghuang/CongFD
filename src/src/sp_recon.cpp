@@ -431,6 +431,7 @@ std::vector<real> SpaceDis::recon2DFaceCenter(int i)
         q4R[iLocal]=charTemp[3];}
     }
     bool flagL1,flagR1,flagL2,flagR2,flagL3,flagR3,flagL4,flagR4;
+    auto start = std::chrono::steady_clock::now(); 
     auto Q1LL=inter5(q1L);
     auto Q1RR=inter5(q1R);
     auto Q2LL=inter5(q2L);
@@ -439,6 +440,9 @@ std::vector<real> SpaceDis::recon2DFaceCenter(int i)
     auto Q3RR=inter5(q3R);
     auto Q4LL=inter5(q4L);
     auto Q4RR=inter5(q4R);
+    auto stop = std::chrono::steady_clock::now(); 
+    auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count(); 
+    timep+=duration;
 
     auto resTempL=eig.charToPrim({Q1LL,Q2LL,Q3LL,Q4LL});
     auto resTempR=eig.charToPrim({Q1RR,Q2RR,Q3RR,Q4RR});

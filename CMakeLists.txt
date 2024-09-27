@@ -11,9 +11,9 @@ set(CMAKE_CXX_STANDARD 23)
 #add_subdirectory(libMeshb)
 #list(APPEND EXTRA_LIBS libMeshb)
 
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -w -O3")
-set(CMAKE_C_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O3")
-set(CMAKE_C_FLAGS_Release "${CMAKE_CXX_FLAGS_Release} -O3")
+# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -w -O3")
+# set(CMAKE_C_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O3")
+# set(CMAKE_C_FLAGS_Release "${CMAKE_CXX_FLAGS_Release} -O3")
 
 find_package(OpenMP)
 #add the executable

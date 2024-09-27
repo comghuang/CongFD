@@ -29,8 +29,8 @@ inline long timesss=0;
 
 
 
-//W#define GAMMA 1.4
-#define GAMMA 5.0/3.0
+#define GAMMA 1.4
+// #define GAMMA 5.0/3.0
 
 enum BndType{
     TYPENULL,
