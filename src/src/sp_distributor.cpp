@@ -12,7 +12,7 @@ void SpDistributor::rhsSolve()
     if (dim>=1)
     {
         long long timep=0;
-        #pragma omp parallel for collapse(2) reduction(+:timep)
+        #pragma omp parallel for collapse(2) reduction(+:timep) schedule(static)
         for (int i = 0; i < iMax[1]; i++)
         for (int j = 0; j < iMax[2]; j++)
         {
@@ -33,7 +33,7 @@ void SpDistributor::rhsSolve()
     if (dim>=2)
     {
         long long timep=0;
-        #pragma omp parallel for collapse(2) reduction(+:timep)
+        #pragma omp parallel for collapse(2) reduction(+:timep) schedule(static)
         for (int i = 0; i < iMax[0]; i++)
         for (int j = 0; j < iMax[2]; j++)
         {
@@ -53,7 +53,7 @@ void SpDistributor::rhsSolve()
     if (dim>=3)
     {
         long long timep=0;
-        #pragma omp parallel for collapse(2) 
+        #pragma omp parallel for collapse(2) reduction(+:timep) schedule(static)
         for (int i = 0; i < iMax[0]; i++)
         for (int j = 0; j < iMax[1]; j++)
         {
