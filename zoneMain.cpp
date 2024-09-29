@@ -12,7 +12,7 @@ int main()
     // auto prim2=eig.charToPrim(eigValues);
     // std::cout<<"finish\n";
 
-    omp_set_num_threads(1);
+    omp_set_num_threads(10);
 
     Info* info=new Info;
 

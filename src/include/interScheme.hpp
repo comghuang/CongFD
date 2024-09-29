@@ -52,22 +52,20 @@ constexpr real weno5_Cong(std::array<real,5> q)
     real eps=1e-14;
     std::array<real,3> gamma={1.0/16.0,5.0/8.0,5.0/16.0};
     std::array<real,3> beta,u;
-//     beta[0]= 0.0/1.0 *pow(1.0*q[0]-2.0*q[1]+1.0*q[2],2)
-//              + 1.0/1.0 *pow(1.0*q[0]-4.0*q[1]+3.0*q[2],2);
+    // beta[0]= 0.0/1.0 *pow(1.0*q[0]-2.0*q[1]+1.0*q[2],2)
+    //          + 1.0/1.0 *pow(1.0*q[0]-4.0*q[1]+3.0*q[2],2);
 
-//      beta[1]= 0.0/1.0  *pow(1.0*q[1]-2.0*q[2]+1.0*q[3],2)
-//              + 1.0/1.0 *pow(1.0*q[1]+0.0*q[2]-1.0*q[3],2);
+    //  beta[1]= 0.0/1.0  *pow(1.0*q[1]-2.0*q[2]+1.0*q[3],2)
+    //          + 1.0/1.0 *pow(1.0*q[1]+0.0*q[2]-1.0*q[3],2);
 
-//      beta[2]= 0.0/1.0 *pow(1.0*q[2]-2.0*q[3]+1.0*q[4],2)
-//              + 1.0/1.0*pow(3.0*q[2]-4.0*q[3]+1.0*q[4],2);
+    //  beta[2]= 0.0/1.0 *pow(1.0*q[2]-2.0*q[3]+1.0*q[4],2)
+    //          + 1.0/1.0*pow(3.0*q[2]-4.0*q[3]+1.0*q[4],2);
      
-     beta[0]=1.0/1.0 *pow(1.0*q[0]-2.0*q[1]+1.0*q[2],2)/(q[2]*q[2])+10 *pow(1.0*q[0]-4.0*q[1]+3.0*q[2],2)/(q[2]*q[2]);
+    beta[0]=1.0/1.0 *pow(1.0*q[0]-2.0*q[1]+1.0*q[2],2)/(q[2]*q[2])+10 *pow(1.0*q[0]-4.0*q[1]+3.0*q[2],2)/(q[2]*q[2]);
 
-     beta[1]=1.0/1.0 *pow(1.0*q[0]-2.0*q[1]+1.0*q[2],2)/(q[2]*q[2])+10 *pow(1.0*q[1]+0.0*q[2]-1.0*q[3],2)/(q[2]*q[2]);
+    beta[1]=1.0/1.0 *pow(1.0*q[0]-2.0*q[1]+1.0*q[2],2)/(q[2]*q[2])+10 *pow(1.0*q[1]+0.0*q[2]-1.0*q[3],2)/(q[2]*q[2]);
 
-     beta[2]=1.0/1.0 *pow(1.0*q[0]-2.0*q[1]+1.0*q[2],2)/(q[2]*q[2])+10*pow(3.0*q[2]-4.0*q[3]+1.0*q[4],2)/(q[2]*q[2]);
-
-
+    beta[2]=1.0/1.0 *pow(1.0*q[0]-2.0*q[1]+1.0*q[2],2)/(q[2]*q[2])+10*pow(3.0*q[2]-4.0*q[3]+1.0*q[4],2)/(q[2]*q[2]);
     
     u[0]= 3.0/8.0*q[0]-5.0/4.0*q[1]+15.0/8.0*q[2];
     u[1]=-1.0/8.0*q[1]+3.0/4.0*q[2]+3.0 /8.0*q[3];
@@ -142,7 +140,7 @@ constexpr real Teno5_Z(std::array<real,5> q)
     //     std::cout<<"inf beta\n";
     // }
     // volatile unsigned flag=(beta[0]<CT)+((beta[1]<CT)<<1)+((beta[2]<CT)<<2);
-    unsigned flag=0;
+    unsigned short flag=0;
     if(beta[0]<CT) flag+=1;
     if(beta[1]<CT) flag+=2;
     if(beta[2]<CT) flag+=4;
@@ -238,14 +236,14 @@ constexpr real Teno5_CongZ(std::array<real,5> q)
             + 1.0/4.0*pow(3.0*q[2]-4.0*q[3]+1.0*q[4],2)};
 
     //int minBeta=(beta[0]>beta[1])? ((beta[2]>beta[1])? 1: 2):((beta[2]>beta[0])? 0 : 2);
-    int minBeta=std::min_element(beta.begin(),beta.end())-beta.begin();
+    unsigned short minBeta=std::min_element(beta.begin(),beta.end())-beta.begin();
     constexpr real CT=0.15704178024750198;
     constexpr real CT_1=1-CT;
     real tau=abs(beta[2]-beta[0]);//,KK=0.15704178024750198*(beta[minBeta]+tau);
     real rr=CT*tau-CT_1*beta[minBeta];
     real ll=tau*beta[minBeta];
     //unsigned flag=(minBeta!=0&&ll<rr*beta[0])+((minBeta!=1&&ll<rr*beta[1])<<1)+((minBeta!=2&&ll<rr*beta[2])<<2);
-    volatile unsigned flag=0;
+    unsigned short flag=0;
     if(ll<rr*beta[0]) flag+=1;
     if(ll<rr*beta[1]) flag+=2;
     if(ll<rr*beta[2]) flag+=4;
