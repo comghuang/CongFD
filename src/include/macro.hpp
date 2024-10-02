@@ -57,7 +57,8 @@ enum InterMethod{
     WCNSCONGPOLY,
     WCNS5CONGZ,
     WCNS5CONGABS,
-    TCNS5
+    TCNS5,
+    INTERMAX
 };
 enum DiffMethod{
     HDS6,

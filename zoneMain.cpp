@@ -1,6 +1,8 @@
 
 #include "blockSolver.hpp"
 #include "eigenSystem.hpp"
+#include <fstream>
+
 
 
 int main()
@@ -12,7 +14,7 @@ int main()
     // auto prim2=eig.charToPrim(eigValues);
     // std::cout<<"finish\n";
 
-    omp_set_num_threads(10);
+    omp_set_num_threads(0);
 
     Info* info=new Info;
 
@@ -24,10 +26,10 @@ int main()
     info->interMethod=TCNS5;
     //info->interMethod=WCNSZ5Char;
     //info->BVD=true;
-    //info->interMethod=WCNS5Char;
+    //info->interMethod=WCNS5Char; 
     //info->interMethod=WCNS5CONG;
     //info->interMethod=WCNSCONGPOLY;
-    info->interMethod=WCNS5CONGZ;
+    //info->interMethod=WCNS5CONGZ;
 
     //Shu-Osher
     info->endStep=1;
@@ -104,7 +106,7 @@ int main()
     // info->dim=2;
 
     //Riemann 1
-    // real endt=0.3;
+    // real endt=0.6;
     // int outputsteps=1;
     // info->endStep=outputsteps;
     // info->outputDt=endt/outputsteps;
@@ -120,7 +122,7 @@ int main()
     info->CFL=0.5;
     info->nCase=1;
     info->calZone={-0.5,0.5,-0.5,0.5,0,0};
-    info->iMax={401,401,2};
+    info->iMax={801,801,2};
     info->dim=2;
 
     //RT instability
@@ -146,6 +148,46 @@ int main()
     // info->iMax={801,201,2};
     // info->dim=2;
 
+
+    //file config mode
+    std::ifstream file("info.txt");
+    if (file.is_open())
+    { 
+        int n;
+        real nf;
+        file>>n;
+        if (n<INTERMAX) info->interMethod=(InterMethod)n;
+
+        file>>n;
+        info->endStep=n;
+
+        file>>nf;
+        info->outputDt=nf;
+
+        file>>nf;
+        info->CFL=nf;
+
+        file>>n;
+        info->nCase=n;
+
+        real nf1,nf2,nf3,nf4,nf5,nf6;
+        file>>nf1;file>>nf2;file>>nf3;file>>nf4;file>>nf5;file>>nf6;
+        info->calZone={nf1,nf2,nf3,nf4,nf5,nf6};
+
+        int n1,n2,n3;
+        file>>n1;file>>n2;file>>n3;
+        info->iMax={n1,n2,n3};
+
+        file>>n;
+        info->dim=n;
+        
+        std::cout<<"file mode initialization finished\n";
+
+    }
+    else {std::cout<<"file mode initialization failed\n";}
+    
+    InterMethod interscheme;
+
     BlockSolver bSolver(info);
     auto start = std::chrono::high_resolution_clock::now(); 
     if(info->eqType!=EULER)
@@ -161,9 +203,16 @@ int main()
     
     
     
+    std::ofstream timeinfo("timeInfo.txt");
 
    std::cout<<"totaltime= "<<duration<<"   Finish\n";
    std::cout<<"time= "<<timepp/1e6<<"   Finish\n";
    std::cout<<"timesteps= "<<bSolver.timesteps<<"   Finish\n";
    std::cout<<"solvertime= "<<timesss<<'\n';
+
+    timeinfo<<info->interMethod<<std::endl;
+   timeinfo<<"totaltime= "<<duration<<"   Finish\n";
+   timeinfo<<"time= "<<timepp/1e6<<"   Finish\n";
+   timeinfo<<"timesteps= "<<bSolver.timesteps<<"   Finish\n";
+   timeinfo<<"solvertime= "<<timesss<<'\n';
 }
