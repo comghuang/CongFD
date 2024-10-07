@@ -64,6 +64,7 @@ class SpaceDis
     std::vector<real> recon2DBVD2(int i);
     void calFluxEuler2DBVD(int i);
 
+    std::vector<real> recon1DFaceCenter(int i);
     std::vector<real> recon2DFaceCenter(int i);
 
 
@@ -91,7 +92,6 @@ class SpaceDis
     DiffMethod diffMethod=TRAD2;
     InterMethod interMethod=FIRSTORDER;
 
-    eigensystemEuler2D eig;
 
     //circular_buffer method
     //尝试用循环数组减小内存开销，觉得没啥意思算了
