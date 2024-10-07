@@ -25,8 +25,8 @@ class eigensystemEuler1D
     public:
     eigensystemEuler1D(const std::array<real,3> & prim);
     eigensystemEuler1D(const std::array<real,3> &priml,const std::array<real,3> &primr);
-    std::array<real,4> primToChar(const std::array<real,3> & prim);
-    std::array<real,4> charToPrim(const std::array<real,3> & chars);
+    std::array<real,3> primToChar(const std::array<real,3> & prim);
+    std::array<real,3> charToPrim(const std::array<real,3> & chars);
     
 
     private:

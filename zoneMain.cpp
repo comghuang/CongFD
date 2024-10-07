@@ -26,10 +26,10 @@ int main()
     info->interMethod=TCNS5;
     //info->interMethod=WCNSZ5Char;
     //info->BVD=true;
-    //info->interMethod=WCNS5Char; 
+    info->interMethod=WCNS5Char; 
     //info->interMethod=WCNS5CONG;
     //info->interMethod=WCNSCONGPOLY;
-    //info->interMethod=WCNS5CONGZ;
+    info->interMethod=WCNS5CONGZ;
 
     //Shu-Osher
     info->endStep=1;
@@ -56,7 +56,7 @@ int main()
     // info->CFL=0.1;
     // info->nCase=2;
     // info->calZone={-0.5,0.5,0,0,0,0};
-    // info->iMax={2001,2,2};
+    // info->iMax={201,2,2};
     // info->dim=1;
 
     //lax sod tube speed test
@@ -69,13 +69,13 @@ int main()
     // info->dim=1;
 
     //sedov
-    info->endStep=1;
-    info->outputDt=0.001;
-    info->CFL=0.5;
-    info->nCase=3;
-    info->calZone={-2,2,0,0,0,0};
-    info->iMax={400,2,2};
-    info->dim=1;
+    // info->endStep=1;
+    // info->outputDt=0.001;
+    // info->CFL=0.5;
+    // info->nCase=3;
+    // info->calZone={-2,2,0,0,0,0};
+    // info->iMax={400,2,2};
+    // info->dim=1;
 
     //Woodward-Colella
     // info->endStep=38;
@@ -117,25 +117,24 @@ int main()
     // info->dim=2;
 
     //Riemann 2 vortex
-    info->endStep=1;
-    info->outputDt=0.3;
-    info->CFL=0.5;
-    info->nCase=1;
-    info->calZone={-0.5,0.5,-0.5,0.5,0,0};
-    info->iMax={801,801,2};
-    info->dim=2;
+    // info->endStep=1;
+    // info->outputDt=0.3;
+    // info->CFL=0.5;
+    // info->nCase=1;
+    // info->calZone={-0.5,0.5,-0.5,0.5,0,0};
+    // info->iMax={801,801,2};
+    // info->dim=2;
 
     //RT instability
     //记得改GAMMA
-    // info->endStep=1;
-    // info->outputDt=1.95;
-    // info->CFL=0.5;
-    // info->nCase=3;
-    // info->calZone={0,0.25,0,1,0,0};
-    // info->iMax={101,401,2};
-    // info->iMax={65,257,2};
-    // info->dim=2;
-    // info->sourceType=GRAVITY;
+    info->endStep=1;
+    info->outputDt=1.95;
+    info->CFL=0.5;
+    info->nCase=3;
+    info->calZone={0,0.25,0,1,0,0};
+    info->iMax={101,401,2};
+    info->dim=2;
+    info->sourceType=GRAVITY;
 
 
     //info->diffMethod=HDS6;

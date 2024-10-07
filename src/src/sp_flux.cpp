@@ -86,29 +86,58 @@ void SpaceDis::calFluxEuler1DHLLC(int i)
     
 }
 
+// void SpaceDis::calFluxEuler1D(int i)
+// {
+//     /*for u_t + a * u_x == 0*/
+//     auto WL=(this->*reconLMethod)(i);
+//     auto WR=(this->*reconRMethod)(i);
+//     enum{R,U,P};
+//     if (WL[P]<0||WL[R]<0)
+//     {
+//         WL[R]=at(i-1,R);
+//         WL[U]=at(i-1,U);
+//         WL[P]=at(i-1,P);
+//         std::cout<<"SpaceDis error: negative pressure/Density \n";
+//     }
+//     if (WR[P]<0||WR[R]<0)
+//     {
+//         WR[R]=at(i,R);
+//         WR[U]=at(i,U);
+//         WR[P]=at(i,P);
+//         std::cout<<"SpaceDis error: negative pressure/Density \n";
+//     }
+//     std::vector<real> iflux=roeFlux1D2(WL[0],WR[0],WL[1],WR[1],WL[2],WR[2]);
+    
+//     //auto iflux=HLLCFlux1D(WL[0],WR[0],WL[1],WR[1],WL[2],WR[2]);
+//     //std::vector<real> iflux2=roeFlux1D(r,u,p,H,RT);
+//     for (int ivar = 0; ivar < 3; ivar++)
+//     {
+//         fluxAt(i,ivar)=iflux[ivar];
+//     }
+// }
+
 void SpaceDis::calFluxEuler1D(int i)
 {
     /*for u_t + a * u_x == 0*/
-    auto WL=(this->*reconLMethod)(i);
-    auto WR=(this->*reconRMethod)(i);
+    auto W=this->recon1DFaceCenter(i);
     enum{R,U,P};
-    if (WL[P]<0||WL[R]<0)
+    if (W[0]<0||W[2]<0)
     {
-        WL[R]=at(i-1,R);
-        WL[U]=at(i-1,U);
-        WL[P]=at(i-1,P);
+        W[0]=at(i-1,R);
+        W[1]=at(i-1,U);
+        W[2]=at(i-1,P);
         std::cout<<"SpaceDis error: negative pressure/Density \n";
     }
-    if (WR[P]<0||WR[R]<0)
+    if (W[3]<0||W[5]<0)
     {
-        WR[R]=at(i,R);
-        WR[U]=at(i,U);
-        WR[P]=at(i,P);
+        W[3]=at(i,R);
+        W[4]=at(i,U);
+        W[5]=at(i,P);
         std::cout<<"SpaceDis error: negative pressure/Density \n";
     }
-    //std::vector<real> iflux=roeFlux1D2(WL[0],WR[0],WL[1],WR[1],WL[2],WR[2]);
-    
-    auto iflux=HLLCFlux1D(WL[0],WR[0],WL[1],WR[1],WL[2],WR[2]);
+    std::vector<real> iflux=roeFlux1D2(W[0],W[3],W[1],W[4],W[2],W[5]);
+
+    //auto iflux=HLLCFlux1D(W[0],W[3],W[1],W[4],W[2],W[5]);
     //std::vector<real> iflux2=roeFlux1D(r,u,p,H,RT);
     for (int ivar = 0; ivar < 3; ivar++)
     {
@@ -119,23 +148,23 @@ void SpaceDis::calFluxEuler1D(int i)
 void SpaceDis::calFluxEuler1DBVD(int i)
 {
     /*for u_t + a * u_x == 0*/
-    auto W=recon1DBVD2(i);
+    auto W=this->recon1DFaceCenter(i);
     enum{R,U,P};
-    if (W[P*2]<0||W[R*2]<0||isnan(W[R*2])||isnan(W[P*2]))
+    if (W[0]<0||W[2]<0)
     {
-        W[R*2]=at(i-1,R);
-        W[U*2]=at(i-1,U);
-        W[P*2]=at(i-1,P);
+        W[0]=at(i-1,R);
+        W[1]=at(i-1,U);
+        W[2]=at(i-1,P);
         std::cout<<"SpaceDis error: negative pressure/Density \n";
     }
-    if (W[P*2+1]<0||W[R*2+1]<0||isnan(W[R*2+1])||isnan(W[P*2+1]))
+    if (W[3]<0||W[5]<0)
     {
-        W[R*2+1]=at(i,R);
-        W[U*2+1]=at(i,U);
-        W[P*2+1]=at(i,P);
+        W[3]=at(i,R);
+        W[4]=at(i,U);
+        W[5]=at(i,P);
         std::cout<<"SpaceDis error: negative pressure/Density \n";
     }
-    std::vector<real> iflux=roeFlux1D2(W[0],W[1],W[2],W[3],W[4],W[5]);
+    std::vector<real> iflux=roeFlux1D2(W[0],W[3],W[1],W[4],W[2],W[5]);
 
     //auto iflux=HLLCFlux1D(W[0],W[1],W[2],W[3],W[4],W[5]);
     //std::vector<real> iflux2=roeFlux1D(r,u,p,H,RT);

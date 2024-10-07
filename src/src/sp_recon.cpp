@@ -402,6 +402,45 @@ std::vector<real> SpaceDis::recon2DBVD2(int i)
     Q4=minDif(Q4LPrim,Q4RPrim);
     return {Q1[0],Q1[1],Q2[0],Q2[1],Q3[0],Q3[1],Q4[0],Q4[1]};
 }
+std::vector<real> SpaceDis::recon1DFaceCenter(int i)
+{
+    std::array<real,3> primL,primR;
+    memcpy(&primL[0],&at(i-1,0),nVar*sizeof(real));
+    memcpy(&primR[0],&at(i,0),nVar*sizeof(real));
+    eigensystemEuler1D eig=eigensystemEuler1D(primL,primR);
+    std::array<real,5> q1L,q2L,q3L,q1R,q2R,q3R;
+    for(int j=i-3;j<i+3;j++)
+    {
+        enum{R,U,P};
+        auto charTemp=eig.primToChar({at(j,R),at(j,U),at(j,P)});
+
+        int iLocal=j-i+3;
+        if(iLocal<5){
+        q1L[iLocal]=charTemp[0];
+        q2L[iLocal]=charTemp[1];
+        q3L[iLocal]=charTemp[2];}
+
+        iLocal=i+2-j;
+        if(iLocal<5){
+        q1R[iLocal]=charTemp[0];
+        q2R[iLocal]=charTemp[1];
+        q3R[iLocal]=charTemp[2];}
+    }
+    auto start = std::chrono::steady_clock::now(); 
+    auto Q1LL=inter5(q1L);
+    auto Q1RR=inter5(q1R);
+    auto Q2LL=inter5(q2L);
+    auto Q2RR=inter5(q2R);
+    auto Q3LL=inter5(q3L);
+    auto Q3RR=inter5(q3R);
+    auto stop = std::chrono::steady_clock::now(); 
+    auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count(); 
+    timep+=duration;
+
+    auto resTempL=eig.charToPrim({Q1LL,Q2LL,Q3LL});
+    auto resTempR=eig.charToPrim({Q1RR,Q2RR,Q3RR});
+    return {resTempL[0],resTempL[1],resTempL[2],resTempR[0],resTempR[1],resTempR[2]};
+}
 
 
 std::vector<real> SpaceDis::recon2DFaceCenter(int i)
@@ -409,7 +448,7 @@ std::vector<real> SpaceDis::recon2DFaceCenter(int i)
     std::array<real,4> primL,primR;
     memcpy(&primL[0],&at(i-1,0),nVar*sizeof(real));
     memcpy(&primR[0],&at(i,0),nVar*sizeof(real));
-    eig=eigensystemEuler2D(primL,primR,norm);
+    eigensystemEuler2D eig=eigensystemEuler2D(primL,primR,norm);
     std::array<real,5> q1L,q2L,q3L,q4L,q1R,q2R,q3R,q4R;
     for(int j=i-3;j<i+3;j++)
     {
@@ -453,6 +492,7 @@ std::vector<real> SpaceDis::reconLChar2D(int i)
     assert(info->dim==2);
     assert(info->eqType==EULER);
     enum{R,U,V,P};
+    eigensystemEuler2D eig=eigensystemEuler2D({at(i-1,R),at(i-1,U),at(i-1,V),at(i-1,P)},norm);
     std::array<real,5> q1,q2,q3,q4;
     for(int j=i-3;j<i+2;j++)
     {
@@ -480,6 +520,7 @@ std::vector<real> SpaceDis::reconRChar2D(int i)
     assert(info->dim==2);
     
     enum{R,U,V,P};
+    eigensystemEuler2D eig=eigensystemEuler2D({at(i,R),at(i,U),at(i,V),at(i,P)},norm);
     std::array<real,5> q1,q2,q3,q4;
     for(int j=i+2;j>i-3;j--)
     {
