@@ -396,7 +396,7 @@ constexpr std::array<real,4> roeFlux2DSym(real rl,real rr,real ul,real ur,real v
     //         lambda[i]=(lambda[i]*lambda[i]+eps*eps)/(2.0*eps);
     //     }
     // }
-    real eps=0.05*(abs(VnAvg)+cAvg);
+    real eps=0.1*(abs(VnAvg)+cAvg);
     for(int i=0;i<3;i++)
     {
         if(lambda[i]<eps)

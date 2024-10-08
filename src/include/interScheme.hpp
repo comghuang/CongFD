@@ -134,7 +134,7 @@ constexpr real Teno5_Z(std::array<real,5> q)
         beta[i]=tempp*tempp*tempp;
         sumbeta+=beta[i];
     }
-    real CT=1e-5*sumbeta;
+    real CT=1e-4*sumbeta;
     // if(isinf(sumbeta))
     // {
     //     std::cout<<"inf beta\n";
@@ -221,7 +221,7 @@ constexpr real Teno5_Z2(std::array<real,5> q)
 }
 
 
-const static real CTi=pow(1.5*1e-6,1.0/6.0);
+const static real CTi=pow(1.5*1e-4,1.0/6.0);
 constexpr real Teno5_CongZ(std::array<real,5> q)
 {
     real eps=1e-40;//1e-10;
@@ -237,7 +237,9 @@ constexpr real Teno5_CongZ(std::array<real,5> q)
 
     //int minBeta=(beta[0]>beta[1])? ((beta[2]>beta[1])? 1: 2):((beta[2]>beta[0])? 0 : 2);
     unsigned short minBeta=std::min_element(beta.begin(),beta.end())-beta.begin();
-    constexpr real CT=0.15704178024750198;//5
+    constexpr real CT=0.23050581003334941;//4
+    //constexpr real CT=0.15704178024750198;//5
+    //constexpr real CT=0.157;//5
     //constexpr real CT=0.10699131939336631;//6
     //constexpr real CT=0.072892337360747711; //7
     //constexpr real CT=0.033833625914958219;//9

@@ -37,14 +37,18 @@ eigensystemEuler2D::eigensystemEuler2D(const std::array<real,4> &priml,const std
       p=r*h*((gamma-1)/gamma);
 
       leftEig={norm[Y]              ,(-norm[X])             ,0          ,(-norm[Y]*u+norm[X]*v),
-               u/h                  , v/h                   ,-1.0/h     , (h-ek)/h,
+               u                  , v                   ,-1.0     , (h-ek),
                (-norm[X]/c-u/h)/2   ,(-norm[Y]/c-v/h)/2     ,1.0/(2.0*h),(Vn/c+ek/h)/2,
                (norm[X]/c-u/h)/2    ,(norm[Y]/c-v/h)/2      ,1.0/(2.0*h),(-Vn/c+ek/h)/2};
       
-      rightEig={1 ,1          ,1          ,0,
-                u ,u-norm[X]*c,u+norm[X]*c,norm[Y] ,
-                v ,v-norm[Y]*c,v+norm[Y]*c,-norm[X],
-                ek,h+ek-Vn*c  ,h+ek+Vn*c  ,norm[Y]*u-norm[X]*v};
+      rightEig={1.0/h ,1          ,1          ,0,
+                u/h ,u-norm[X]*c,u+norm[X]*c,norm[Y] ,
+                v/h ,v-norm[Y]*c,v+norm[Y]*c,-norm[X],
+                ek/h,h+ek-Vn*c  ,h+ek+Vn*c  ,norm[Y]*u-norm[X]*v};
+      // rightEig={1 ,1          ,1          ,0 ,
+      //           u ,u          ,u          ,0 ,
+      //           v ,v          ,v          ,0 ,
+      //           ek,h+ek       ,h+ek       ,0 };
 }
 
 
@@ -56,23 +60,23 @@ std::array<real,4> eigensystemEuler2D::primToChar(const std::array<real,4> &prim
 
     std::array<real,4> res;
 
-    res[0]=rut* leftEig[0]
-          +rvt* leftEig[1]
+    res[0]= ut* leftEig[0]*rt
+          + vt* leftEig[1]*rt
           +ret* leftEig[2]
           +rt * leftEig[3];
 
-    res[1]=rut* leftEig[4]
-          +rvt* leftEig[5]
+    res[1]= ut* leftEig[4]*rt
+          + vt* leftEig[5]*rt
           +ret* leftEig[6]
           +rt * leftEig[7];
 
-    res[2]=rut* leftEig[8]
-          +rvt* leftEig[9]
+    res[2]= ut* leftEig[8]*rt
+          + vt* leftEig[9]*rt
           +ret* leftEig[10]
           +rt * leftEig[11];
 
-    res[3]=rut* leftEig[12]
-          +rvt* leftEig[13]
+    res[3]= ut* leftEig[12]*rt
+          + vt* leftEig[13]*rt
           +ret* leftEig[14]
           +rt * leftEig[15];
     
@@ -104,9 +108,8 @@ std::array<real,4> eigensystemEuler2D::charToPrim(const std::array<real,4> & cha
 
     real ut=rut/rt;
     real vt=rvt/rt;
-    real Et=ret/rt;
-    real ekt=(ut*ut+vt*vt)/2;
-    real pt=(gamma-1)*(ret-rt*ekt);
+    real rekt=(rut*rut+rvt*rvt)/rt/2;
+    real pt=(gamma-1)*(ret-rekt);
     return{rt,ut,vt,pt};
 }
 

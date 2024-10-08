@@ -110,8 +110,8 @@ void OneDBnd::update()
         for (int i = 0; i < n; i++) 
         {
             real x=coor[0];
-            //real y=-dh[1]/2+i*dh[1];
-            real y=dh[1]/2;
+            real y=-dh[1]/2+i*dh[1];
+            //real y=dh[1]/2;
             real gt=1.0/6.0+sqrt(3.0)/3.0*(1.0+20*info->t);
             std::array<real,4> exactValues;
             if(y>sqrt(3.0)*(x-gt))

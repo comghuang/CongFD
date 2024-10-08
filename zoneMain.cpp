@@ -14,7 +14,7 @@ int main()
     // auto prim2=eig.charToPrim(eigValues);
     // std::cout<<"finish\n";
 
-    omp_set_num_threads(0);
+    omp_set_num_threads(20);
 
     Info* info=new Info;
 
@@ -127,14 +127,14 @@ int main()
 
     //RT instability
     //记得改GAMMA
-    info->endStep=1;
-    info->outputDt=1.95;
-    info->CFL=0.5;
-    info->nCase=3;
-    info->calZone={0,0.25,0,1,0,0};
-    info->iMax={101,401,2};
-    info->dim=2;
-    info->sourceType=GRAVITY;
+    // info->endStep=1;
+    // info->outputDt=1.95;
+    // info->CFL=0.5;
+    // info->nCase=3;
+    // info->calZone={0,0.25,0,1,0,0};
+    // info->iMax={201,801,2};
+    // info->dim=2;
+    // info->sourceType=GRAVITY;
 
 
     //info->diffMethod=HDS6;

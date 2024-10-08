@@ -227,7 +227,7 @@ void SpaceDis::calFluxEuler2D(int i)
         //                       ,at(i-3,3),at(i-2,3),at(i-1,3),at(i,3),at(i+1,3)
         //                       ,beta[0],beta[1],beta[2],flag);
         std::cout<<std::format("SpaceDis error L: negative pressure i={}\n",i);
-        W={at(i-1,0),at(i-1,1),at(i-1,2),at(i-1,3),at(i,0),at(i,1),at(i,2),at(i,3)};
+        W={at(i-1,0),at(i-1,1),at(i-1,2),at(i-1,3),W[4],W[5],W[6],W[7]};
         auto WX=(this->*reconLMethod)(i);
         
     }
@@ -245,14 +245,13 @@ void SpaceDis::calFluxEuler2D(int i)
         // std::cout<<std::format("SpaceDis error R: negative pressure i={} WLR={} WRR={} WLP={} WRP={} WS={:.4f} {:.4f} {:.4f} {:.4f} {:.4f} beta={:.4f} {:.4f} {:.4f}\n"
         //                       ,i,WL[0],WR[0],WL[3],WR[3],at(i-2,3),at(i-1,3),at(i,3),at(i+1,3),at(i+2,3),beta[0],beta[1],beta[2]);
         std::cout<<std::format("SpaceDis error R: negative pressure i={}\n",i);
-        W={at(i-1,0),at(i-1,1),at(i-1,2),at(i-1,3),at(i,0),at(i,1),at(i,2),at(i,3)};
+        W={W[0],W[1],W[2],W[3],at(i,0),at(i,1),at(i,2),at(i,3)};
         // auto WX=(this->*reconRMethod)(i);
     }
 
     
-    auto iflux=roeFlux2DSym(W[0],W[4],W[1],W[5],W[2],W[6],W[3],W[7],norm);
-    
-    //auto iflux=HLLCFlux2D(W[0],W[4],W[1],W[5],W[2],W[6],W[3],W[7],norm);
+    //auto iflux=roeFlux2DSym(W[0],W[4],W[1],W[5],W[2],W[6],W[3],W[7],norm);
+    auto iflux=HLLCFlux2D(W[0],W[4],W[1],W[5],W[2],W[6],W[3],W[7],norm);
     //std::vector<real> iflux2=roeFlux1D(r,u,p,H,RT);
     for (int ivar = 0; ivar < 4; ivar++)
     {
