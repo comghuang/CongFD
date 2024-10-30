@@ -24,31 +24,27 @@ eigensystemEuler2D::eigensystemEuler2D(const std::array<real,4> &priml,const std
       H[RR]=(ur*ur+vr*vr)/2+pr/rr*gamma/(gamma-1);
       real coef1=sqrt(rl);
       real coef2=sqrt(rr);
-      real divisor=1.0/(sqrt(rl)+sqrt(rr));
+      real divisor=1.0/(coef1+coef2);
 
       r=sqrt(rl*rr);
       u=(coef1*ul+coef2*ur)*divisor;
       v=(coef1*vl+coef2*vr)*divisor;
       Vn=norm[0]*u+norm[1]*v;
       real ht=(coef1*H[LL]+coef2*H[RR])*divisor;
-      ek=(u*u+v*v)*0.5;
+      ek=(u*u+v*v)/2;
       h=ht-ek;
       c=sqrt((gamma-1)*h);
       p=r*h*((gamma-1)/gamma);
 
-      leftEig={norm[Y]              ,(-norm[X])             ,0          ,(-norm[Y]*u+norm[X]*v),
-               u                  , v                   ,-1.0     , (h-ek),
-               (-norm[X]/c-u/h)/2   ,(-norm[Y]/c-v/h)/2     ,1.0/(2.0*h),(Vn/c+ek/h)/2,
-               (norm[X]/c-u/h)/2    ,(norm[Y]/c-v/h)/2      ,1.0/(2.0*h),(-Vn/c+ek/h)/2};
+      leftEig={(-norm[Y]*u+norm[X]*v),norm[Y]              ,(-norm[X])             ,0          ,
+               (h-ek)                ,u                    , v                     ,-1.0       , 
+               (Vn/c+ek/h)/2         ,(-norm[X]/c-u/h)/2   ,(-norm[Y]/c-v/h)/2     ,1.0/(2.0*h),
+               (-Vn/c+ek/h)/2        ,(norm[X]/c-u/h)/2    ,(norm[Y]/c-v/h)/2      ,1.0/(2.0*h)};
       
-      rightEig={1.0/h ,1          ,1          ,0,
-                u/h ,u-norm[X]*c,u+norm[X]*c,norm[Y] ,
-                v/h ,v-norm[Y]*c,v+norm[Y]*c,-norm[X],
-                ek/h,h+ek-Vn*c  ,h+ek+Vn*c  ,norm[Y]*u-norm[X]*v};
-      // rightEig={1 ,1          ,1          ,0 ,
-      //           u ,u          ,u          ,0 ,
-      //           v ,v          ,v          ,0 ,
-      //           ek,h+ek       ,h+ek       ,0 };
+      rightEig={0                  ,1.0/h ,1           ,1          ,
+                norm[Y]            ,u/h   ,u-norm[X]*c ,u+norm[X]*c,
+                -norm[X]           ,v/h   ,v-norm[Y]*c ,v+norm[Y]*c,
+                norm[Y]*u-norm[X]*v,ek/h  ,h+ek-Vn*c   ,h+ek+Vn*c  };
 }
 
 
@@ -60,25 +56,25 @@ std::array<real,4> eigensystemEuler2D::primToChar(const std::array<real,4> &prim
 
     std::array<real,4> res;
 
-    res[0]= ut* leftEig[0]*rt
-          + vt* leftEig[1]*rt
-          +ret* leftEig[2]
-          +rt * leftEig[3];
+    res[0]=rut* leftEig[1]
+          +rvt* leftEig[2]
+          +ret* leftEig[3]
+          +rt * leftEig[0];
 
-    res[1]= ut* leftEig[4]*rt
-          + vt* leftEig[5]*rt
-          +ret* leftEig[6]
-          +rt * leftEig[7];
+    res[1]=rut* leftEig[5]
+          +rvt* leftEig[6]
+          +ret* leftEig[7]
+          +rt * leftEig[4];
 
-    res[2]= ut* leftEig[8]*rt
-          + vt* leftEig[9]*rt
-          +ret* leftEig[10]
-          +rt * leftEig[11];
+    res[2]=rut* leftEig[9]
+          +rvt* leftEig[10]
+          +ret* leftEig[11]
+          +rt * leftEig[8];
 
-    res[3]= ut* leftEig[12]*rt
-          + vt* leftEig[13]*rt
-          +ret* leftEig[14]
-          +rt * leftEig[15];
+    res[3]=rut* leftEig[13]
+          +rvt* leftEig[14]
+          +ret* leftEig[15]
+          +rt * leftEig[12];
     
     return res;
 
@@ -86,25 +82,25 @@ std::array<real,4> eigensystemEuler2D::primToChar(const std::array<real,4> &prim
 std::array<real,4> eigensystemEuler2D::charToPrim(const std::array<real,4> & chars)
 {
     real ch1=chars[0],ch2=chars[1],ch3=chars[2],ch4=chars[3],rt,rut,rvt,ret;
-    rt    =ch2* rightEig[0]
-          +ch3* rightEig[1]
-          +ch4* rightEig[2]
-          +ch1* rightEig[3];
+    rt    =ch3* rightEig[2]
+          +ch4* rightEig[3]
+          +ch2* rightEig[1]
+          +ch1* rightEig[0];
 
-    rut   =ch2* rightEig[4]
-          +ch3* rightEig[5]
-          +ch4* rightEig[6]
-          +ch1* rightEig[7];
+    rut   =ch3* rightEig[6]
+          +ch4* rightEig[7]
+          +ch2* rightEig[5]
+          +ch1* rightEig[4];
 
-    rvt   =ch2* rightEig[8]
-          +ch3* rightEig[9]
-          +ch4* rightEig[10]
-          +ch1* rightEig[11];
+    rvt   =ch3* rightEig[10]
+          +ch4* rightEig[11]
+          +ch2* rightEig[9]
+          +ch1* rightEig[8];
 
-    ret   =ch2* rightEig[12]
-          +ch3* rightEig[13]
-          +ch4* rightEig[14]
-          +ch1* rightEig[15];
+    ret   =ch3* rightEig[14]
+          +ch4* rightEig[15]
+          +ch2* rightEig[13]
+          +ch1* rightEig[12];
 
     real ut=rut/rt;
     real vt=rvt/rt;

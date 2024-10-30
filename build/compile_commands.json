@@ -12,6 +12,12 @@
   "output": "CMakeFiles/accuracyTest.dir/accuracyTest.cpp.o"
 },
 {
+  "directory": "/mnt/e/CPP/CongFD/build",
+  "command": "/usr/sbin/g++  -I/mnt/e/CPP/CongFD/src/include -g -std=gnu++23 -fopenmp -o CMakeFiles/symmetrytest.dir/symmetrytest.cpp.o -c /mnt/e/CPP/CongFD/symmetrytest.cpp",
+  "file": "/mnt/e/CPP/CongFD/symmetrytest.cpp",
+  "output": "CMakeFiles/symmetrytest.dir/symmetrytest.cpp.o"
+},
+{
   "directory": "/mnt/e/CPP/CongFD/build/src",
   "command": "/usr/sbin/g++  -I/mnt/e/CPP/CongFD/src/include -g -std=gnu++23 -fopenmp -o CMakeFiles/libcongFD.dir/src/SpaceDis.cpp.o -c /mnt/e/CPP/CongFD/src/src/SpaceDis.cpp",
   "file": "/mnt/e/CPP/CongFD/src/src/SpaceDis.cpp",

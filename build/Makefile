@@ -164,6 +164,19 @@ accuracyTest/fast:
 .PHONY : accuracyTest/fast
 
 #=============================================================================
+# Target rules for targets named symmetrytest
+
+# Build rule for target.
+symmetrytest: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 symmetrytest
+.PHONY : symmetrytest
+
+# fast build rule for target.
+symmetrytest/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/symmetrytest.dir/build.make CMakeFiles/symmetrytest.dir/build
+.PHONY : symmetrytest/fast
+
+#=============================================================================
 # Target rules for targets named libcongFD
 
 # Build rule for target.
@@ -199,6 +212,30 @@ accuracyTest.s: accuracyTest.cpp.s
 accuracyTest.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/accuracyTest.dir/build.make CMakeFiles/accuracyTest.dir/accuracyTest.cpp.s
 .PHONY : accuracyTest.cpp.s
+
+symmetrytest.o: symmetrytest.cpp.o
+.PHONY : symmetrytest.o
+
+# target to build an object file
+symmetrytest.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/symmetrytest.dir/build.make CMakeFiles/symmetrytest.dir/symmetrytest.cpp.o
+.PHONY : symmetrytest.cpp.o
+
+symmetrytest.i: symmetrytest.cpp.i
+.PHONY : symmetrytest.i
+
+# target to preprocess a source file
+symmetrytest.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/symmetrytest.dir/build.make CMakeFiles/symmetrytest.dir/symmetrytest.cpp.i
+.PHONY : symmetrytest.cpp.i
+
+symmetrytest.s: symmetrytest.cpp.s
+.PHONY : symmetrytest.s
+
+# target to generate assembly for a file
+symmetrytest.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/symmetrytest.dir/build.make CMakeFiles/symmetrytest.dir/symmetrytest.cpp.s
+.PHONY : symmetrytest.cpp.s
 
 zoneMain.o: zoneMain.cpp.o
 .PHONY : zoneMain.o
@@ -237,9 +274,13 @@ help:
 	@echo "... accuracyTest"
 	@echo "... congFD"
 	@echo "... libcongFD"
+	@echo "... symmetrytest"
 	@echo "... accuracyTest.o"
 	@echo "... accuracyTest.i"
 	@echo "... accuracyTest.s"
+	@echo "... symmetrytest.o"
+	@echo "... symmetrytest.i"
+	@echo "... symmetrytest.s"
 	@echo "... zoneMain.o"
 	@echo "... zoneMain.i"
 	@echo "... zoneMain.s"

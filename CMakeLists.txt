@@ -24,6 +24,9 @@ target_link_libraries(${PROJECT_NAME} PUBLIC libcongFD OpenMP::OpenMP_CXX)
 add_executable(accuracyTest accuracyTest.cpp)
 target_link_libraries(accuracyTest PUBLIC libcongFD OpenMP::OpenMP_CXX)
 
+add_executable(symmetrytest symmetrytest.cpp)
+target_link_libraries(symmetrytest PUBLIC libcongFD OpenMP::OpenMP_CXX)
+
 
 
 add_subdirectory(src)

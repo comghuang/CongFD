@@ -65,6 +65,7 @@ CMAKE_BINARY_DIR = /mnt/e/CPP/CongFD/build
 # The main recursive "all" target.
 all: CMakeFiles/congFD.dir/all
 all: CMakeFiles/accuracyTest.dir/all
+all: CMakeFiles/symmetrytest.dir/all
 all: src/all
 all: utils/all
 .PHONY : all
@@ -77,6 +78,7 @@ preinstall: utils/preinstall
 # The main recursive "clean" target.
 clean: CMakeFiles/congFD.dir/clean
 clean: CMakeFiles/accuracyTest.dir/clean
+clean: CMakeFiles/symmetrytest.dir/clean
 clean: src/clean
 clean: utils/clean
 .PHONY : clean
@@ -162,6 +164,32 @@ accuracyTest: CMakeFiles/accuracyTest.dir/rule
 CMakeFiles/accuracyTest.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/accuracyTest.dir/build.make CMakeFiles/accuracyTest.dir/clean
 .PHONY : CMakeFiles/accuracyTest.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/symmetrytest.dir
+
+# All Build rule for target.
+CMakeFiles/symmetrytest.dir/all: src/CMakeFiles/libcongFD.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/symmetrytest.dir/build.make CMakeFiles/symmetrytest.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/symmetrytest.dir/build.make CMakeFiles/symmetrytest.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/mnt/e/CPP/CongFD/build/CMakeFiles --progress-num=26,27 "Built target symmetrytest"
+.PHONY : CMakeFiles/symmetrytest.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/symmetrytest.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/e/CPP/CongFD/build/CMakeFiles 23
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/symmetrytest.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /mnt/e/CPP/CongFD/build/CMakeFiles 0
+.PHONY : CMakeFiles/symmetrytest.dir/rule
+
+# Convenience name for target.
+symmetrytest: CMakeFiles/symmetrytest.dir/rule
+.PHONY : symmetrytest
+
+# clean rule for target.
+CMakeFiles/symmetrytest.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/symmetrytest.dir/build.make CMakeFiles/symmetrytest.dir/clean
+.PHONY : CMakeFiles/symmetrytest.dir/clean
 
 #=============================================================================
 # Target rules for target src/CMakeFiles/libcongFD.dir

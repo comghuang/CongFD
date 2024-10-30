@@ -1,5 +1,6 @@
 /mnt/e/CPP/CongFD/build/CMakeFiles/congFD.dir
 /mnt/e/CPP/CongFD/build/CMakeFiles/accuracyTest.dir
+/mnt/e/CPP/CongFD/build/CMakeFiles/symmetrytest.dir
 /mnt/e/CPP/CongFD/build/CMakeFiles/package.dir
 /mnt/e/CPP/CongFD/build/CMakeFiles/package_source.dir
 /mnt/e/CPP/CongFD/build/CMakeFiles/edit_cache.dir

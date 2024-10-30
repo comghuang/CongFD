@@ -102,12 +102,11 @@ std::vector<real> SpaceDis::reconRChar1D(int i)
 
 static std::array<real,2> minDif(real u1L,real u2L,real u1R,real u2R)
 {
-    std::array<real,4> difs={abs(u1L-u1R),abs(u1L-u2R),abs(u2L-u1L),abs(u2L-u2R)};
+    std::array<real,3> difs={abs(u1L-u1R),abs(u1L-u2R),abs(u2L-u1R)};
     int index=std::min_element(difs.begin(),difs.end())-difs.begin();
     if(index==0) return{u1L,u1R};
     if(index==1) return{u1L,u2R};
     if(index==2) return{u2L,u1R};
-    if(index==3) return{u2L,u2R};
     std::cout<<"spRecon Error: minDif index out\n";
     return{0,0};
 }
@@ -117,8 +116,21 @@ static std::array<real,2> minDif(std::array<real,3> uL,std::array<real,3> uR)
     std::array<real,2> difs={abs(uL[0]-uR[0]),abs(uL[1]-uR[1])};
     int index=std::min_element(difs.begin(),difs.end())-difs.begin();
          if(index==0) return{uL[0],uR[0]};
+    else if(index==1) return{uL[1],uR[1]};
+    std::cout<<"spRecon Error: minDif index out\n";
+    return{0,0};
+}
+
+static std::array<real,2> minDif(std::array<real,2> uL,std::array<real,2> uR)
+{
+    // std::array<real,4> difs={abs(uL[0]-uR[0]),abs(uL[1]-uR[1]),abs(uL[0]-uR[1]),abs(uL[1]-uR[0])};
+    std::array<real,2> difs={abs(uL[0]-uR[0]),abs(uL[1]-uR[1])};
+    int index=std::min_element(difs.begin(),difs.end())-difs.begin();
+         if(index==0) return{uL[0],uR[0]};
     else if(index==1) 
     return{uL[1],uR[1]};
+    else if(index==2) return{uL[0],uR[1]};
+    else if(index==3) return{uL[1],uR[0]};
     std::cout<<"spRecon Error: minDif index out\n";
     return{0,0};
 }
@@ -191,6 +203,8 @@ std::vector<real> SpaceDis::recon1DBVD(int i)
     Q1=minDif(Q1LL,Q1RR);
     Q2=minDif(Q2LL,Q2RR);
     Q3=minDif(Q3LL,Q3RR);
+
+
     // Q1=(flagL1&&flagR1)? minDif(Q1LL,Q1RR):minDif2(Q1LL,Q1RR);
     // Q2=(flagL2&&flagR2)? minDif(Q2LL,Q2RR):minDif2(Q2LL,Q2RR);
     // Q3=(flagL3&&flagR3)? minDif(Q3LL,Q3RR):minDif2(Q3LL,Q3RR);
@@ -289,7 +303,6 @@ std::vector<real> SpaceDis::recon2DBVD(int i)
     std::array<real,5> q1L,q2L,q3L,q4L,q1R,q2R,q3R,q4R;
     for(int j=i-3;j<i+3;j++)
     {
-        
         real Vn=norm[0]*at(j,U)+norm[1]*at(j,V);
         real q1tmp=norm[0]*at(j,V)-norm[1]*at(j,U);
         real q2tmp=at(j,R)-at(j,P)/(cRef*cRef);
@@ -426,16 +439,31 @@ std::vector<real> SpaceDis::recon1DFaceCenter(int i)
         q2R[iLocal]=charTemp[1];
         q3R[iLocal]=charTemp[2];}
     }
-    auto start = std::chrono::steady_clock::now(); 
+    // auto start = std::chrono::steady_clock::now(); 
     auto Q1LL=inter5(q1L);
     auto Q1RR=inter5(q1R);
     auto Q2LL=inter5(q2L);
     auto Q2RR=inter5(q2R);
     auto Q3LL=inter5(q3L);
     auto Q3RR=inter5(q3R);
-    auto stop = std::chrono::steady_clock::now(); 
-    auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count(); 
-    timep+=duration;
+
+    auto Q1LLTHINC=THINC1(q1L[1],q1L[2],q1L[3]);
+    auto Q1RRTHINC=THINC1(q1R[1],q1R[2],q1R[3]);
+    auto Q2LLTHINC=THINC1(q2L[1],q2L[2],q2L[3]);
+    auto Q2RRTHINC=THINC1(q2R[1],q2R[2],q2R[3]);
+    auto Q3LLTHINC=THINC1(q3L[1],q3L[2],q3L[3]);
+    auto Q3RRTHINC=THINC1(q3R[1],q3R[2],q3R[3]);
+
+    std::array<real,2> Q1,Q2,Q3;
+    Q1=minDif((std::array<real,2>){Q1LL,Q1LLTHINC},(std::array<real,2>){Q1RR,Q1RRTHINC});
+    Q2=minDif((std::array<real,2>){Q2LL,Q2LLTHINC},(std::array<real,2>){Q2RR,Q2RRTHINC});
+    Q3=minDif((std::array<real,2>){Q3LL,Q3LLTHINC},(std::array<real,2>){Q3RR,Q3RRTHINC});
+    Q1LL=Q1[0];Q1RR=Q1[1];
+    Q2LL=Q2[0];Q2RR=Q2[1];
+    Q3LL=Q3[0];Q3RR=Q3[1];
+    // auto stop = std::chrono::steady_clock::now(); 
+    // auto duration = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start).count(); 
+    // timep+=duration;
 
     auto resTempL=eig.charToPrim({Q1LL,Q2LL,Q3LL});
     auto resTempR=eig.charToPrim({Q1RR,Q2RR,Q3RR});

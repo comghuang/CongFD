@@ -112,7 +112,7 @@ constexpr real weno5_Z(std::array<real,5> q)
     return result/sumbeta;
 }
 
-constexpr real Teno5_Z(std::array<real,5> q)
+constexpr real Teno5_ZCT4(std::array<real,5> q)
 {
     real eps=1e-40;
     std::array<real,3> beta;
@@ -135,10 +135,6 @@ constexpr real Teno5_Z(std::array<real,5> q)
         sumbeta+=beta[i];
     }
     real CT=1e-4*sumbeta;
-    // if(isinf(sumbeta))
-    // {
-    //     std::cout<<"inf beta\n";
-    // }
     // volatile unsigned flag=(beta[0]<CT)+((beta[1]<CT)<<1)+((beta[2]<CT)<<2);
     unsigned short flag=0;
     if(beta[0]<CT) flag+=1;
@@ -180,7 +176,137 @@ constexpr real Teno5_Z(std::array<real,5> q)
         break;
     }
 }
-constexpr real Teno5_Z2(std::array<real,5> q)
+
+constexpr real Teno5_ZCT7(std::array<real,5> q)
+{
+    real eps=1e-40;
+    std::array<real,3> beta;
+    beta[0]= 1.0/1.0 *pow(1.0*q[0]-2.0*q[1]+1.0*q[2],2)
+            + 1.0/4.0 *pow(1.0*q[0]-4.0*q[1]+3.0*q[2],2);
+
+    beta[1]= 1.0/1.0  *pow(1.0*q[1]-2.0*q[2]+1.0*q[3],2)
+            + 1.0/4.0 *pow(1.0*q[1]+0.0*q[2]-1.0*q[3],2);
+
+    beta[2]= 1.0/1.0 *pow(1.0*q[2]-2.0*q[3]+1.0*q[4],2)
+            + 1.0/4.0*pow(3.0*q[2]-4.0*q[3]+1.0*q[4],2);
+
+    real sumbeta=0;
+    real C=1,qq=6,tau=abs(beta[2]-beta[0]);
+    for(int i=0;i<3;i++)
+    {
+        real tempp=C+tau/(beta[i]+eps);
+        tempp*=tempp;
+        beta[i]=tempp*tempp*tempp;
+        sumbeta+=beta[i];
+    }
+    real CT=1e-7*sumbeta;
+    // volatile unsigned flag=(beta[0]<CT)+((beta[1]<CT)<<1)+((beta[2]<CT)<<2);
+    unsigned short flag=0;
+    if(beta[0]<CT) flag+=1;
+    if(beta[1]<CT) flag+=2;
+    if(beta[2]<CT) flag+=4;
+    switch (flag)
+    {
+    case 0:
+        /* 1,1,1 */
+        return 3.0/128.0*q[0]-5.0/32.0*q[1]+45.0/64.0*q[2]+15.0 /32.0*q[3]-5.0/128.0*q[4];
+        break;
+    case 1:
+        /* 0,1,1 */
+        return -1.0/16.0*q[1]+9.0/16.0*q[2]+9.0 /16.0*q[3]-1.0/16.0*q[4];
+        break;
+    case 2:
+        /* 1,0,1 */
+        return 3.0/8.0*q[2]+3.0/4.0*q[3]-1.0 /8.0*q[4];
+        break;
+    case 4:
+        /* 1,1,0 */
+        return 1.0/16.0*q[0]-5.0/16.0*q[1]+15.0/16.0*q[2]+5.0/16.0*q[3];
+        break;
+    case 3:
+        /* 0,0,1 */
+        return 3.0/8.0*q[2]+3.0/4.0*q[3]-1.0 /8.0*q[4];
+        break;
+    case 5:
+        /* 0,1,0 */
+        return -1.0/8.0*q[1]+3.0/4.0*q[2]+3.0 /8.0*q[3];
+        break;
+    case 6:
+        /* 1,0,0 */
+        return 3.0/8.0*q[0]-5.0/4.0*q[1]+15.0/8.0*q[2];
+        break;
+    default:
+        /* 0,0,0 */
+        return q[2];
+        break;
+    }
+}
+
+constexpr real Teno5_Z(std::array<real,5> q)
+{
+    real eps=1e-40;
+    std::array<real,3> beta;
+    beta[0]= 1.0/1.0 *pow(1.0*q[0]-2.0*q[1]+1.0*q[2],2)
+            + 1.0/4.0 *pow(1.0*q[0]-4.0*q[1]+3.0*q[2],2);
+
+    beta[1]= 1.0/1.0  *pow(1.0*q[1]-2.0*q[2]+1.0*q[3],2)
+            + 1.0/4.0 *pow(1.0*q[1]+0.0*q[2]-1.0*q[3],2);
+
+    beta[2]= 1.0/1.0 *pow(1.0*q[2]-2.0*q[3]+1.0*q[4],2)
+            + 1.0/4.0*pow(3.0*q[2]-4.0*q[3]+1.0*q[4],2);
+
+    real sumbeta=0;
+    real C=1,qq=6,tau=abs(beta[2]-beta[0]);
+    for(int i=0;i<3;i++)
+    {
+        real tempp=C+tau/(beta[i]+eps);
+        tempp*=tempp;
+        beta[i]=tempp*tempp*tempp;
+        sumbeta+=beta[i];
+    }
+    real CT=1e-5*sumbeta;
+    // volatile unsigned flag=(beta[0]<CT)+((beta[1]<CT)<<1)+((beta[2]<CT)<<2);
+    unsigned short flag=0;
+    if(beta[0]<CT) flag+=1;
+    if(beta[1]<CT) flag+=2;
+    if(beta[2]<CT) flag+=4;
+    switch (flag)
+    {
+    case 0:
+        /* 1,1,1 */
+        return 3.0/128.0*q[0]-5.0/32.0*q[1]+45.0/64.0*q[2]+15.0 /32.0*q[3]-5.0/128.0*q[4];
+        break;
+    case 1:
+        /* 0,1,1 */
+        return -1.0/16.0*q[1]+9.0/16.0*q[2]+9.0 /16.0*q[3]-1.0/16.0*q[4];
+        break;
+    case 2:
+        /* 1,0,1 */
+        return 3.0/8.0*q[2]+3.0/4.0*q[3]-1.0 /8.0*q[4];
+        break;
+    case 4:
+        /* 1,1,0 */
+        return 1.0/16.0*q[0]-5.0/16.0*q[1]+15.0/16.0*q[2]+5.0/16.0*q[3];
+        break;
+    case 3:
+        /* 0,0,1 */
+        return 3.0/8.0*q[2]+3.0/4.0*q[3]-1.0 /8.0*q[4];
+        break;
+    case 5:
+        /* 0,1,0 */
+        return -1.0/8.0*q[1]+3.0/4.0*q[2]+3.0 /8.0*q[3];
+        break;
+    case 6:
+        /* 1,0,0 */
+        return 3.0/8.0*q[0]-5.0/4.0*q[1]+15.0/8.0*q[2];
+        break;
+    default:
+        /* 0,0,0 */
+        return q[2];
+        break;
+    }
+}
+constexpr real Teno5_ZConvex(std::array<real,5> q)
 {
     real eps=1e-40;
     std::array<real,3> gamma={1.0/16.0,5.0/8.0,5.0/16.0};
@@ -194,7 +320,11 @@ constexpr real Teno5_Z2(std::array<real,5> q)
     beta[2]= 1.0/1.0 *pow(1.0*q[2]-2.0*q[3]+1.0*q[4],2)
             + 1.0/4.0*pow(3.0*q[2]-4.0*q[3]+1.0*q[4],2);
     
-    std::array<real(*)(real,real,real),3> u={&u1,&u2,&u3};
+    // std::array<real(*)(real,real,real),3> u={&u1,&u2,&u3};
+    std::array<real,3> u;
+    u[0]= 3.0/8.0*q[0]-5.0/4.0*q[1]+15.0/8.0*q[2];
+    u[1]=-1.0/8.0*q[1]+3.0/4.0*q[2]+3.0 /8.0*q[3];
+    u[2]= 3.0/8.0*q[2]+3.0/4.0*q[3]-1.0 /8.0*q[4];
     
     real sumbeta=0,result=0;
     real C=1,qq=6,tau=abs(beta[2]-beta[0]);
@@ -212,7 +342,8 @@ constexpr real Teno5_Z2(std::array<real,5> q)
     {
         if(beta[i]>CT)
         {
-            result+=gamma[i]*(*u[i])(q[i],q[i+1],q[i+2]);
+            // result+=gamma[i]*(*u[i])(q[i],q[i+1],q[i+2]);
+            result+=gamma[i]*u[i];
             sumGamma+=gamma[i];
         }
     }
@@ -221,7 +352,7 @@ constexpr real Teno5_Z2(std::array<real,5> q)
 }
 
 
-const static real CTi=pow(1.5*1e-4,1.0/6.0);
+const static real CTi=pow(1.5*1e-10,1.0/6.0);
 constexpr real Teno5_CongZ(std::array<real,5> q)
 {
     real eps=1e-40;//1e-10;
@@ -237,12 +368,13 @@ constexpr real Teno5_CongZ(std::array<real,5> q)
 
     //int minBeta=(beta[0]>beta[1])? ((beta[2]>beta[1])? 1: 2):((beta[2]>beta[0])? 0 : 2);
     unsigned short minBeta=std::min_element(beta.begin(),beta.end())-beta.begin();
-    constexpr real CT=0.23050581003334941;//4
-    //constexpr real CT=0.15704178024750198;//5
-    //constexpr real CT=0.157;//5
-    //constexpr real CT=0.10699131939336631;//6
-    //constexpr real CT=0.072892337360747711; //7
+    //constexpr real CT=0.23050581003334941;//4
+    constexpr real CT=0.15704178024750198;//5
+    // constexpr real CT=0.08;//5
+    // constexpr real CT=0.10699131939336631;//6
+    // constexpr real CT=0.072892337360747711; //7
     //constexpr real CT=0.033833625914958219;//9
+    // constexpr real CT=0.023050581003334944;//10
     constexpr real CT_1=1-CT;
     real tau=abs(beta[2]-beta[0]);//,KK=0.15704178024750198*(beta[minBeta]+tau);
     real rr=CT*tau-CT_1*beta[minBeta];
@@ -288,7 +420,220 @@ constexpr real Teno5_CongZ(std::array<real,5> q)
         break;
     }
 }
-constexpr real Teno5_CongZ2(std::array<real,5> q)
+
+constexpr real Teno5_CongZCT4(std::array<real,5> q)
+{
+    real eps=1e-40;//1e-10;
+    std::array<real,3> beta={
+    1.0/1.0 *pow(1.0*q[0]-2.0*q[1]+1.0*q[2],2)
+            + 1.0/4.0 *pow(1.0*q[0]-4.0*q[1]+3.0*q[2],2),
+
+    1.0/1.0  *pow(1.0*q[1]-2.0*q[2]+1.0*q[3],2)
+            + 1.0/4.0 *pow(1.0*q[1]+0.0*q[2]-1.0*q[3],2),
+
+    1.0/1.0 *pow(1.0*q[2]-2.0*q[3]+1.0*q[4],2)
+            + 1.0/4.0*pow(3.0*q[2]-4.0*q[3]+1.0*q[4],2)};
+
+    //int minBeta=(beta[0]>beta[1])? ((beta[2]>beta[1])? 1: 2):((beta[2]>beta[0])? 0 : 2);
+    unsigned short minBeta=std::min_element(beta.begin(),beta.end())-beta.begin();
+    constexpr real CT=0.23050581003334941;//4
+    // constexpr real CT=0.15704178024750198;//5
+    //constexpr real CT=0.157;//5
+    // constexpr real CT=0.10699131939336631;//6
+    // constexpr real CT=0.072892337360747711; //7
+    //constexpr real CT=0.033833625914958219;//9
+    // constexpr real CT=0.023050581003334944;//10
+    constexpr real CT_1=1-CT;
+    real tau=abs(beta[2]-beta[0]);//,KK=0.15704178024750198*(beta[minBeta]+tau);
+    real rr=CT*tau-CT_1*beta[minBeta];
+    real ll=tau*beta[minBeta];
+    //unsigned flag=(minBeta!=0&&ll<rr*beta[0])+((minBeta!=1&&ll<rr*beta[1])<<1)+((minBeta!=2&&ll<rr*beta[2])<<2);
+    unsigned short flag=0;
+    if(ll<rr*beta[0]) flag+=1;
+    if(ll<rr*beta[1]) flag+=2;
+    if(ll<rr*beta[2]) flag+=4;
+    switch (flag)
+    {
+    case 0:
+        /* 1,1,1 */
+        return 3.0/128.0*q[0]-5.0/32.0*q[1]+45.0/64.0*q[2]+15.0 /32.0*q[3]-5.0/128.0*q[4];
+        break;
+    case 1:
+        /* 0,1,1 */
+        return -1.0/16.0*q[1]+9.0/16.0*q[2]+9.0 /16.0*q[3]-1.0/16.0*q[4];
+        break;
+    case 2:
+        /* 1,0,1 */
+        return 3.0/8.0*q[2]+3.0/4.0*q[3]-1.0 /8.0*q[4];
+        break;
+    case 3:
+        /* 0,0,1 */
+        return 3.0/8.0*q[2]+3.0/4.0*q[3]-1.0 /8.0*q[4];
+        break;
+    case 4:
+        /* 1,1,0 */
+        return 1.0/16.0*q[0]-5.0/16.0*q[1]+15.0/16.0*q[2]+5.0/16.0*q[3];
+        break;
+    case 5:
+        /* 0,1,0 */
+        return -1.0/8.0*q[1]+3.0/4.0*q[2]+3.0 /8.0*q[3];
+        break;
+    case 6:
+        /* 1,0,0 */
+        return 3.0/8.0*q[0]-5.0/4.0*q[1]+15.0/8.0*q[2];
+        break;
+    default:
+        /* 0,0,0 */
+        return q[2];
+        break;
+    }
+}
+constexpr real Teno5_CongZCT7(std::array<real,5> q)
+{
+    real eps=1e-40;//1e-10;
+    std::array<real,3> beta={
+    1.0/1.0 *pow(1.0*q[0]-2.0*q[1]+1.0*q[2],2)
+            + 1.0/4.0 *pow(1.0*q[0]-4.0*q[1]+3.0*q[2],2),
+
+    1.0/1.0  *pow(1.0*q[1]-2.0*q[2]+1.0*q[3],2)
+            + 1.0/4.0 *pow(1.0*q[1]+0.0*q[2]-1.0*q[3],2),
+
+    1.0/1.0 *pow(1.0*q[2]-2.0*q[3]+1.0*q[4],2)
+            + 1.0/4.0*pow(3.0*q[2]-4.0*q[3]+1.0*q[4],2)};
+
+    //int minBeta=(beta[0]>beta[1])? ((beta[2]>beta[1])? 1: 2):((beta[2]>beta[0])? 0 : 2);
+    unsigned short minBeta=std::min_element(beta.begin(),beta.end())-beta.begin();
+    // constexpr real CT=0.23050581003334941;//4
+    // constexpr real CT=0.15704178024750198;//5
+    //constexpr real CT=0.157;//5
+    // constexpr real CT=0.10699131939336631;//6
+    constexpr real CT=0.072892337360747711; //7
+    //constexpr real CT=0.033833625914958219;//9
+    // constexpr real CT=0.023050581003334944;//10
+    constexpr real CT_1=1-CT;
+    real tau=abs(beta[2]-beta[0]);//,KK=0.15704178024750198*(beta[minBeta]+tau);
+    real rr=CT*tau-CT_1*beta[minBeta];
+    real ll=tau*beta[minBeta];
+    //unsigned flag=(minBeta!=0&&ll<rr*beta[0])+((minBeta!=1&&ll<rr*beta[1])<<1)+((minBeta!=2&&ll<rr*beta[2])<<2);
+    unsigned short flag=0;
+    if(ll<rr*beta[0]) flag+=1;
+    if(ll<rr*beta[1]) flag+=2;
+    if(ll<rr*beta[2]) flag+=4;
+    switch (flag)
+    {
+    case 0:
+        /* 1,1,1 */
+        return 3.0/128.0*q[0]-5.0/32.0*q[1]+45.0/64.0*q[2]+15.0 /32.0*q[3]-5.0/128.0*q[4];
+        break;
+    case 1:
+        /* 0,1,1 */
+        return -1.0/16.0*q[1]+9.0/16.0*q[2]+9.0 /16.0*q[3]-1.0/16.0*q[4];
+        break;
+    case 2:
+        /* 1,0,1 */
+        return 3.0/8.0*q[2]+3.0/4.0*q[3]-1.0 /8.0*q[4];
+        break;
+    case 3:
+        /* 0,0,1 */
+        return 3.0/8.0*q[2]+3.0/4.0*q[3]-1.0 /8.0*q[4];
+        break;
+    case 4:
+        /* 1,1,0 */
+        return 1.0/16.0*q[0]-5.0/16.0*q[1]+15.0/16.0*q[2]+5.0/16.0*q[3];
+        break;
+    case 5:
+        /* 0,1,0 */
+        return -1.0/8.0*q[1]+3.0/4.0*q[2]+3.0 /8.0*q[3];
+        break;
+    case 6:
+        /* 1,0,0 */
+        return 3.0/8.0*q[0]-5.0/4.0*q[1]+15.0/8.0*q[2];
+        break;
+    default:
+        /* 0,0,0 */
+        return q[2];
+        break;
+    }
+}
+
+constexpr real Teno5_CongA(std::array<real,5> q)
+{
+    real eps=1e-40;//1e-10;
+    std::array<real,3> beta={
+    1.0/1.0 *pow(1.0*q[0]-2.0*q[1]+1.0*q[2],2)
+            + 1.0/4.0 *pow(1.0*q[0]-4.0*q[1]+3.0*q[2],2),
+
+    1.0/1.0  *pow(1.0*q[1]-2.0*q[2]+1.0*q[3],2)
+            + 1.0/4.0 *pow(1.0*q[1]+0.0*q[2]-1.0*q[3],2),
+
+    1.0/1.0 *pow(1.0*q[2]-2.0*q[3]+1.0*q[4],2)
+            + 1.0/4.0*pow(3.0*q[2]-4.0*q[3]+1.0*q[4],2)};
+
+    // std::array<real,3> beta={
+    //         pow(1.0*q[0]-2.0*q[1]+1.0*q[2],2),
+    //         pow(1.0*q[1]-2.0*q[2]+1.0*q[3],2),
+    //         pow(1.0*q[2]-2.0*q[3]+1.0*q[4],2)};
+
+    //int minBeta=(beta[0]>beta[1])? ((beta[2]>beta[1])? 1: 2):((beta[2]>beta[0])? 0 : 2);
+    unsigned short minBeta=std::min_element(beta.begin(),beta.end())-beta.begin();
+    //real tau=abs(beta[2]+beta[0]-2*beta[1]);
+    real tau=abs(beta[2]-beta[0]);
+
+    // constexpr real CT=0.23050581003334941;//4
+    //constexpr real CT=0.15704178024750198;//5
+    constexpr real CT=0.1;//6
+    //constexpr real CT=0.072892337360747711;//7
+    //constexpr real CT=0.033833625914958219;//9
+    // constexpr real CT=0.023050581003334944;//10
+    // real CT=0.15704178024750198;//5
+    real CT_1=1-CT;
+    
+    //real rr=CT/1/(beta[minBeta]+eps)-CT_1/(tau+eps);//CT*tau-CT_1*beta[minBeta];
+    real mulbeta=beta[0]*beta[1]*beta[2];
+    real rr=CT*tau*(beta[0]*beta[1]+beta[1]*beta[2]+beta[0]*beta[2])-CT_1*mulbeta;//CT*tau-CT_1*beta[minBeta];
+    real ll=tau*mulbeta;//tau*beta[minBeta];
+    //unsigned flag=(minBeta!=0&&ll<rr*beta[0])+((minBeta!=1&&ll<rr*beta[1])<<1)+((minBeta!=2&&ll<rr*beta[2])<<2);
+    unsigned short flag=0;
+    if(ll<rr*beta[0]) flag+=1;
+    if(ll<rr*beta[1]) flag+=2;
+    if(ll<rr*beta[2]) flag+=4;
+    switch (flag)
+    {
+    case 0:
+        /* 1,1,1 */
+        return 3.0/128.0*q[0]-5.0/32.0*q[1]+45.0/64.0*q[2]+15.0 /32.0*q[3]-5.0/128.0*q[4];
+        break;
+    case 1:
+        /* 0,1,1 */
+        return -1.0/16.0*q[1]+9.0/16.0*q[2]+9.0 /16.0*q[3]-1.0/16.0*q[4];
+        break;
+    case 2:
+        /* 1,0,1 */
+        return 3.0/8.0*q[2]+3.0/4.0*q[3]-1.0 /8.0*q[4];
+        break;
+    case 3:
+        /* 0,0,1 */
+        return 3.0/8.0*q[2]+3.0/4.0*q[3]-1.0 /8.0*q[4];
+        break;
+    case 4:
+        /* 1,1,0 */
+        return 1.0/16.0*q[0]-5.0/16.0*q[1]+15.0/16.0*q[2]+5.0/16.0*q[3];
+        break;
+    case 5:
+        /* 0,1,0 */
+        return -1.0/8.0*q[1]+3.0/4.0*q[2]+3.0 /8.0*q[3];
+        break;
+    case 6:
+        /* 1,0,0 */
+        return 3.0/8.0*q[0]-5.0/4.0*q[1]+15.0/8.0*q[2];
+        break;
+    default:
+        /* 0,0,0 */
+        return q[2];
+        break;
+    }
+}
+constexpr real Teno5_CongC(std::array<real,5> q)
 {
     real eps=1e-40;//1e-10;
     std::array<real,3> beta;
@@ -301,21 +646,41 @@ constexpr real Teno5_CongZ2(std::array<real,5> q)
     beta[2]= 1.0/1.0 *pow(1.0*q[2]-2.0*q[3]+1.0*q[4],2)
             + 1.0/4.0*pow(3.0*q[2]-4.0*q[3]+1.0*q[4],2);
 
-    int minBeta=(beta[0]>beta[1])? ((beta[2]>beta[1])? 1: 2):((beta[2]>beta[0])? 0 : 2);
-    real tau=abs(beta[2]-beta[0]),KK=CTi*(beta[minBeta]+tau);
-    real sumGamma=0,result=0;
+    unsigned short minBeta=std::min_element(beta.begin(),beta.end())-beta.begin();
+    //real tau=abs(beta[2]+beta[0]-2*beta[1]);
+
+    real tau=abs(beta[2]-beta[0]);
+
+    //constexpr real CT=0.23050581003334941;//4
+    //constexpr real CT=0.15704178024750198;//5
+    //constexpr real CT=0.10699131939336631;//6
+    //constexpr real CT=0.072892337360747711; //7
+    //constexpr real CT=0.033833625914958219;//9
+    // constexpr real CT=0.023050581003334944;//10
+    real CT=0.15704178024750198;//5
+    real CT_1=1-CT;
+    
+    real rr=CT*tau-CT_1*beta[minBeta];
+    real ll=tau*beta[minBeta];
+
+    std::array<real,3> u;
+    u[0]= 3.0/8.0*q[0]-5.0/4.0*q[1]+15.0/8.0*q[2];
+    u[1]=-1.0/8.0*q[1]+3.0/4.0*q[2]+3.0 /8.0*q[3];
+    u[2]= 3.0/8.0*q[2]+3.0/4.0*q[3]-1.0 /8.0*q[4];
+    
+    //std::array<real(*)(real,real,real),3> u={&u1,&u2,&u3};
+    
+    real sumbeta=0,result=0,sumGamma=0;
     std::array<real,3> gamma={1.0/16.0,5.0/8.0,5.0/16.0};
-    std::array<real(*)(real,real,real),3> u={&u1,&u2,&u3};
-    for(int i=0;i<3;i++) 
+    for(int i=0;i<3;i++)
     {
-        if(minBeta==i||(beta[i]+tau)*beta[minBeta]>KK*beta[i])
+        if(ll>=rr*beta[i])
         {
             sumGamma+=gamma[i];
-            result+=gamma[i]*(*u[i])(q[i],q[i+1],q[i+2]);
+            result+=gamma[i]*u[i];
         }
     }
-    result/=sumGamma;
-    return result;
+    return result/sumGamma;
 }
 
 constexpr real Teno5_Cong(std::array<real,5> q)
@@ -891,4 +1256,44 @@ constexpr real musclInterpolation(real q1,real q2,real q3)
         delta=std::min(0.0,std::min(std::max(beta*deltam,deltap),std::max(deltam,beta*deltap)));
     }
     return q2+delta*0.5;
+}
+
+constexpr std::array<real,2> THINC(real q1,real q2,real q3)
+{
+    if((q1-q2)*(q2-q3)<0) return {q2,q2};
+
+    real qmax,qmin;
+    if(q1>q3) {qmax=q1;qmin=q3;}
+    else {qmax=q3;qmin=q1;}
+    real beta=2;
+    real T1=exp(2.0*beta),T3=exp(-2.0*beta);
+    real f=(qmax-q2)/(q2-qmin);
+    T1*=f;
+    T3*=f;
+    real qBar=(q1+q3)/2,dq=(q1-q3)/2;
+    return{
+        qBar+dq*((1-T1)/(1+T1)),
+        qBar+dq*((1-T3)/(1+T3))
+    };
+}
+
+constexpr real THINC1(real q1,real q2,real q3)
+{
+    if((q1-q2)*(q2-q3)<1e-20) return q2;
+
+    real qmax,qmin;
+    if(q1>q3) {qmax=q1;qmin=q3;}
+    else {qmax=q3;qmin=q1;}
+    real beta=1.2;
+    real T1=exp(2.0*beta),T3=exp(-2.0*beta);
+    real f=(qmax-q2)/(q2-qmin);
+    T1*=f;
+    T3*=f;
+    real qBar=(q1+q3)/2,dq=(q1-q3)/2;
+    return qBar+dq*((1-T3)/(1+T3));
+}
+
+constexpr real Linear5(std::array<real,5> q)
+{
+    return 3.0/128.0*q[0]-5.0/32.0*q[1]+45.0/64.0*q[2]+15.0 /32.0*q[3]-5.0/128.0*q[4];
 }

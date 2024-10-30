@@ -14,7 +14,7 @@ int main()
     // auto prim2=eig.charToPrim(eigValues);
     // std::cout<<"finish\n";
 
-    omp_set_num_threads(20);
+    omp_set_num_threads(15);
 
     Info* info=new Info;
 
@@ -23,22 +23,25 @@ int main()
 
 
     info->diffMethod=MND6;
-    info->interMethod=TCNS5;
+    // info->diffMethod=TRAD6;
+    // info->interMethod=TCNS5;
+    info->interMethod=LINEAR5;
     //info->interMethod=WCNSZ5Char;
     //info->BVD=true;
-    info->interMethod=WCNS5Char; 
-    //info->interMethod=WCNS5CONG;
-    //info->interMethod=WCNSCONGPOLY;
-    info->interMethod=WCNS5CONGZ;
+    //info->interMethod=WCNS5Char; 
+    // info->interMethod=WCNS5CONG;
+    //  info->interMethod=TCNSCongA;
+    // info->interMethod=WCNS5CONGZ;
+    // info->sourceType=GRAVITY;
 
     //Shu-Osher
-    info->endStep=1;
-    info->CFL=0.5;
-    info->outputDt=1.8;
-    info->nCase=1;
-    info->calZone={0,10.0,0,0,0,0};
-    info->iMax={201,2,2};
-    info->dim=1;
+    // info->endStep=1;
+    // info->CFL=0.5;
+    // info->outputDt=1.8;
+    // info->nCase=1;
+    // info->calZone={0,10.0,0,0,0,0};
+    // info->iMax={201,2,2};
+    // info->dim=1;
 
     //sod tube
     info->CFL=0.5;
@@ -53,7 +56,7 @@ int main()
     //lax sod tube
     // info->endStep=14;
     // info->outputDt=0.01;
-    // info->CFL=0.1;
+    // info->CFL=0.5;
     // info->nCase=2;
     // info->calZone={-0.5,0.5,0,0,0,0};
     // info->iMax={201,2,2};
@@ -78,9 +81,9 @@ int main()
     // info->dim=1;
 
     //Woodward-Colella
-    // info->endStep=38;
-    // info->outputDt=0.001;
-    // info->CFL=0.5;
+    // info->endStep=1;
+    // info->outputDt=0.038;
+    // info->CFL=0.4;
     // info->nCase=4;
     // info->calZone={0,1,0,0,0,0};
     // info->iMax={401,2,2};
@@ -96,13 +99,12 @@ int main()
     // info->dim=1;
 
     //implosion
-    // info->dt=0.0001;
     // info->endStep=25;
     // info->outputDt=0.1;
     // info->CFL=0.5;
     // info->nCase=2;
-    // info->calZone={0,0.3,0,0.3,0,0};
-    // info->iMax={201,201,2};
+    // info->calZone={-0.3,0.3,-0.3,0.3,0,0};
+    // info->iMax={401,401,2};
     // info->dim=2;
 
     //Riemann 1
@@ -179,6 +181,9 @@ int main()
 
         file>>n;
         info->dim=n;
+
+        file>>n;
+        omp_set_num_threads(n);
         
         std::cout<<"file mode initialization finished\n";
 

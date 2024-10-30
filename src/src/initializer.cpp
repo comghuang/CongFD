@@ -255,7 +255,7 @@ void Initializer::solInit(Block* grid,Data* sol)
                         tempsol.push_back(0.5323);
                         tempsol.push_back(0);
                         tempsol.push_back(0.5323*1.206);
-                        tempsol.push_back(1.0/(gamma-1)*0.3+0.5323*1.206*1.206/2);
+                        tempsol.push_back(1.0/(gamma-1)*0.3+1.206*1.206/2*0.5323);
                     }
                 }
                 else
@@ -265,14 +265,14 @@ void Initializer::solInit(Block* grid,Data* sol)
                         tempsol.push_back(0.5323);
                         tempsol.push_back(0.5323*1.206);
                         tempsol.push_back(0);
-                        tempsol.push_back(1.0/(gamma-1)*0.3+0.5323*1.206*1.206/2);
+                        tempsol.push_back(1.0/(gamma-1)*0.3+1.206*1.206/2*0.5323);
                     }
                     else
                     {
                         tempsol.push_back(0.138);
                         tempsol.push_back(0.138*1.206);
                         tempsol.push_back(0.138*1.206);
-                        tempsol.push_back(1.0/(gamma-1)*0.029+0.138*1.206*1.206);
+                        tempsol.push_back(1.0/(gamma-1)*0.029+1.206*1.206*0.138);
                     }
                 }
             }
@@ -322,23 +322,24 @@ void Initializer::solInit(Block* grid,Data* sol)
             for(int i=0;i<grid->icMax[1];i++)
             for(int j=0;j<grid->icMax[0];j++)
             {
+                real eps=1e-10;
                 real x=(*grid)(i*grid->icMax[0]+j,0);
                 real y=(*grid)(i*grid->icMax[0]+j,1);
                 real gamma=GAMMA;
                 real r,u,v,p;
-                if (abs(x)+abs(y)<0.15)
+                if (abs(x)+abs(y)<0.15-eps)
                 {
                     r=0.125;
-                    u=0;
-                    v=0;
+                    u=0.0;
+                    v=0.0;
                     p=0.14;
                 }
                 else
                 {
-                    r=1;
-                    u=0;
-                    v=0;
-                    p=1;
+                    r=1.0;
+                    u=0.0;
+                    v=0.0;
+                    p=1.0;
 
                 }
                 tempsol.push_back(r);
@@ -395,6 +396,41 @@ void Initializer::solInit(Block* grid,Data* sol)
                 }
                 else{
                     r=1.4;u=0;v=0;p=1.0;
+                }
+                tempsol.push_back(r);
+                tempsol.push_back(r*u);
+                tempsol.push_back(r*v);
+                tempsol.push_back(1.0/(gamma-1)*p+r*(u*u+v*v)/2);
+            }
+            if (tempsol.size()==sol->size()) sol->setValue(tempsol);
+                else std::cout<<"initialize: length error \n";
+            break;
+
+        case 5:
+            //2D Riemann Problem another 1;
+            //x [-0.5,0.5]
+            //y [-0.5,0.5]
+            tempsol.reserve(grid->icMax[0]*grid->icMax[1]);
+            for(int i=0;i<grid->icMax[1];i++)
+            for(int j=0;j<grid->icMax[0];j++)
+            {
+                real x=(*grid)(i*grid->icMax[0]+j,0);
+                real y=(*grid)(i*grid->icMax[0]+j,1);
+                real gamma=GAMMA;
+                real r,u,v,p;
+                if (x>0.0)
+                {
+                    if (y>0.0)
+                    {r=0.5313;u=0.0;v=0.0;p=0.4;}
+                    else
+                    {r=1.0;u=0.0;v=0.7276;p=1.0;}
+                }
+                else
+                {
+                    if (y>0)
+                    {r=1.0;u=0.7276;v=0.0;p=1.0;}
+                    else
+                    {r=0.8;u=0.0;v=0.0;p=1.0;}
                 }
                 tempsol.push_back(r);
                 tempsol.push_back(r*u);

@@ -82,14 +82,14 @@ void SpaceDis::difMND6()
     else if (info->dim==2) fFunction=&fEuler2D;}
     else{fFunction=&fDefault;}
     real h=info->geth(idim);
-    for(int i=0;i<n;i++)
-    {
-        for(int j=0;j<nVar;j++)
-        {
-            (*rhs)(i0+i*offset,j)+=w[0]*(fluxAt(i+1,j)-fluxAt(i,j))/h
-                                   +w[2]*(fluxAt(i+2,j)-fluxAt(i-1,j))/h;
-        }
-    }
+    // for(int i=0;i<n;i++)
+    // {
+    //     for(int j=0;j<nVar;j++)
+    //     {
+    //         (*rhs)(i0+i*offset,j)+=w[0]*(fluxAt(i+1,j)-fluxAt(i,j))/h
+    //                                +w[2]*(fluxAt(i+2,j)-fluxAt(i-1,j))/h;
+    //     }
+    // }
     //i==-2
     std::vector<real> qs(nVar);
     memcpy(&qs[0],&at(-1,0),nVar*sizeof(real));
@@ -103,7 +103,9 @@ void SpaceDis::difMND6()
 
         memcpy(&qs[0],&at(iNode+1,0),nVar*sizeof(real));
         fluxNodeR=fFunction(qs,norm);
-        for(int j=0;j<nVar;j++)  (*rhs)(i0+iNode*offset,j)+=w[1]*(fluxNodeR[j]-fluxNodeL[j])/h;
+        for(int j=0;j<nVar;j++)  (*rhs)(i0+iNode*offset,j)+=w[1]*(fluxNodeR[j]-fluxNodeL[j])/h
+                                                            +w[0]*(fluxAt(iNode+1,j)-fluxAt(iNode,j))/h
+                                                            +w[2]*(fluxAt(iNode+2,j)-fluxAt(iNode-1,j))/h;
     }
 }
 

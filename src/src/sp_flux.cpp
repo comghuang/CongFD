@@ -250,8 +250,8 @@ void SpaceDis::calFluxEuler2D(int i)
     }
 
     
-    //auto iflux=roeFlux2DSym(W[0],W[4],W[1],W[5],W[2],W[6],W[3],W[7],norm);
-    auto iflux=HLLCFlux2D(W[0],W[4],W[1],W[5],W[2],W[6],W[3],W[7],norm);
+    // auto iflux=roeFlux2DSym(W[0],W[4],W[1],W[5],W[2],W[6],W[3],W[7],norm);
+     auto iflux=HLLCFlux2D2(W[0],W[4],W[1],W[5],W[2],W[6],W[3],W[7],norm);
     //std::vector<real> iflux2=roeFlux1D(r,u,p,H,RT);
     for (int ivar = 0; ivar < 4; ivar++)
     {

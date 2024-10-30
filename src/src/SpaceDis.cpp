@@ -115,6 +115,26 @@ SpaceDis::SpaceDis(int n_,Data* data_,Data* rhs_
         reconLMethod=&SpaceDis::reconLprim;
         reconRMethod=&SpaceDis::reconRprim;}
         break;
+    case TCNS5CT4:
+        inter5=&Teno5_ZCT4;
+        inter5Positive=&Teno5_ZCT4;
+        if(fluxType==EULER){
+        reconLMethod=(info->dim==1)?(&SpaceDis::reconLChar1D):(&SpaceDis::reconLChar2D);
+        reconRMethod=(info->dim==1)?(&SpaceDis::reconRChar1D):(&SpaceDis::reconRChar2D);}
+        else{
+        reconLMethod=&SpaceDis::reconLprim;
+        reconRMethod=&SpaceDis::reconRprim;}
+        break;
+    case TCNS5CT7:
+        inter5=&Teno5_ZCT7;
+        inter5Positive=&Teno5_ZCT7;
+        if(fluxType==EULER){
+        reconLMethod=(info->dim==1)?(&SpaceDis::reconLChar1D):(&SpaceDis::reconLChar2D);
+        reconRMethod=(info->dim==1)?(&SpaceDis::reconRChar1D):(&SpaceDis::reconRChar2D);}
+        else{
+        reconLMethod=&SpaceDis::reconLprim;
+        reconRMethod=&SpaceDis::reconRprim;}
+        break;
     case WCNS5CONG:
         inter5=&Teno5_Cong;
         inter5Positive=&Teno5_Cong;
@@ -125,9 +145,9 @@ SpaceDis::SpaceDis(int n_,Data* data_,Data* rhs_
         reconLMethod=&SpaceDis::reconLprim;
         reconRMethod=&SpaceDis::reconRprim;}
         break;
-    case WCNSCONGPOLY:
-        inter5=&Teno5_Cong2;
-        inter5Positive=&Teno5_Cong2;
+    case TCNSCongA:
+        inter5=&Teno5_CongA;
+        inter5Positive=&Teno5_CongA;
         if(fluxType==EULER){
         reconLMethod=(info->dim==1)?(&SpaceDis::reconLChar1D):(&SpaceDis::reconLChar2D);
         reconRMethod=(info->dim==1)?(&SpaceDis::reconRChar1D):(&SpaceDis::reconRChar2D);}
@@ -145,10 +165,30 @@ SpaceDis::SpaceDis(int n_,Data* data_,Data* rhs_
         reconLMethod=&SpaceDis::reconLprim;
         reconRMethod=&SpaceDis::reconRprim;}
         break;
-        //WCNS5CONGABS
-    case WCNS5CONGABS:
-        inter5=&Teno5_CongSortabs;
-        inter5Positive=&Teno5_CongSortabs;
+        //WCNS5CONGZCT4
+    case WCNS5CONGZCT4:
+        inter5=&Teno5_CongZCT4;
+        inter5Positive=&Teno5_CongZCT4;
+        if(fluxType==EULER){
+        reconLMethod=(info->dim==1)?(&SpaceDis::reconLChar1D):(&SpaceDis::reconLChar2D);
+        reconRMethod=(info->dim==1)?(&SpaceDis::reconRChar1D):(&SpaceDis::reconRChar2D);}
+        else{
+        reconLMethod=&SpaceDis::reconLprim;
+        reconRMethod=&SpaceDis::reconRprim;}
+        break;
+    case WCNS5CONGZCT7:
+        inter5=&Teno5_CongZCT7;
+        inter5Positive=&Teno5_CongZCT7;
+        if(fluxType==EULER){
+        reconLMethod=(info->dim==1)?(&SpaceDis::reconLChar1D):(&SpaceDis::reconLChar2D);
+        reconRMethod=(info->dim==1)?(&SpaceDis::reconRChar1D):(&SpaceDis::reconRChar2D);}
+        else{
+        reconLMethod=&SpaceDis::reconLprim;
+        reconRMethod=&SpaceDis::reconRprim;}
+        break;
+    case LINEAR5:
+        inter5=&Linear5;
+        inter5Positive=&Linear5;
         if(fluxType==EULER){
         reconLMethod=(info->dim==1)?(&SpaceDis::reconLChar1D):(&SpaceDis::reconLChar2D);
         reconRMethod=(info->dim==1)?(&SpaceDis::reconRChar1D):(&SpaceDis::reconRChar2D);}

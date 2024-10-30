@@ -2,6 +2,7 @@
 
 #include <array>
 #include <vector>
+#include <algorithm>
 
 typedef std::array<real,2> arr2;
 std::vector<real> roeFlux1D(real rl,real rr,real ul,real ur,real pl,real pr);
@@ -99,62 +100,58 @@ constexpr std::array<real,4> HLLCFlux2D(real rl,real rr,real ul,real ur,real vl,
     real Sstar=((pr-pl)+(rl*Vn[L]*(SL-Vn[L])
                 -rr*Vn[R]*(SR-Vn[R])))/
                (rl*(SL-Vn[L])-rr*(SR-Vn[R]));
-    
-    if (Sstar>0)
-    {
-        if (SL>0)
+    if (SL>0)
         {
             res[0]=rl         *Vn[L];
             res[1]=ul*Vn[L]*rl+pl*norm[0];
             res[2]=vl*Vn[L]*rl+pl*norm[1];
             res[3]=rl*H[L]*Vn[L];
         }
-        else{
-            real pStar=pl+rl*(SL-Vn[L])*(Sstar-Vn[L]);
-            real U[4]={rl,
-                    rl*ul,
-                    rl*vl,
-                    rl*H[L]-pl};
-            real F[4]={rl     *Vn[L]
-                    ,ul*Vn[L]*rl+pl*norm[0]
-                    ,vl*Vn[L]*rl+pl*norm[1]
-                    ,rl*H[L]*Vn[L]};
-            real D[4]={0,norm[0],norm[1],Sstar};
-            for (int i = 0; i < 4; i++)
-            {
-                res[i]=(SL*(Sstar*U[i]+pStar*D[i])-Sstar*F[i])/(SL-Sstar);
-            }
+    else if (Sstar>0)
+    {
+        real pStar=pl+rl*(SL-Vn[L])*(Sstar-Vn[L]);
+        real U[4]={rl,
+                rl*ul,
+                rl*vl,
+                rl*H[L]-pl};
+        real F[4]={rl     *Vn[L]
+                ,ul*Vn[L]*rl+pl*norm[0]
+                ,vl*Vn[L]*rl+pl*norm[1]
+                ,rl*H[L]*Vn[L]};
+        real D[4]={0,norm[0],norm[1],Sstar};
+        for (int i = 0; i < 4; i++)
+        {
+            res[i]=(SL*(Sstar*U[i]+pStar*D[i])-Sstar*F[i])/(SL-Sstar);
         }
         
     }
-    else 
+    else if (SR>0)
     {
-        if (SR<0)
+        real pStar=pr+rr*(SR-Vn[R])*(Sstar-Vn[R]);
+        real U[4]={rr
+                ,rr*ur
+                ,rr*vr
+                ,rr*H[R]-pr};
+
+        real F[4]={rr     *Vn[R]
+                ,ur*Vn[R]*rr+pr*norm[0]
+                ,vr*Vn[R]*rr+pr*norm[1]
+                ,rr*H[R]*Vn[R]};
+
+        real D[4]={0,norm[0],norm[1],Sstar};
+        for (int i = 0; i < 4; i++)
         {
-            res[0]=rr     *Vn[R];
-            res[1]=ur*Vn[R]*rr+pr*norm[0];
-            res[2]=vr*Vn[R]*rr+pr*norm[1];
-            res[3]=rr*H[R]*Vn[R];
-        }
-        else{
-            real pStar=pr+rr*(SR-Vn[R])*(Sstar-Vn[R]);
-            real U[4]={rr
-                    ,rr*ur
-                    ,rr*vr
-                    ,rl*H[R]-pr};
-
-            real F[4]={rr     *Vn[R]
-                    ,ur*Vn[R]*rr+pr*norm[0]
-                    ,vr*Vn[R]*rr+pr*norm[1]
-                    ,rr*H[R]*Vn[R]};
-
-            real D[4]={0,norm[0],norm[1],Sstar};
-            for (int i = 0; i < 4; i++)
-            {
-                res[i]=(SR*(Sstar*U[i]+pStar*D[i])-Sstar*F[i])/(SR-Sstar);
-            }
+            res[i]=(SR*(Sstar*U[i]+pStar*D[i])-Sstar*F[i])/(SR-Sstar);
         }
         
+        
+    }
+    else
+    {
+        res[0]=rr     *Vn[R];
+        res[1]=ur*Vn[R]*rr+pr*norm[0];
+        res[2]=vr*Vn[R]*rr+pr*norm[1];
+        res[3]=rr*H[R]*Vn[R];
     }
     
     return res;
@@ -166,7 +163,6 @@ constexpr std::array<real,4> HLLCFlux2D2(real rl,real rr,real ul,real ur,real vl
     L,
     R
     };
-    //reference:https://zhuanlan.zhihu.com/p/583555029
     std::array<real,4> res;
     // if(pl<0 || pr<0 || rr<0 || rl<0)
     // {
@@ -179,73 +175,129 @@ constexpr std::array<real,4> HLLCFlux2D2(real rl,real rr,real ul,real ur,real vl
 
     arr2 Vn={(norm[1]>norm[0])?vl:ul,(norm[1]>norm[0])?vr:ur};
     real gamma=GAMMA;
-    real cl=sqrt((gamma-1)*pl/rl*GAMMA/(GAMMA-1));
-    real cr=sqrt((gamma-1)*pr/rr*GAMMA/(GAMMA-1));
+    real cl=sqrt(pl/rl*gamma);
+    real cr=sqrt(pr/rr*gamma);
+    
+    real rBar=(rl+rr)/2,cBar=(cl+cr)/2;
+    real ps=std::max(0.0,(pl+pr)/2-rBar*cBar*(Vn[R]-Vn[L])/2);
+    real ql=(ps<=pl)? 1.0 : sqrt(1.0+(gamma+1.0)/(2.0*gamma)*(ps/pl-1.0));
+    real qr=(ps<=pr)? 1.0 : sqrt(1.0+(gamma+1.0)/(2.0*gamma)*(ps/pr-1.0));
+    real SL=Vn[L]-cl*ql,SR=Vn[R]+cr*qr;
 
-    real uBar=(Vn[L]+Vn[R])/2,cBar=(cl+cr)/2;
+    // real uBar=(Vn[L]+Vn[R])/2,cBar=(cl+cr)/2;
     // real SL=std::min(uBar-cBar,Vn[L]-cl);
     // real SR=std::max(uBar+cBar,Vn[R]+cr);
 
-    real SL=std::min(Vn[R]-cr,Vn[L]-cl);
-    real SR=std::max(Vn[L]+cl,Vn[R]+cr);
+    // real SL=std::min(Vn[R]-cr,Vn[L]-cl);
+    // real SR=std::max(Vn[L]+cl,Vn[R]+cr);
 
-    real Sstar=((pr-pl)+(rl*Vn[L]*(SL-Vn[L])
-                -rr*Vn[R]*(SR-Vn[R])))/
+    real Sstar=((pr-pl)+
+                (rl*Vn[L]*(SL-Vn[L])-rr*Vn[R]*(SR-Vn[R])))/
                (rl*(SL-Vn[L])-rr*(SR-Vn[R]));
-
-    if (Sstar>0)
+    if (SL>0)
     {
-            res[0]=rl         *Vn[L];
-            res[1]=ul*Vn[L]*rl+((norm[0]>norm[1])? pl : 0);
-            res[2]=vl*Vn[L]*rl+((norm[0]>norm[1])? 0 : pl);
-            res[3]=rl*H[L]*Vn[L];
-
-        if (SL<0) 
+        res[0]=rl         *Vn[L];
+        res[1]=rl*ul*Vn[L]+pl*norm[0];
+        res[2]=rl*vl*Vn[L]+pl*norm[1];
+        res[3]=rl*H[L]*Vn[L];
+    }
+    else if (Sstar>0)
+    {
+        real U[4]={rl,
+                rl*ul,
+                rl*vl,
+                rl*H[L]-pl};
+        real F[4]={rl     *Vn[L]
+                ,rl*ul*Vn[L]+pl*norm[0]
+                ,rl*vl*Vn[L]+pl*norm[1]
+                ,rl*H[L]*Vn[L]};
+        real Usf=(SL-Vn[L])/(SL-Sstar);
+        real Ustar[4]={Usf*rl,
+                       Usf*(Sstar*norm[0]+ul*norm[1])*rl,
+                       Usf*(Sstar*norm[1]+vl*norm[0])*rl,
+                       Usf*(U[3]+(Sstar-Vn[L])*(rl*Sstar+pl/(SL-Vn[L])))
+                      };
+        for (int i = 0; i < 4; i++)
+        {
+            res[i]=F[i]+SL*(Ustar[i]-U[i]);
+        }
+    }
+    else if (Sstar==0)
+    {
         {
             real U[4]={rl,
                     rl*ul,
                     rl*vl,
                     rl*H[L]-pl};
-            real coef=(SL-Vn[L])/(SL-Sstar);
-            real UStar[4]={rl,
-                    rl*((norm[0]>norm[1])? Sstar : ul),
-                    rl*((norm[0]>norm[1])? vl : Sstar),
-                    rl*((ul*ul+vl*vl)/2+pl/rl/(GAMMA-1))
-
-
-                    +(Sstar-Vn[L])*(rl*Sstar+pl/(SL-Vn[L]))};
+            real F[4]={rl     *Vn[L]
+                    ,rl*ul*Vn[L]+pl*norm[0]
+                    ,rl*vl*Vn[L]+pl*norm[1]
+                    ,rl*H[L]*Vn[L]};
+            real Usf=(SL-Vn[L])/(SL-Sstar);
+            real Ustar[4]={Usf*rl,
+                        Usf*(Sstar*norm[0]+ul*norm[1])*rl,
+                        Usf*(Sstar*norm[1]+vl*norm[0])*rl,
+                        Usf*(U[3]+(Sstar-Vn[L])*(rl*Sstar+pl/(SL-Vn[L])))
+                        };
             for (int i = 0; i < 4; i++)
             {
-                res[i]+=SL*(UStar[i]*coef-U[i]);
+                res[i]=(F[i]+SL*(Ustar[i]-U[i]))/2;
+            }
         }
+
+        {
+            real U[4]={rr
+                    ,rr*ur
+                    ,rr*vr
+                    ,rr*H[R]-pr};
+
+            real F[4]={rr     *Vn[R]
+                    ,rr*ur*Vn[R]+pr*norm[0]
+                    ,rr*vr*Vn[R]+pr*norm[1]
+                    ,rr*H[R]*Vn[R]};
+            real Usf=(SR-Vn[R])/(SR-Sstar);
+            real Ustar[4]={Usf*rr,
+                        Usf*(Sstar*norm[0]+ur*norm[1])*rr,
+                        Usf*(Sstar*norm[1]+vr*norm[0])*rr,
+                        Usf*(U[3]+(Sstar-Vn[R])*(rr*Sstar+pr/(SR-Vn[R])))
+                        };
+            for (int i = 0; i < 4; i++)
+            {
+                res[i]+=(F[i]+SR*(Ustar[i]-U[i]))/2;
+            }
+        }
+        
+    }
+    else if (SR>0)
+    {
+        real U[4]={rr
+                ,rr*ur
+                ,rr*vr
+                ,rr*H[R]-pr};
+
+        real F[4]={rr     *Vn[R]
+                ,rr*ur*Vn[R]+pr*norm[0]
+                ,rr*vr*Vn[R]+pr*norm[1]
+                ,rr*H[R]*Vn[R]};
+        real Usf=(SR-Vn[R])/(SR-Sstar);
+        real Ustar[4]={Usf*rr,
+                       Usf*(Sstar*norm[0]+ur*norm[1])*rr,
+                       Usf*(Sstar*norm[1]+vr*norm[0])*rr,
+                       Usf*(U[3]+(Sstar-Vn[R])*(rr*Sstar+pr/(SR-Vn[R])))
+                      };
+        for (int i = 0; i < 4; i++)
+        {
+            res[i]=F[i]+SR*(Ustar[i]-U[i]);
         }
     }
-    
     else
     {
-        real ee=(ur*ur+vr*vr)/2+pr/rr/(GAMMA-1);
         res[0]=rr     *Vn[R];
-        res[1]=ur*Vn[R]*rr+((norm[0]>norm[1])? pr : 0);
-        res[2]=vr*Vn[R]*rr+((norm[0]>norm[1])? 0 : pr);
+        res[1]=rr*ur*Vn[R]+pr*norm[0];
+        res[2]=rr*vr*Vn[R]+pr*norm[1];
         res[3]=rr*H[R]*Vn[R];
-        if (SR>0)
-        {
-            real U[4]={rr,
-                    rr*ur,
-                    rr*vr,
-                    rr*ee};
-            real coef=(SR-Vn[R])/(SR-Sstar);
-            real UStar[4]={rr,
-                    rr*((norm[0]>norm[1])? Sstar : ur),
-                    rr*((norm[0]>norm[1])? vr : Sstar),
-                    rr*ee
-                    +(Sstar-Vn[R])*(rr*Sstar+pr/(SR-Vn[R]))};
-            for (int i = 0; i < 4; i++)
-            {
-                res[i]+=SL*(UStar[i]*coef-U[i]);
-        }
-        }
     }
+    
     return res;
 }
 
@@ -290,7 +342,7 @@ constexpr std::array<real,4> roeFlux2D(real rl,real rr,real ul,real ur,real vl,r
     uAvg=(coef1*ul+coef2*ur)*divisor;
     vAvg=(coef1*vl+coef2*vr)*divisor;
     HAvg=(coef1*H[L]+coef2*H[R])*divisor;
-    q_2Avg=(uAvg*uAvg+vAvg*vAvg)*0.5;
+    q_2Avg=(uAvg*uAvg+vAvg*vAvg)/2;
 
     cAvg=sqrt((GAMMA-1)*(HAvg-q_2Avg));
     if((HAvg-q_2Avg)<0)
@@ -361,13 +413,13 @@ constexpr std::array<real,4> roeFlux2DSym(real rl,real rr,real ul,real ur,real v
     
     arr2 Vn={(norm[0]>norm[1])? ul:vl,(norm[0]>norm[1])? ur:vr};
     FcL[0]=rl*Vn[L];
-    FcL[1]=ul*Vn[L]*rl+pl*norm[0];
-    FcL[2]=vl*Vn[L]*rl+pl*norm[1];
+    FcL[1]=rl*ul*Vn[L]+pl*norm[0];
+    FcL[2]=rl*vl*Vn[L]+pl*norm[1];
     FcL[3]=rl*H[L]*Vn[L];
 
     FcR[0]=rr*Vn[R];
-    FcR[1]=ur*Vn[R]*rr+pr*norm[0];
-    FcR[2]=vr*Vn[R]*rr+pr*norm[1];
+    FcR[1]=rr*ur*Vn[R]+pr*norm[0];
+    FcR[2]=rr*vr*Vn[R]+pr*norm[1];
     FcR[3]=rr*H[R]*Vn[R];
 
     double rhoAvg,uAvg,vAvg,HAvg,cAvg,VnAvg,q_2Avg,coef1,coef2;
@@ -378,7 +430,7 @@ constexpr std::array<real,4> roeFlux2DSym(real rl,real rr,real ul,real ur,real v
     uAvg=(coef1*ul+coef2*ur)*divisor;
     vAvg=(coef1*vl+coef2*vr)*divisor;
     HAvg=(coef1*H[L]+coef2*H[R])*divisor;
-    q_2Avg=(uAvg*uAvg+vAvg*vAvg)*0.5;
+    q_2Avg=(uAvg*uAvg+vAvg*vAvg)/2;
 
     cAvg=sqrt((GAMMA-1)*(HAvg-q_2Avg));
     // if((HAvg-q_2Avg)<0)
@@ -396,7 +448,7 @@ constexpr std::array<real,4> roeFlux2DSym(real rl,real rr,real ul,real ur,real v
     //         lambda[i]=(lambda[i]*lambda[i]+eps*eps)/(2.0*eps);
     //     }
     // }
-    real eps=0.1*(abs(VnAvg)+cAvg);
+    real eps=0.05*(abs(VnAvg)+cAvg);
     for(int i=0;i<3;i++)
     {
         if(lambda[i]<eps)
@@ -408,17 +460,11 @@ constexpr std::array<real,4> roeFlux2DSym(real rl,real rr,real ul,real ur,real v
     double deltaP=pr-pl,deltaVn=Vn[R]-Vn[L],deltaU=ur-ul,deltaV=vr-vl,
            deltaRho=rr-rl,coef;
     double FDispassion[4];
-    coef1=(deltaP-rhoAvg*cAvg*deltaVn)/(2*cAvg*cAvg);
-    FDispassion[0]=lambda[0]*coef1*1;
-    FDispassion[1]=lambda[0]*coef1*(uAvg-cAvg*norm[0]);
-    FDispassion[2]=lambda[0]*coef1*(vAvg-cAvg*norm[1]);
-    FDispassion[3]=lambda[0]*coef1*(HAvg-cAvg*VnAvg);
-
-    coef2=deltaRho-deltaP/(cAvg*cAvg);
-    FDispassion[0]+=lambda[1]*(coef2*1.0       +  rhoAvg*0.0);
-    FDispassion[1]+=lambda[1]*(coef2*uAvg      +  rhoAvg*((norm[1]>norm[0])? deltaU:0));
-    FDispassion[2]+=lambda[1]*(coef2*vAvg      +  rhoAvg*((norm[1]>norm[0])? 0:deltaV));
-    FDispassion[3]+=lambda[1]*(coef2*q_2Avg+  rhoAvg*((norm[1]>norm[0])? uAvg*deltaU:vAvg*deltaV));
+    coef1=(deltaP-rhoAvg*cAvg*deltaVn)/(2.0*cAvg*cAvg);
+    FDispassion[0]=lambda[0]*(coef1*1);
+    FDispassion[1]=lambda[0]*(coef1*(uAvg-cAvg*norm[0]));
+    FDispassion[2]=lambda[0]*(coef1*(vAvg-cAvg*norm[1]));
+    FDispassion[3]=lambda[0]*(coef1*(HAvg-cAvg*VnAvg));
 
     coef=(deltaP+rhoAvg*cAvg*deltaVn)/(2.0*cAvg*cAvg);
     FDispassion[0]+=lambda[2]*(coef*1);
@@ -426,9 +472,17 @@ constexpr std::array<real,4> roeFlux2DSym(real rl,real rr,real ul,real ur,real v
     FDispassion[2]+=lambda[2]*(coef*(vAvg+cAvg*norm[1]));
     FDispassion[3]+=lambda[2]*(coef*(HAvg+cAvg*VnAvg));
 
+    coef2=deltaRho-deltaP/(cAvg*cAvg);
+    FDispassion[0]+=lambda[1]*(coef2*1.0       +  rhoAvg*0.0);
+    FDispassion[1]+=lambda[1]*(coef2*uAvg      +  rhoAvg*((norm[1]>norm[0])? deltaU:0));
+    FDispassion[2]+=lambda[1]*(coef2*vAvg      +  rhoAvg*((norm[1]>norm[0])? 0:deltaV));
+    FDispassion[3]+=lambda[1]*(coef2*q_2Avg+  rhoAvg*((norm[1]>norm[0])? uAvg*deltaU:vAvg*deltaV));
+
+
+
     for(int i=0;i<4;i++)
     {
-        result[i]=0.5*(FcL[i]+FcR[i]-FDispassion[i]);
+        result[i]=(FcL[i]+FcR[i]-FDispassion[i])/2;
     }
     return result;
 }
@@ -442,9 +496,9 @@ constexpr std::vector<real> fEuler2D(const std::vector<real>& q ,std::array<real
         r*Vn,
         // u*Vn*r+p*norm[0],
         // v*Vn*r+p*norm[1],
-        u*Vn*r+(norm[0]>norm[1]? p:0),
-        v*Vn*r+(norm[0]>norm[1]? 0:p),
-        (r*(u*u+v*v)/2+GAMMA/(GAMMA-1)*p)*Vn
+        r*u*Vn+(norm[0]>norm[1]? p:0),
+        r*v*Vn+(norm[0]>norm[1]? 0:p),
+        ((u*u+v*v)/2*r+GAMMA/(GAMMA-1)*p)*Vn
     };
     return res;
 }

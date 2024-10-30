@@ -21,6 +21,7 @@
 #include <map>
 #include <format>
 #include <assert.h>
+#include <cmath>
 
 
 #include <chrono> 
@@ -54,10 +55,14 @@ enum InterMethod{
     WCNS5Char,
     WCNSZ5Char,
     WCNS5CONG,
-    WCNSCONGPOLY,
+    TCNSCongA,
     WCNS5CONGZ,
-    WCNS5CONGABS,
+    WCNS5CONGZCT4,
+    WCNS5CONGZCT7,
     TCNS5,
+    TCNS5CT4,
+    TCNS5CT7,
+    LINEAR5,
     INTERMAX
 };
 enum DiffMethod{

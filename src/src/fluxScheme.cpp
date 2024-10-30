@@ -104,7 +104,7 @@ std::vector<real> roeFlux1D2(real rl,real rr,real ul,real ur,real pl,real pr)
         abs(uBar),abs(uBar+cBar),abs(uBar-cBar)
     };
     
-    real eps=0.05*(abs(uBar)+cBar);
+    real eps=0.1*(abs(uBar)+cBar);
     for(int i=0;i<3;i++)
     {
         if(lambda[i]<eps)
