@@ -1,9 +1,9 @@
 [
 {
   "directory": "/mnt/e/CPP/CongFD/build",
-  "command": "/usr/sbin/g++  -I/mnt/e/CPP/CongFD/src/include -g -std=gnu++23 -fopenmp -o CMakeFiles/congFD.dir/zoneMain.cpp.o -c /mnt/e/CPP/CongFD/zoneMain.cpp",
-  "file": "/mnt/e/CPP/CongFD/zoneMain.cpp",
-  "output": "CMakeFiles/congFD.dir/zoneMain.cpp.o"
+  "command": "/usr/sbin/g++  -I/mnt/e/CPP/CongFD/src/include -g -std=gnu++23 -fopenmp -o CMakeFiles/congFD.dir/main.cpp.o -c /mnt/e/CPP/CongFD/main.cpp",
+  "file": "/mnt/e/CPP/CongFD/main.cpp",
+  "output": "CMakeFiles/congFD.dir/main.cpp.o"
 },
 {
   "directory": "/mnt/e/CPP/CongFD/build",
@@ -16,6 +16,12 @@
   "command": "/usr/sbin/g++  -I/mnt/e/CPP/CongFD/src/include -g -std=gnu++23 -fopenmp -o CMakeFiles/symmetrytest.dir/symmetrytest.cpp.o -c /mnt/e/CPP/CongFD/symmetrytest.cpp",
   "file": "/mnt/e/CPP/CongFD/symmetrytest.cpp",
   "output": "CMakeFiles/symmetrytest.dir/symmetrytest.cpp.o"
+},
+{
+  "directory": "/mnt/e/CPP/CongFD/build/src",
+  "command": "/usr/sbin/g++  -I/mnt/e/CPP/CongFD/src/include -g -std=gnu++23 -fopenmp -o CMakeFiles/libcongFD.dir/src/EulerEquation1D.cpp.o -c /mnt/e/CPP/CongFD/src/src/EulerEquation1D.cpp",
+  "file": "/mnt/e/CPP/CongFD/src/src/EulerEquation1D.cpp",
+  "output": "src/CMakeFiles/libcongFD.dir/src/EulerEquation1D.cpp.o"
 },
 {
   "directory": "/mnt/e/CPP/CongFD/build/src",
@@ -52,6 +58,18 @@
   "command": "/usr/sbin/g++  -I/mnt/e/CPP/CongFD/src/include -g -std=gnu++23 -fopenmp -o CMakeFiles/libcongFD.dir/src/data.cpp.o -c /mnt/e/CPP/CongFD/src/src/data.cpp",
   "file": "/mnt/e/CPP/CongFD/src/src/data.cpp",
   "output": "src/CMakeFiles/libcongFD.dir/src/data.cpp.o"
+},
+{
+  "directory": "/mnt/e/CPP/CongFD/build/src",
+  "command": "/usr/sbin/g++  -I/mnt/e/CPP/CongFD/src/include -g -std=gnu++23 -fopenmp -o CMakeFiles/libcongFD.dir/src/dataManipulater.cpp.o -c /mnt/e/CPP/CongFD/src/src/dataManipulater.cpp",
+  "file": "/mnt/e/CPP/CongFD/src/src/dataManipulater.cpp",
+  "output": "src/CMakeFiles/libcongFD.dir/src/dataManipulater.cpp.o"
+},
+{
+  "directory": "/mnt/e/CPP/CongFD/build/src",
+  "command": "/usr/sbin/g++  -I/mnt/e/CPP/CongFD/src/include -g -std=gnu++23 -fopenmp -o CMakeFiles/libcongFD.dir/src/differ.cpp.o -c /mnt/e/CPP/CongFD/src/src/differ.cpp",
+  "file": "/mnt/e/CPP/CongFD/src/src/differ.cpp",
+  "output": "src/CMakeFiles/libcongFD.dir/src/differ.cpp.o"
 },
 {
   "directory": "/mnt/e/CPP/CongFD/build/src",
@@ -100,6 +118,18 @@
   "command": "/usr/sbin/g++  -I/mnt/e/CPP/CongFD/src/include -g -std=gnu++23 -fopenmp -o CMakeFiles/libcongFD.dir/src/oneDBnd.cpp.o -c /mnt/e/CPP/CongFD/src/src/oneDBnd.cpp",
   "file": "/mnt/e/CPP/CongFD/src/src/oneDBnd.cpp",
   "output": "src/CMakeFiles/libcongFD.dir/src/oneDBnd.cpp.o"
+},
+{
+  "directory": "/mnt/e/CPP/CongFD/build/src",
+  "command": "/usr/sbin/g++  -I/mnt/e/CPP/CongFD/src/include -g -std=gnu++23 -fopenmp -o CMakeFiles/libcongFD.dir/src/reconstructor.cpp.o -c /mnt/e/CPP/CongFD/src/src/reconstructor.cpp",
+  "file": "/mnt/e/CPP/CongFD/src/src/reconstructor.cpp",
+  "output": "src/CMakeFiles/libcongFD.dir/src/reconstructor.cpp.o"
+},
+{
+  "directory": "/mnt/e/CPP/CongFD/build/src",
+  "command": "/usr/sbin/g++  -I/mnt/e/CPP/CongFD/src/include -g -std=gnu++23 -fopenmp -o CMakeFiles/libcongFD.dir/src/reconstructor5order.cpp.o -c /mnt/e/CPP/CongFD/src/src/reconstructor5order.cpp",
+  "file": "/mnt/e/CPP/CongFD/src/src/reconstructor5order.cpp",
+  "output": "src/CMakeFiles/libcongFD.dir/src/reconstructor5order.cpp.o"
 },
 {
   "directory": "/mnt/e/CPP/CongFD/build/src",

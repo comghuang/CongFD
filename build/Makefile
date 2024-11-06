@@ -65,26 +65,6 @@ CMAKE_BINARY_DIR = /mnt/e/CPP/CongFD/build
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target package
-package: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Run CPack packaging tool..."
-	/usr/bin/cpack --config ./CPackConfig.cmake
-.PHONY : package
-
-# Special rule for the target package
-package/fast: package
-.PHONY : package/fast
-
-# Special rule for the target package_source
-package_source:
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Run CPack packaging tool for source..."
-	/usr/bin/cpack --config ./CPackSourceConfig.cmake /mnt/e/CPP/CongFD/build/CPackSourceConfig.cmake
-.PHONY : package_source
-
-# Special rule for the target package_source
-package_source/fast: package_source
-.PHONY : package_source/fast
-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake cache editor..."
@@ -213,6 +193,30 @@ accuracyTest.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/accuracyTest.dir/build.make CMakeFiles/accuracyTest.dir/accuracyTest.cpp.s
 .PHONY : accuracyTest.cpp.s
 
+main.o: main.cpp.o
+.PHONY : main.o
+
+# target to build an object file
+main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/congFD.dir/build.make CMakeFiles/congFD.dir/main.cpp.o
+.PHONY : main.cpp.o
+
+main.i: main.cpp.i
+.PHONY : main.i
+
+# target to preprocess a source file
+main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/congFD.dir/build.make CMakeFiles/congFD.dir/main.cpp.i
+.PHONY : main.cpp.i
+
+main.s: main.cpp.s
+.PHONY : main.s
+
+# target to generate assembly for a file
+main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/congFD.dir/build.make CMakeFiles/congFD.dir/main.cpp.s
+.PHONY : main.cpp.s
+
 symmetrytest.o: symmetrytest.cpp.o
 .PHONY : symmetrytest.o
 
@@ -237,30 +241,6 @@ symmetrytest.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/symmetrytest.dir/build.make CMakeFiles/symmetrytest.dir/symmetrytest.cpp.s
 .PHONY : symmetrytest.cpp.s
 
-zoneMain.o: zoneMain.cpp.o
-.PHONY : zoneMain.o
-
-# target to build an object file
-zoneMain.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/congFD.dir/build.make CMakeFiles/congFD.dir/zoneMain.cpp.o
-.PHONY : zoneMain.cpp.o
-
-zoneMain.i: zoneMain.cpp.i
-.PHONY : zoneMain.i
-
-# target to preprocess a source file
-zoneMain.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/congFD.dir/build.make CMakeFiles/congFD.dir/zoneMain.cpp.i
-.PHONY : zoneMain.cpp.i
-
-zoneMain.s: zoneMain.cpp.s
-.PHONY : zoneMain.s
-
-# target to generate assembly for a file
-zoneMain.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/congFD.dir/build.make CMakeFiles/congFD.dir/zoneMain.cpp.s
-.PHONY : zoneMain.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -268,8 +248,6 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
-	@echo "... package"
-	@echo "... package_source"
 	@echo "... rebuild_cache"
 	@echo "... accuracyTest"
 	@echo "... congFD"
@@ -278,12 +256,12 @@ help:
 	@echo "... accuracyTest.o"
 	@echo "... accuracyTest.i"
 	@echo "... accuracyTest.s"
+	@echo "... main.o"
+	@echo "... main.i"
+	@echo "... main.s"
 	@echo "... symmetrytest.o"
 	@echo "... symmetrytest.i"
 	@echo "... symmetrytest.s"
-	@echo "... zoneMain.o"
-	@echo "... zoneMain.i"
-	@echo "... zoneMain.s"
 .PHONY : help
 
 

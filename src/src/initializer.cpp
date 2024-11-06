@@ -154,7 +154,7 @@ void Initializer::solInit(Block* grid,Data* sol)
                 
                 real gamma=GAMMA;
                 real r,u,E;
-                if (abs(x)<1e-10)
+                if (std::abs(x)<1e-10)
                 {
                     real dx=(*grid)(i,0)-(*grid)(i-1,0);
                     r=1;u=0;E=3200000.0/dx;
@@ -327,7 +327,7 @@ void Initializer::solInit(Block* grid,Data* sol)
                 real y=(*grid)(i*grid->icMax[0]+j,1);
                 real gamma=GAMMA;
                 real r,u,v,p;
-                if (abs(x)+abs(y)<0.15-eps)
+                if (std::abs(x)+std::abs(y)<0.15-eps)
                 {
                     r=0.125;
                     u=0.0;
@@ -364,12 +364,12 @@ void Initializer::solInit(Block* grid,Data* sol)
                 real r,u,v,p;
                 if(y<=0.5){
                     r=2.0;u=0;p=2.0*y+1.0;
-                    real c=sqrt(GAMMA*p/r);
+                    real c=std::sqrt(GAMMA*p/r);
                     v=-0.025*c*cos(8.0*M_PI*(x<0.125?x:(0.25-x)));
                 }
                 else{
                     r=1.0;u=0;p=y+3.0/2.0;
-                    real c=sqrt(GAMMA*p/r);
+                    real c=std::sqrt(GAMMA*p/r);
                     v=-0.025*c*cos(8.0*M_PI*(x<0.125?x:(0.25-x)));
                 }
                 tempsol.push_back(r);
@@ -391,7 +391,7 @@ void Initializer::solInit(Block* grid,Data* sol)
                 real y=(*grid)(i*grid->icMax[0]+j,1);
                 real gamma=GAMMA;
                 real r,u,v,p;
-                if(y>=sqrt(3)*(x-1.0/6.0)){
+                if(y>=std::sqrt(3)*(x-1.0/6.0)){
                     r=8.0;u=8.25*cos(M_PI/6);v=-8.25*sin(M_PI/6);p=116.5;
                 }
                 else{
@@ -487,7 +487,7 @@ void Initializer::initUniformBlock(Block* block)
     // double interval=round((cmax-cmin)/(iMax[0]-1)*1e8)/1e8;
     double interval=(cmax-cmin)/(iMax[0]-1);
     info->interval=interval;
-    if (abs(*std::max_element(inters.begin(),inters.end())-*std::min_element(inters.begin(),inters.end()))>1e-10)
+    if (std::abs(*std::max_element(inters.begin(),inters.end())-*std::min_element(inters.begin(),inters.end()))>1e-10)
     std::cout<<"Initalize error: interval incorrect\n";
     info->constH=true;
 

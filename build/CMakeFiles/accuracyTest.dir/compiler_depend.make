@@ -412,7 +412,6 @@ CMakeFiles/accuracyTest.dir/accuracyTest.cpp.o: /mnt/e/CPP/CongFD/accuracyTest.c
   /usr/include/c++/14.2.1/limits \
   /usr/include/c++/14.2.1/locale \
   /usr/include/c++/14.2.1/map \
-  /usr/include/c++/14.2.1/math.h \
   /usr/include/c++/14.2.1/memory \
   /usr/include/c++/14.2.1/new \
   /usr/include/c++/14.2.1/numbers \
@@ -978,8 +977,6 @@ CMakeFiles/accuracyTest.dir/accuracyTest.cpp.o: /mnt/e/CPP/CongFD/accuracyTest.c
 /usr/include/c++/14.2.1/bits/nested_exception.h:
 
 /usr/include/boost/preprocessor/config/config.hpp:
-
-/usr/include/c++/14.2.1/math.h:
 
 /usr/include/boost/preprocessor/repetition/detail/for.hpp:
 

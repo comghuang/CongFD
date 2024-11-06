@@ -65,26 +65,6 @@ CMAKE_BINARY_DIR = /mnt/e/CPP/CongFD/build
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target package
-package: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Run CPack packaging tool..."
-	cd /mnt/e/CPP/CongFD/build && /usr/bin/cpack --config ./CPackConfig.cmake
-.PHONY : package
-
-# Special rule for the target package
-package/fast: package
-.PHONY : package/fast
-
-# Special rule for the target package_source
-package_source:
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Run CPack packaging tool for source..."
-	cd /mnt/e/CPP/CongFD/build && /usr/bin/cpack --config ./CPackSourceConfig.cmake /mnt/e/CPP/CongFD/build/CPackSourceConfig.cmake
-.PHONY : package_source
-
-# Special rule for the target package_source
-package_source/fast: package_source
-.PHONY : package_source/fast
-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake cache editor..."
@@ -150,6 +130,30 @@ libcongFD: src/CMakeFiles/libcongFD.dir/rule
 libcongFD/fast:
 	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/build
 .PHONY : libcongFD/fast
+
+src/EulerEquation1D.o: src/EulerEquation1D.cpp.o
+.PHONY : src/EulerEquation1D.o
+
+# target to build an object file
+src/EulerEquation1D.cpp.o:
+	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/EulerEquation1D.cpp.o
+.PHONY : src/EulerEquation1D.cpp.o
+
+src/EulerEquation1D.i: src/EulerEquation1D.cpp.i
+.PHONY : src/EulerEquation1D.i
+
+# target to preprocess a source file
+src/EulerEquation1D.cpp.i:
+	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/EulerEquation1D.cpp.i
+.PHONY : src/EulerEquation1D.cpp.i
+
+src/EulerEquation1D.s: src/EulerEquation1D.cpp.s
+.PHONY : src/EulerEquation1D.s
+
+# target to generate assembly for a file
+src/EulerEquation1D.cpp.s:
+	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/EulerEquation1D.cpp.s
+.PHONY : src/EulerEquation1D.cpp.s
 
 src/SpaceDis.o: src/SpaceDis.cpp.o
 .PHONY : src/SpaceDis.o
@@ -294,6 +298,54 @@ src/data.s: src/data.cpp.s
 src/data.cpp.s:
 	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/data.cpp.s
 .PHONY : src/data.cpp.s
+
+src/dataManipulater.o: src/dataManipulater.cpp.o
+.PHONY : src/dataManipulater.o
+
+# target to build an object file
+src/dataManipulater.cpp.o:
+	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/dataManipulater.cpp.o
+.PHONY : src/dataManipulater.cpp.o
+
+src/dataManipulater.i: src/dataManipulater.cpp.i
+.PHONY : src/dataManipulater.i
+
+# target to preprocess a source file
+src/dataManipulater.cpp.i:
+	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/dataManipulater.cpp.i
+.PHONY : src/dataManipulater.cpp.i
+
+src/dataManipulater.s: src/dataManipulater.cpp.s
+.PHONY : src/dataManipulater.s
+
+# target to generate assembly for a file
+src/dataManipulater.cpp.s:
+	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/dataManipulater.cpp.s
+.PHONY : src/dataManipulater.cpp.s
+
+src/differ.o: src/differ.cpp.o
+.PHONY : src/differ.o
+
+# target to build an object file
+src/differ.cpp.o:
+	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/differ.cpp.o
+.PHONY : src/differ.cpp.o
+
+src/differ.i: src/differ.cpp.i
+.PHONY : src/differ.i
+
+# target to preprocess a source file
+src/differ.cpp.i:
+	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/differ.cpp.i
+.PHONY : src/differ.cpp.i
+
+src/differ.s: src/differ.cpp.s
+.PHONY : src/differ.s
+
+# target to generate assembly for a file
+src/differ.cpp.s:
+	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/differ.cpp.s
+.PHONY : src/differ.cpp.s
 
 src/eigenSystem.o: src/eigenSystem.cpp.o
 .PHONY : src/eigenSystem.o
@@ -487,6 +539,54 @@ src/oneDBnd.cpp.s:
 	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/oneDBnd.cpp.s
 .PHONY : src/oneDBnd.cpp.s
 
+src/reconstructor.o: src/reconstructor.cpp.o
+.PHONY : src/reconstructor.o
+
+# target to build an object file
+src/reconstructor.cpp.o:
+	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/reconstructor.cpp.o
+.PHONY : src/reconstructor.cpp.o
+
+src/reconstructor.i: src/reconstructor.cpp.i
+.PHONY : src/reconstructor.i
+
+# target to preprocess a source file
+src/reconstructor.cpp.i:
+	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/reconstructor.cpp.i
+.PHONY : src/reconstructor.cpp.i
+
+src/reconstructor.s: src/reconstructor.cpp.s
+.PHONY : src/reconstructor.s
+
+# target to generate assembly for a file
+src/reconstructor.cpp.s:
+	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/reconstructor.cpp.s
+.PHONY : src/reconstructor.cpp.s
+
+src/reconstructor5order.o: src/reconstructor5order.cpp.o
+.PHONY : src/reconstructor5order.o
+
+# target to build an object file
+src/reconstructor5order.cpp.o:
+	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/reconstructor5order.cpp.o
+.PHONY : src/reconstructor5order.cpp.o
+
+src/reconstructor5order.i: src/reconstructor5order.cpp.i
+.PHONY : src/reconstructor5order.i
+
+# target to preprocess a source file
+src/reconstructor5order.cpp.i:
+	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/reconstructor5order.cpp.i
+.PHONY : src/reconstructor5order.cpp.i
+
+src/reconstructor5order.s: src/reconstructor5order.cpp.s
+.PHONY : src/reconstructor5order.s
+
+# target to generate assembly for a file
+src/reconstructor5order.cpp.s:
+	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/reconstructor5order.cpp.s
+.PHONY : src/reconstructor5order.cpp.s
+
 src/sourceTerm.o: src/sourceTerm.cpp.o
 .PHONY : src/sourceTerm.o
 
@@ -638,10 +738,11 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
-	@echo "... package"
-	@echo "... package_source"
 	@echo "... rebuild_cache"
 	@echo "... libcongFD"
+	@echo "... src/EulerEquation1D.o"
+	@echo "... src/EulerEquation1D.i"
+	@echo "... src/EulerEquation1D.s"
 	@echo "... src/SpaceDis.o"
 	@echo "... src/SpaceDis.i"
 	@echo "... src/SpaceDis.s"
@@ -660,6 +761,12 @@ help:
 	@echo "... src/data.o"
 	@echo "... src/data.i"
 	@echo "... src/data.s"
+	@echo "... src/dataManipulater.o"
+	@echo "... src/dataManipulater.i"
+	@echo "... src/dataManipulater.s"
+	@echo "... src/differ.o"
+	@echo "... src/differ.i"
+	@echo "... src/differ.s"
 	@echo "... src/eigenSystem.o"
 	@echo "... src/eigenSystem.i"
 	@echo "... src/eigenSystem.s"
@@ -684,6 +791,12 @@ help:
 	@echo "... src/oneDBnd.o"
 	@echo "... src/oneDBnd.i"
 	@echo "... src/oneDBnd.s"
+	@echo "... src/reconstructor.o"
+	@echo "... src/reconstructor.i"
+	@echo "... src/reconstructor.s"
+	@echo "... src/reconstructor5order.o"
+	@echo "... src/reconstructor5order.i"
+	@echo "... src/reconstructor5order.s"
 	@echo "... src/sourceTerm.o"
 	@echo "... src/sourceTerm.i"
 	@echo "... src/sourceTerm.s"

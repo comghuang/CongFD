@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <math.h>
+#include <cmath>
 #include <fstream>
 #include <algorithm>
 
@@ -69,7 +69,7 @@ int main(int argc, char** argv){
                 delta=-f(theta,x,t)/df(theta,x,t);
                 theta=theta+delta;
                 tt++;
-            } while (abs(delta)>eps);
+            } while (std::abs(delta)>eps);
             u[i]=theta;
             file<<x<<' '<<theta<<' '<<u0(theta)<<'\n';
         }

@@ -201,6 +201,7 @@ CMakeFiles/symmetrytest.dir/symmetrytest.cpp.o: /mnt/e/CPP/CongFD/symmetrytest.c
   /usr/include/c++/14.2.1/bits/utility.h \
   /usr/include/c++/14.2.1/bits/vector.tcc \
   /usr/include/c++/14.2.1/bits/version.h \
+  /usr/include/c++/14.2.1/cassert \
   /usr/include/c++/14.2.1/cctype \
   /usr/include/c++/14.2.1/cerrno \
   /usr/include/c++/14.2.1/charconv \
@@ -238,7 +239,6 @@ CMakeFiles/symmetrytest.dir/symmetrytest.cpp.o: /mnt/e/CPP/CongFD/symmetrytest.c
   /usr/include/c++/14.2.1/limits \
   /usr/include/c++/14.2.1/locale \
   /usr/include/c++/14.2.1/map \
-  /usr/include/c++/14.2.1/math.h \
   /usr/include/c++/14.2.1/memory \
   /usr/include/c++/14.2.1/new \
   /usr/include/c++/14.2.1/numbers \
@@ -545,6 +545,8 @@ CMakeFiles/symmetrytest.dir/symmetrytest.cpp.o: /mnt/e/CPP/CongFD/symmetrytest.c
 
 /usr/include/bits/endianness.h:
 
+/usr/include/c++/14.2.1/cassert:
+
 /usr/include/c++/14.2.1/charconv:
 
 /usr/include/c++/14.2.1/bits/functexcept.h:
@@ -772,8 +774,6 @@ CMakeFiles/symmetrytest.dir/symmetrytest.cpp.o: /mnt/e/CPP/CongFD/symmetrytest.c
 /usr/include/c++/14.2.1/string:
 
 /usr/include/c++/14.2.1/bits/nested_exception.h:
-
-/usr/include/c++/14.2.1/math.h:
 
 /usr/include/c++/14.2.1/bits/new_allocator.h:
 
