@@ -43,30 +43,30 @@ int main()
             rou_R=rou_R+error;
         }
         drou=rou_R-rou_L;
-        rou=sqrt(rou_L*rou_R);
+        rou=std::sqrt(rou_L*rou_R);
         u_L=Q[i][1]/rou_L;
         u_R=Q[i+1][1]/rou_R;
         du=u_R-u_L;
-        u=(u_L*sqrt(rou_L)+u_R*sqrt(rou_R))/(sqrt(rou_L)+sqrt(rou_R));
+        u=(u_L*std::sqrt(rou_L)+u_R*std::sqrt(rou_R))/(std::sqrt(rou_L)+std::sqrt(rou_R));
         p_L=(gama-1)*(Q[i][2]-rou_L*u_L*u_L*0.5);
         p_R=(gama-1)*(Q[i+1][2]-rou_R*u_R*u_R*0.5);
         dp=p_R-p_L;
-        c_L=sqrt(gama*p_L/rou_L);
-        c_R=sqrt(gama*p_R/rou_R);
+        c_L=std::sqrt(gama*p_L/rou_L);
+        c_R=std::sqrt(gama*p_R/rou_R);
         H_L=gama*p_L/rou_L/(gama-1)+0.5*u_L*u_L;
         H_R=gama*p_R/rou_R/(gama-1)+0.5*u_R*u_R;
-        H=(H_L*sqrt(rou_L)+H_R*sqrt(rou_R))/(sqrt(rou_L)+sqrt(rou_R));
+        H=(H_L*std::sqrt(rou_L)+H_R*std::sqrt(rou_R))/(std::sqrt(rou_L)+std::sqrt(rou_R));
         c=(gama-1)*(H-0.5*u*u);
         p=rou*c/gama;
-        corrector[0][0]=u_L-sqrt(c_L);
-        corrector[0][1]=u-sqrt(c);
-        corrector[0][2]=u_R-sqrt(c_R);
+        corrector[0][0]=u_L-std::sqrt(c_L);
+        corrector[0][1]=u-std::sqrt(c);
+        corrector[0][2]=u_R-std::sqrt(c_R);
         corrector[1][0]=u_L;
         corrector[1][1]=u;
         corrector[1][2]=u_R;
-        corrector[2][0]=u_L+sqrt(c_L);
-        corrector[2][1]=u+sqrt(c);
-        corrector[2][2]=u_R+sqrt(c_R);
+        corrector[2][0]=u_L+std::sqrt(c_L);
+        corrector[2][1]=u+std::sqrt(c);
+        corrector[2][2]=u_R+std::sqrt(c_R);
         for(j=0;j<3;j++)
         {
         	m[j]=fabs(corrector[j][1]);
@@ -80,10 +80,10 @@ int main()
             }
         }*/
         a1=m[1]*(drou-dp/c);
-        a2=m[2]*(dp+rou*sqrt(c)*du)/(2*c);
-        a3=m[0]*(dp-rou*sqrt(c)*du)/(2*c);
+        a2=m[2]*(dp+rou*std::sqrt(c)*du)/(2*c);
+        a3=m[0]*(dp-rou*std::sqrt(c)*du)/(2*c);
         a4=a1+a2+a3;
-        a5=sqrt(c)*(a2-a3);
+        a5=std::sqrt(c)*(a2-a3);
         a[i][0]=a4;
         a[i][1]=u*a4+a5;
         a[i][2]=H*a4+u*a5-c*a1/(gama-1);

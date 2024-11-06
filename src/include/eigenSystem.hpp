@@ -1,53 +1,54 @@
 #pragma once
-#include<array>
-#include<macro.hpp>
+#include <array>
+#include <macro.hpp>
 
-enum{X,Y};
-class eigensystemEuler2D
-{
-    public:
-    eigensystemEuler2D(){};
-    eigensystemEuler2D(const std::array<real,4> & prim,const std::array<real,3> & norm_);
-    eigensystemEuler2D(const std::array<real,4> &priml,const std::array<real,4> &primr,const std::array<real,3> & norm_);
-    std::array<real,4> primToChar(const std::array<real,4> & prim);
-    std::array<real,4> charToPrim(const std::array<real,4> & chars);
-    
+enum { X, Y };
+class eigensystemEuler2D {
+public:
+  eigensystemEuler2D() {};
+  eigensystemEuler2D(const std::array<real, 4> &prim,
+                     const std::array<real, 3> &norm_);
+  eigensystemEuler2D(const std::array<real, 4> &priml,
+                     const std::array<real, 4> &primr,
+                     const std::array<real, 3> &norm_);
+  std::array<real, 4> primToChar(const std::array<real, 4> &prim);
+  std::array<real, 4> charToPrim(const std::array<real, 4> &chars);
 
-    private:
-    real r,u,v,p,gamma=GAMMA,ek,h,c,Vn;
-    bool xOrY=false;
-    std::array<real,3> norm;
-    std::array<real,4*4> leftEig,rightEig;
+private:
+  real r, u, v, p, gamma = GAMMA, ek, h, c, Vn;
+  bool xOrY = false;
+  std::array<real, 3> norm;
+  std::array<real, 4 * 4> leftEig, rightEig;
 };
 
-class eigensystemEuler1D
-{
-    public:
-    eigensystemEuler1D(const std::array<real,3> & prim);
-    eigensystemEuler1D(const std::array<real,3> &priml,const std::array<real,3> &primr);
-    std::array<real,3> primToChar(const std::array<real,3> & prim);
-    std::array<real,3> charToPrim(const std::array<real,3> & chars);
-    
+class eigensystemEuler1D {
+public:
+  eigensystemEuler1D(const std::array<real, 3> &prim);
+  eigensystemEuler1D(const std::array<real, 3> &priml,
+                     const std::array<real, 3> &primr);
+  std::array<real, 3> primToChar(const std::array<real, 3> &prim);
+  std::array<real, 3> charToPrim(const std::array<real, 3> &chars);
 
-    private:
-    real r,u,p,gamma=GAMMA,ek,h,c;
-    bool xOrY=false;
-    std::array<real,3*3> leftEig,rightEig;
+private:
+  real r, u, p, gamma = GAMMA, ek, h, c;
+  bool xOrY = false;
+  std::array<real, 3 * 3> leftEig, rightEig;
 };
 
 // std::array<real,4> characteristicDecomposition(std::array<real,4> prim)
 // {
 //     return{0,0,0,0};
 // }
-// std::array<real,4*4> leftEigen(const std::array<real,4>& prim,const std::array<real,3>& norm)
+// std::array<real,4*4> leftEigen(const std::array<real,4>& prim,const
+// std::array<real,3>& norm)
 // {
 //     std::array<real,4*4> res;
-    
+
 //     real r=prim[0],u=prim[1],v=prim[2],p=prim[3];
 //     real gamma=GAMMA,ek=(u*u+v*v)/2;
 //     real h=p/r*gamma/(1-gamma);
 //     real Vn=norm[0]*u+norm[1]*v;
-//     real c=sqrt(gamma*p/r);
+//     real c=std::sqrt(gamma*p/r);
 //     //first line
 //     res[0]=-norm[Y]*u+norm[X]*v;
 //     res[1]=norm[Y];
@@ -75,7 +76,8 @@ class eigensystemEuler1D
 //     return res;
 // }
 
-// std::array<real,4*4> rightEigen(const std::array<real,4>& prim,const std::array<real,3>& norm)
+// std::array<real,4*4> rightEigen(const std::array<real,4>& prim,const
+// std::array<real,3>& norm)
 // {
 //     std::array<real,4*4> res;
 //     enum{X,Y};
@@ -83,7 +85,7 @@ class eigensystemEuler1D
 //     real gamma=GAMMA,ek=(u*u+v*v)/2;
 //     real h=p/r*gamma/(1-gamma);
 //     real Vn=norm[0]*u+norm[1]*v;
-//     real c=sqrt(gamma*p/r);
+//     real c=std::sqrt(gamma*p/r);
 //     //first line
 //     res[0]=0;
 //     res[1]=1/h;

@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <math.h>
+#include <cmath>
 #include <fstream>
 #include <random>
 
@@ -54,7 +54,7 @@ int main(int argc, char** argv){
                 delta=-f(u,x,t)/df(u,x,t);
                 u=u+0.05*delta;
                 //std::cout<<times<<' '<<theta<<'\n';
-            } while (abs(delta)>eps);
+            } while (std::abs(delta)>eps);
             file<<x<<' '<<u<<'\n';
         }
         file.close();

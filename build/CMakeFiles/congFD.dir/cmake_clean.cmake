@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/congFD.dir/zoneMain.cpp.o"
-  "CMakeFiles/congFD.dir/zoneMain.cpp.o.d"
+  "CMakeFiles/congFD.dir/main.cpp.o"
+  "CMakeFiles/congFD.dir/main.cpp.o.d"
   "congFD"
   "congFD.pdb"
 )

@@ -69,28 +69,28 @@ include CMakeFiles/congFD.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/congFD.dir/flags.make
 
-CMakeFiles/congFD.dir/zoneMain.cpp.o: CMakeFiles/congFD.dir/flags.make
-CMakeFiles/congFD.dir/zoneMain.cpp.o: /mnt/e/CPP/CongFD/zoneMain.cpp
-CMakeFiles/congFD.dir/zoneMain.cpp.o: CMakeFiles/congFD.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/e/CPP/CongFD/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/congFD.dir/zoneMain.cpp.o"
-	/usr/sbin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/congFD.dir/zoneMain.cpp.o -MF CMakeFiles/congFD.dir/zoneMain.cpp.o.d -o CMakeFiles/congFD.dir/zoneMain.cpp.o -c /mnt/e/CPP/CongFD/zoneMain.cpp
+CMakeFiles/congFD.dir/main.cpp.o: CMakeFiles/congFD.dir/flags.make
+CMakeFiles/congFD.dir/main.cpp.o: /mnt/e/CPP/CongFD/main.cpp
+CMakeFiles/congFD.dir/main.cpp.o: CMakeFiles/congFD.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/mnt/e/CPP/CongFD/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/congFD.dir/main.cpp.o"
+	/usr/sbin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/congFD.dir/main.cpp.o -MF CMakeFiles/congFD.dir/main.cpp.o.d -o CMakeFiles/congFD.dir/main.cpp.o -c /mnt/e/CPP/CongFD/main.cpp
 
-CMakeFiles/congFD.dir/zoneMain.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/congFD.dir/zoneMain.cpp.i"
-	/usr/sbin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/e/CPP/CongFD/zoneMain.cpp > CMakeFiles/congFD.dir/zoneMain.cpp.i
+CMakeFiles/congFD.dir/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/congFD.dir/main.cpp.i"
+	/usr/sbin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /mnt/e/CPP/CongFD/main.cpp > CMakeFiles/congFD.dir/main.cpp.i
 
-CMakeFiles/congFD.dir/zoneMain.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/congFD.dir/zoneMain.cpp.s"
-	/usr/sbin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/e/CPP/CongFD/zoneMain.cpp -o CMakeFiles/congFD.dir/zoneMain.cpp.s
+CMakeFiles/congFD.dir/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/congFD.dir/main.cpp.s"
+	/usr/sbin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /mnt/e/CPP/CongFD/main.cpp -o CMakeFiles/congFD.dir/main.cpp.s
 
 # Object files for target congFD
 congFD_OBJECTS = \
-"CMakeFiles/congFD.dir/zoneMain.cpp.o"
+"CMakeFiles/congFD.dir/main.cpp.o"
 
 # External object files for target congFD
 congFD_EXTERNAL_OBJECTS =
 
-congFD: CMakeFiles/congFD.dir/zoneMain.cpp.o
+congFD: CMakeFiles/congFD.dir/main.cpp.o
 congFD: CMakeFiles/congFD.dir/build.make
 congFD: src/liblibcongFD.a
 congFD: /usr/lib/libgomp.so

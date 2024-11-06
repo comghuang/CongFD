@@ -238,9 +238,9 @@ std::vector<real> BlockSolver::calLocalCFL()
     {
         real iLambda;
         real dh=block->getMinDh(i);
-        real RT=sqrt(GAMMA*(*prim)(i,2)/(*prim)(i,0))+abs((*prim)(i,1));
-        if(info->dim==2) iLambda=(sqrt(GAMMA*(*prim)(i,3)/(*prim)(i,0))+abs((*prim)(i,1))+abs((*prim)(i,2)))/dh;
-        else if(info->dim==1)   iLambda=(sqrt(GAMMA*(*prim)(i,2)/(*prim)(i,0))+abs((*prim)(i,1)))/dh;
+        real RT=std::sqrt(GAMMA*(*prim)(i,2)/(*prim)(i,0))+std::abs((*prim)(i,1));
+        if(info->dim==2) iLambda=(std::sqrt(GAMMA*(*prim)(i,3)/(*prim)(i,0))+std::abs((*prim)(i,1))+std::abs((*prim)(i,2)))/dh;
+        else if(info->dim==1)   iLambda=(std::sqrt(GAMMA*(*prim)(i,2)/(*prim)(i,0))+std::abs((*prim)(i,1)))/dh;
         res[i]=info->implicitCFL/iLambda;
     }
     if(info->eqType!=EULER)
@@ -270,9 +270,9 @@ void BlockSolver::stepsLoopDTS()
         {
             real iLambda;
             real dh=block->getMinDh(i);
-            real RT=sqrt(GAMMA*(*prim)(i,2)/(*prim)(i,0))+abs((*prim)(i,1));
-            if(info->dim==2) iLambda=(sqrt(GAMMA*(*prim)(i,3)/(*prim)(i,0))+abs((*prim)(i,1))+abs((*prim)(i,2)))/dh;
-            else if(info->dim==1)   iLambda=(sqrt(GAMMA*(*prim)(i,2)/(*prim)(i,0))+abs((*prim)(i,1)))/dh;
+            real RT=std::sqrt(GAMMA*(*prim)(i,2)/(*prim)(i,0))+std::abs((*prim)(i,1));
+            if(info->dim==2) iLambda=(std::sqrt(GAMMA*(*prim)(i,3)/(*prim)(i,0))+std::abs((*prim)(i,1))+std::abs((*prim)(i,2)))/dh;
+            else if(info->dim==1)   iLambda=(std::sqrt(GAMMA*(*prim)(i,2)/(*prim)(i,0))+std::abs((*prim)(i,1)))/dh;
             lambda=std::max(lambda,iLambda);
         }
         if(info->eqType!=EULER)
@@ -314,7 +314,7 @@ real BlockSolver::getTimeIntervalExplicit()
                 real iLambda;
                 auto dhs=block->getCellInterval(i);
                 real dh=info->constH?info->geth(idim):dhs.at(idim);
-                iLambda=(sqrt(GAMMA*(*prim)(i,dim+1)/(*prim)(i,0))+abs((*prim)(i,idim+1)))/dh;
+                iLambda=(std::sqrt(GAMMA*(*prim)(i,dim+1)/(*prim)(i,0))+std::abs((*prim)(i,idim+1)))/dh;
                 maxLambda=std::max(maxLambda,iLambda);
             }
             lambdas[idim]=maxLambda;

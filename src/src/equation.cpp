@@ -37,7 +37,7 @@ void Equation::consToPrimEuler1D()
         real rE=(*cons)(i,2);
         real u=ru/r;
         real E=rE/r;
-        real e=E-u*u/2;
+        real e=-u*u/2+E;
         real gamma=GAMMA;
         real RT=(gamma-1)*e;
         real p=r*RT;
