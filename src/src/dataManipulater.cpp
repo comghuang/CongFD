@@ -1,8 +1,17 @@
 #include "dataManipulater.hpp"
-DataManipulater::DataManipulater(DataReader varsR_,
+DataManipulater::DataManipulater(DataReader varsReader_,
                                  std::shared_ptr<OneDBnd> bndL_,
-                                 std::shared_ptr<OneDBnd> bndR_, Info *info_)
-    : varsReader(varsR_), info(info_), bndL(bndL_), bndR(bndR_) {
+                                 std::shared_ptr<OneDBnd> bndR_)
+    : varsReader(varsReader_), bndL(bndL_), bndR(bndR_) {
+  n = varsReader.getN();
+  nvar = varsReader.getNVar();
+}
+void DataManipulater::init(DataReader varsReader_,
+                           std::shared_ptr<OneDBnd> bndL_,
+                           std::shared_ptr<OneDBnd> bndR_) {
+  varsReader = varsReader_;
+  bndL = bndL_;
+  bndR = bndR_;
   n = varsReader.getN();
   nvar = varsReader.getNVar();
 }

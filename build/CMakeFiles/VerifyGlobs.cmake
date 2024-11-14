@@ -8,7 +8,6 @@ set(OLD_GLOB
   "/mnt/e/CPP/CongFD/src/include/Bnds.hpp"
   "/mnt/e/CPP/CongFD/src/include/EulerEquation1D.hpp"
   "/mnt/e/CPP/CongFD/src/include/SourceTerm.hpp"
-  "/mnt/e/CPP/CongFD/src/include/SpaceDis.hpp"
   "/mnt/e/CPP/CongFD/src/include/block.hpp"
   "/mnt/e/CPP/CongFD/src/include/blockSolver.hpp"
   "/mnt/e/CPP/CongFD/src/include/cgnsio.hpp"
@@ -29,6 +28,7 @@ set(OLD_GLOB
   "/mnt/e/CPP/CongFD/src/include/reconstructor.hpp"
   "/mnt/e/CPP/CongFD/src/include/reconstructor5order.hpp"
   "/mnt/e/CPP/CongFD/src/include/solvePointFlux.hpp"
+  "/mnt/e/CPP/CongFD/src/include/solverType.hpp"
   "/mnt/e/CPP/CongFD/src/include/sp_distributor.hpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
@@ -40,7 +40,6 @@ endif()
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "/mnt/e/CPP/CongFD/src/src/*.cpp")
 set(OLD_GLOB
   "/mnt/e/CPP/CongFD/src/src/EulerEquation1D.cpp"
-  "/mnt/e/CPP/CongFD/src/src/SpaceDis.cpp"
   "/mnt/e/CPP/CongFD/src/src/block.cpp"
   "/mnt/e/CPP/CongFD/src/src/blockSolver.cpp"
   "/mnt/e/CPP/CongFD/src/src/bnds.cpp"
@@ -58,12 +57,9 @@ set(OLD_GLOB
   "/mnt/e/CPP/CongFD/src/src/oneDBnd.cpp"
   "/mnt/e/CPP/CongFD/src/src/reconstructor.cpp"
   "/mnt/e/CPP/CongFD/src/src/reconstructor5order.cpp"
+  "/mnt/e/CPP/CongFD/src/src/solverType.cpp"
   "/mnt/e/CPP/CongFD/src/src/sourceTerm.cpp"
-  "/mnt/e/CPP/CongFD/src/src/sp_circularBuffer.cpp"
-  "/mnt/e/CPP/CongFD/src/src/sp_difference.cpp"
   "/mnt/e/CPP/CongFD/src/src/sp_distributor.cpp"
-  "/mnt/e/CPP/CongFD/src/src/sp_flux.cpp"
-  "/mnt/e/CPP/CongFD/src/src/sp_recon.cpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")

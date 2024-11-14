@@ -89,7 +89,7 @@ std::vector<real>::iterator Data::random(int i) {
 }
 std::vector<real>::iterator Data::end() { return data.end(); }
 
-real Data::size() { return data.size(); }
+int Data::size() { return data.size(); }
 
 int Data::getNVar() { return nVar; }
 int Data::getN() { return n; }

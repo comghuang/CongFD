@@ -155,30 +155,6 @@ src/EulerEquation1D.cpp.s:
 	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/EulerEquation1D.cpp.s
 .PHONY : src/EulerEquation1D.cpp.s
 
-src/SpaceDis.o: src/SpaceDis.cpp.o
-.PHONY : src/SpaceDis.o
-
-# target to build an object file
-src/SpaceDis.cpp.o:
-	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/SpaceDis.cpp.o
-.PHONY : src/SpaceDis.cpp.o
-
-src/SpaceDis.i: src/SpaceDis.cpp.i
-.PHONY : src/SpaceDis.i
-
-# target to preprocess a source file
-src/SpaceDis.cpp.i:
-	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/SpaceDis.cpp.i
-.PHONY : src/SpaceDis.cpp.i
-
-src/SpaceDis.s: src/SpaceDis.cpp.s
-.PHONY : src/SpaceDis.s
-
-# target to generate assembly for a file
-src/SpaceDis.cpp.s:
-	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/SpaceDis.cpp.s
-.PHONY : src/SpaceDis.cpp.s
-
 src/block.o: src/block.cpp.o
 .PHONY : src/block.o
 
@@ -587,6 +563,30 @@ src/reconstructor5order.cpp.s:
 	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/reconstructor5order.cpp.s
 .PHONY : src/reconstructor5order.cpp.s
 
+src/solverType.o: src/solverType.cpp.o
+.PHONY : src/solverType.o
+
+# target to build an object file
+src/solverType.cpp.o:
+	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/solverType.cpp.o
+.PHONY : src/solverType.cpp.o
+
+src/solverType.i: src/solverType.cpp.i
+.PHONY : src/solverType.i
+
+# target to preprocess a source file
+src/solverType.cpp.i:
+	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/solverType.cpp.i
+.PHONY : src/solverType.cpp.i
+
+src/solverType.s: src/solverType.cpp.s
+.PHONY : src/solverType.s
+
+# target to generate assembly for a file
+src/solverType.cpp.s:
+	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/solverType.cpp.s
+.PHONY : src/solverType.cpp.s
+
 src/sourceTerm.o: src/sourceTerm.cpp.o
 .PHONY : src/sourceTerm.o
 
@@ -610,54 +610,6 @@ src/sourceTerm.s: src/sourceTerm.cpp.s
 src/sourceTerm.cpp.s:
 	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/sourceTerm.cpp.s
 .PHONY : src/sourceTerm.cpp.s
-
-src/sp_circularBuffer.o: src/sp_circularBuffer.cpp.o
-.PHONY : src/sp_circularBuffer.o
-
-# target to build an object file
-src/sp_circularBuffer.cpp.o:
-	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/sp_circularBuffer.cpp.o
-.PHONY : src/sp_circularBuffer.cpp.o
-
-src/sp_circularBuffer.i: src/sp_circularBuffer.cpp.i
-.PHONY : src/sp_circularBuffer.i
-
-# target to preprocess a source file
-src/sp_circularBuffer.cpp.i:
-	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/sp_circularBuffer.cpp.i
-.PHONY : src/sp_circularBuffer.cpp.i
-
-src/sp_circularBuffer.s: src/sp_circularBuffer.cpp.s
-.PHONY : src/sp_circularBuffer.s
-
-# target to generate assembly for a file
-src/sp_circularBuffer.cpp.s:
-	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/sp_circularBuffer.cpp.s
-.PHONY : src/sp_circularBuffer.cpp.s
-
-src/sp_difference.o: src/sp_difference.cpp.o
-.PHONY : src/sp_difference.o
-
-# target to build an object file
-src/sp_difference.cpp.o:
-	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/sp_difference.cpp.o
-.PHONY : src/sp_difference.cpp.o
-
-src/sp_difference.i: src/sp_difference.cpp.i
-.PHONY : src/sp_difference.i
-
-# target to preprocess a source file
-src/sp_difference.cpp.i:
-	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/sp_difference.cpp.i
-.PHONY : src/sp_difference.cpp.i
-
-src/sp_difference.s: src/sp_difference.cpp.s
-.PHONY : src/sp_difference.s
-
-# target to generate assembly for a file
-src/sp_difference.cpp.s:
-	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/sp_difference.cpp.s
-.PHONY : src/sp_difference.cpp.s
 
 src/sp_distributor.o: src/sp_distributor.cpp.o
 .PHONY : src/sp_distributor.o
@@ -683,54 +635,6 @@ src/sp_distributor.cpp.s:
 	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/sp_distributor.cpp.s
 .PHONY : src/sp_distributor.cpp.s
 
-src/sp_flux.o: src/sp_flux.cpp.o
-.PHONY : src/sp_flux.o
-
-# target to build an object file
-src/sp_flux.cpp.o:
-	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/sp_flux.cpp.o
-.PHONY : src/sp_flux.cpp.o
-
-src/sp_flux.i: src/sp_flux.cpp.i
-.PHONY : src/sp_flux.i
-
-# target to preprocess a source file
-src/sp_flux.cpp.i:
-	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/sp_flux.cpp.i
-.PHONY : src/sp_flux.cpp.i
-
-src/sp_flux.s: src/sp_flux.cpp.s
-.PHONY : src/sp_flux.s
-
-# target to generate assembly for a file
-src/sp_flux.cpp.s:
-	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/sp_flux.cpp.s
-.PHONY : src/sp_flux.cpp.s
-
-src/sp_recon.o: src/sp_recon.cpp.o
-.PHONY : src/sp_recon.o
-
-# target to build an object file
-src/sp_recon.cpp.o:
-	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/sp_recon.cpp.o
-.PHONY : src/sp_recon.cpp.o
-
-src/sp_recon.i: src/sp_recon.cpp.i
-.PHONY : src/sp_recon.i
-
-# target to preprocess a source file
-src/sp_recon.cpp.i:
-	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/sp_recon.cpp.i
-.PHONY : src/sp_recon.cpp.i
-
-src/sp_recon.s: src/sp_recon.cpp.s
-.PHONY : src/sp_recon.s
-
-# target to generate assembly for a file
-src/sp_recon.cpp.s:
-	cd /mnt/e/CPP/CongFD/build && $(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/src/sp_recon.cpp.s
-.PHONY : src/sp_recon.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -743,9 +647,6 @@ help:
 	@echo "... src/EulerEquation1D.o"
 	@echo "... src/EulerEquation1D.i"
 	@echo "... src/EulerEquation1D.s"
-	@echo "... src/SpaceDis.o"
-	@echo "... src/SpaceDis.i"
-	@echo "... src/SpaceDis.s"
 	@echo "... src/block.o"
 	@echo "... src/block.i"
 	@echo "... src/block.s"
@@ -797,24 +698,15 @@ help:
 	@echo "... src/reconstructor5order.o"
 	@echo "... src/reconstructor5order.i"
 	@echo "... src/reconstructor5order.s"
+	@echo "... src/solverType.o"
+	@echo "... src/solverType.i"
+	@echo "... src/solverType.s"
 	@echo "... src/sourceTerm.o"
 	@echo "... src/sourceTerm.i"
 	@echo "... src/sourceTerm.s"
-	@echo "... src/sp_circularBuffer.o"
-	@echo "... src/sp_circularBuffer.i"
-	@echo "... src/sp_circularBuffer.s"
-	@echo "... src/sp_difference.o"
-	@echo "... src/sp_difference.i"
-	@echo "... src/sp_difference.s"
 	@echo "... src/sp_distributor.o"
 	@echo "... src/sp_distributor.i"
 	@echo "... src/sp_distributor.s"
-	@echo "... src/sp_flux.o"
-	@echo "... src/sp_flux.i"
-	@echo "... src/sp_flux.s"
-	@echo "... src/sp_recon.o"
-	@echo "... src/sp_recon.i"
-	@echo "... src/sp_recon.s"
 .PHONY : help
 
 

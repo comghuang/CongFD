@@ -131,19 +131,6 @@ congFD/fast:
 .PHONY : congFD/fast
 
 #=============================================================================
-# Target rules for targets named accuracyTest
-
-# Build rule for target.
-accuracyTest: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 accuracyTest
-.PHONY : accuracyTest
-
-# fast build rule for target.
-accuracyTest/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/accuracyTest.dir/build.make CMakeFiles/accuracyTest.dir/build
-.PHONY : accuracyTest/fast
-
-#=============================================================================
 # Target rules for targets named symmetrytest
 
 # Build rule for target.
@@ -169,53 +156,29 @@ libcongFD/fast:
 	$(MAKE) $(MAKESILENT) -f src/CMakeFiles/libcongFD.dir/build.make src/CMakeFiles/libcongFD.dir/build
 .PHONY : libcongFD/fast
 
-accuracyTest.o: accuracyTest.cpp.o
-.PHONY : accuracyTest.o
+ZoneMain.o: ZoneMain.cpp.o
+.PHONY : ZoneMain.o
 
 # target to build an object file
-accuracyTest.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/accuracyTest.dir/build.make CMakeFiles/accuracyTest.dir/accuracyTest.cpp.o
-.PHONY : accuracyTest.cpp.o
+ZoneMain.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/congFD.dir/build.make CMakeFiles/congFD.dir/ZoneMain.cpp.o
+.PHONY : ZoneMain.cpp.o
 
-accuracyTest.i: accuracyTest.cpp.i
-.PHONY : accuracyTest.i
-
-# target to preprocess a source file
-accuracyTest.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/accuracyTest.dir/build.make CMakeFiles/accuracyTest.dir/accuracyTest.cpp.i
-.PHONY : accuracyTest.cpp.i
-
-accuracyTest.s: accuracyTest.cpp.s
-.PHONY : accuracyTest.s
-
-# target to generate assembly for a file
-accuracyTest.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/accuracyTest.dir/build.make CMakeFiles/accuracyTest.dir/accuracyTest.cpp.s
-.PHONY : accuracyTest.cpp.s
-
-main.o: main.cpp.o
-.PHONY : main.o
-
-# target to build an object file
-main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/congFD.dir/build.make CMakeFiles/congFD.dir/main.cpp.o
-.PHONY : main.cpp.o
-
-main.i: main.cpp.i
-.PHONY : main.i
+ZoneMain.i: ZoneMain.cpp.i
+.PHONY : ZoneMain.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/congFD.dir/build.make CMakeFiles/congFD.dir/main.cpp.i
-.PHONY : main.cpp.i
+ZoneMain.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/congFD.dir/build.make CMakeFiles/congFD.dir/ZoneMain.cpp.i
+.PHONY : ZoneMain.cpp.i
 
-main.s: main.cpp.s
-.PHONY : main.s
+ZoneMain.s: ZoneMain.cpp.s
+.PHONY : ZoneMain.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/congFD.dir/build.make CMakeFiles/congFD.dir/main.cpp.s
-.PHONY : main.cpp.s
+ZoneMain.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/congFD.dir/build.make CMakeFiles/congFD.dir/ZoneMain.cpp.s
+.PHONY : ZoneMain.cpp.s
 
 symmetrytest.o: symmetrytest.cpp.o
 .PHONY : symmetrytest.o
@@ -249,16 +212,12 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... accuracyTest"
 	@echo "... congFD"
 	@echo "... libcongFD"
 	@echo "... symmetrytest"
-	@echo "... accuracyTest.o"
-	@echo "... accuracyTest.i"
-	@echo "... accuracyTest.s"
-	@echo "... main.o"
-	@echo "... main.i"
-	@echo "... main.s"
+	@echo "... ZoneMain.o"
+	@echo "... ZoneMain.i"
+	@echo "... ZoneMain.s"
 	@echo "... symmetrytest.o"
 	@echo "... symmetrytest.i"
 	@echo "... symmetrytest.s"

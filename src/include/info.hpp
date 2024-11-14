@@ -23,9 +23,10 @@ public:
   real implicitCFL = 0.01;
   real maxImplicitStep = 100;
 
-  DiffMethod diffMethod = TRAD6;
+  DiffMethod diffMethod = MND6;
   InterMethod interMethod = WCNS5; // 只影响插值权
   SourceType sourceType = SOURCENULL;
+  FluxMethod fluxMethod = ROE;
 
   std::array<int, 3> iMax{201, 201, 2};
   std::array<double, 6> calZone{0, 0.3, 0, 0.3, 0, 2};

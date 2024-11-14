@@ -11,18 +11,16 @@ set(CMAKE_CXX_STANDARD 23)
 #add_subdirectory(libMeshb)
 #list(APPEND EXTRA_LIBS libMeshb)
 
-# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -w -O3")
-# set(CMAKE_C_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O3")
-# set(CMAKE_C_FLAGS_Release "${CMAKE_CXX_FLAGS_Release} -O3")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -w -O3")
+set(CMAKE_C_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O3")
+set(CMAKE_C_FLAGS_Release "${CMAKE_CXX_FLAGS_Release} -O3")
 
 find_package(OpenMP)
 #add the executable
-add_executable(${PROJECT_NAME} main.cpp)
+add_executable(${PROJECT_NAME} ZoneMain.cpp)
 
 target_link_libraries(${PROJECT_NAME} PUBLIC libcongFD OpenMP::OpenMP_CXX)
 
-add_executable(accuracyTest accuracyTest.cpp)
-target_link_libraries(accuracyTest PUBLIC libcongFD OpenMP::OpenMP_CXX)
 
 add_executable(symmetrytest symmetrytest.cpp)
 target_link_libraries(symmetrytest PUBLIC libcongFD OpenMP::OpenMP_CXX)
