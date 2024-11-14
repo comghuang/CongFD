@@ -1,10 +1,6 @@
 CMakeFiles/congFD.dir/main.cpp.o: /mnt/e/CPP/CongFD/main.cpp \
- /usr/include/stdc-predef.h \
- /mnt/e/CPP/CongFD/src/include/solvePointFlux.hpp \
- /mnt/e/CPP/CongFD/src/include/dataManipulater.hpp \
- /mnt/e/CPP/CongFD/src/include/data.hpp \
- /mnt/e/CPP/CongFD/src/include/macro.hpp /usr/include/c++/14.2.1/array \
- /usr/include/c++/14.2.1/compare /usr/include/c++/14.2.1/bits/version.h \
+ /usr/include/stdc-predef.h /mnt/e/CPP/CongFD/src/include/solverType.hpp \
+ /usr/include/c++/14.2.1/variant /usr/include/c++/14.2.1/bits/version.h \
  /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/c++config.h \
  /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/os_defines.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -13,27 +9,36 @@ CMakeFiles/congFD.dir/main.cpp.o: /mnt/e/CPP/CongFD/main.cpp \
  /usr/include/gnu/stubs.h /usr/include/gnu/stubs-64.h \
  /usr/include/c++/14.2.1/x86_64-pc-linux-gnu/bits/cpu_defines.h \
  /usr/include/c++/14.2.1/pstl/pstl_config.h \
- /usr/include/c++/14.2.1/concepts /usr/include/c++/14.2.1/type_traits \
  /usr/include/c++/14.2.1/initializer_list \
- /usr/include/c++/14.2.1/bits/functexcept.h \
+ /usr/include/c++/14.2.1/type_traits \
+ /usr/include/c++/14.2.1/bits/enable_special_members.h \
  /usr/include/c++/14.2.1/bits/exception_defines.h \
- /usr/include/c++/14.2.1/bits/stl_algobase.h \
+ /usr/include/c++/14.2.1/bits/functional_hash.h \
+ /usr/include/c++/14.2.1/bits/hash_bytes.h \
+ /usr/include/c++/14.2.1/bits/invoke.h \
+ /usr/include/c++/14.2.1/bits/move.h \
+ /usr/include/c++/14.2.1/bits/parse_numbers.h \
+ /usr/include/c++/14.2.1/ext/numeric_traits.h \
  /usr/include/c++/14.2.1/bits/cpp_type_traits.h \
  /usr/include/c++/14.2.1/ext/type_traits.h \
- /usr/include/c++/14.2.1/ext/numeric_traits.h \
- /usr/include/c++/14.2.1/bits/stl_pair.h \
- /usr/include/c++/14.2.1/bits/move.h \
- /usr/include/c++/14.2.1/bits/utility.h \
- /usr/include/c++/14.2.1/bits/stl_iterator_base_types.h \
- /usr/include/c++/14.2.1/bits/iterator_concepts.h \
- /usr/include/c++/14.2.1/bits/ptr_traits.h \
- /usr/include/c++/14.2.1/bits/ranges_cmp.h \
  /usr/include/c++/14.2.1/bits/stl_iterator_base_funcs.h \
  /usr/include/c++/14.2.1/bits/concept_check.h \
  /usr/include/c++/14.2.1/debug/assertions.h \
- /usr/include/c++/14.2.1/bits/stl_iterator.h /usr/include/c++/14.2.1/new \
+ /usr/include/c++/14.2.1/bits/stl_iterator_base_types.h \
+ /usr/include/c++/14.2.1/bits/iterator_concepts.h \
+ /usr/include/c++/14.2.1/concepts \
+ /usr/include/c++/14.2.1/bits/ptr_traits.h \
+ /usr/include/c++/14.2.1/bits/ranges_cmp.h \
+ /usr/include/c++/14.2.1/bits/stl_construct.h /usr/include/c++/14.2.1/new \
  /usr/include/c++/14.2.1/bits/exception.h \
- /usr/include/c++/14.2.1/bits/stl_construct.h \
+ /usr/include/c++/14.2.1/bits/utility.h /usr/include/c++/14.2.1/compare \
+ /mnt/e/CPP/CongFD/src/include/differ.hpp \
+ /mnt/e/CPP/CongFD/src/include/data.hpp \
+ /mnt/e/CPP/CongFD/src/include/macro.hpp /usr/include/c++/14.2.1/array \
+ /usr/include/c++/14.2.1/bits/functexcept.h \
+ /usr/include/c++/14.2.1/bits/stl_algobase.h \
+ /usr/include/c++/14.2.1/bits/stl_pair.h \
+ /usr/include/c++/14.2.1/bits/stl_iterator.h \
  /usr/include/c++/14.2.1/debug/debug.h \
  /usr/include/c++/14.2.1/bits/predefined_ops.h \
  /usr/include/c++/14.2.1/bit /usr/include/c++/14.2.1/bits/range_access.h \
@@ -57,7 +62,6 @@ CMakeFiles/congFD.dir/main.cpp.o: /mnt/e/CPP/CongFD/main.cpp \
  /usr/include/c++/14.2.1/bits/exception_ptr.h \
  /usr/include/c++/14.2.1/bits/cxxabi_init_exception.h \
  /usr/include/c++/14.2.1/typeinfo \
- /usr/include/c++/14.2.1/bits/hash_bytes.h \
  /usr/include/c++/14.2.1/bits/nested_exception.h \
  /usr/include/c++/14.2.1/bits/char_traits.h \
  /usr/include/c++/14.2.1/bits/localefwd.h \
@@ -98,12 +102,10 @@ CMakeFiles/congFD.dir/main.cpp.o: /mnt/e/CPP/CongFD/main.cpp \
  /usr/include/c++/14.2.1/bits/stl_function.h \
  /usr/include/c++/14.2.1/backward/binders.h \
  /usr/include/c++/14.2.1/bits/refwrap.h \
- /usr/include/c++/14.2.1/bits/invoke.h \
  /usr/include/c++/14.2.1/bits/basic_string.h \
  /usr/include/c++/14.2.1/ext/alloc_traits.h \
  /usr/include/c++/14.2.1/bits/alloc_traits.h \
  /usr/include/c++/14.2.1/string_view \
- /usr/include/c++/14.2.1/bits/functional_hash.h \
  /usr/include/c++/14.2.1/bits/ranges_base.h \
  /usr/include/c++/14.2.1/bits/max_size_type.h \
  /usr/include/c++/14.2.1/numbers \
@@ -156,10 +158,7 @@ CMakeFiles/congFD.dir/main.cpp.o: /mnt/e/CPP/CongFD/main.cpp \
  /usr/include/libintl.h /usr/include/c++/14.2.1/bits/codecvt.h \
  /usr/include/c++/14.2.1/bits/locale_facets_nonio.tcc \
  /usr/include/c++/14.2.1/bits/locale_conv.h \
- /usr/include/c++/14.2.1/optional \
- /usr/include/c++/14.2.1/bits/enable_special_members.h \
- /usr/include/c++/14.2.1/span /usr/include/c++/14.2.1/variant \
- /usr/include/c++/14.2.1/bits/parse_numbers.h \
+ /usr/include/c++/14.2.1/optional /usr/include/c++/14.2.1/span \
  /usr/include/c++/14.2.1/bits/ranges_algobase.h \
  /usr/include/c++/14.2.1/bits/unicode.h /usr/include/c++/14.2.1/cstdint \
  /usr/lib/gcc/x86_64-pc-linux-gnu/14.2.1/include/stdint.h \
@@ -239,12 +238,7 @@ CMakeFiles/congFD.dir/main.cpp.o: /mnt/e/CPP/CongFD/main.cpp \
  /usr/include/c++/14.2.1/sstream /usr/include/c++/14.2.1/bits/sstream.tcc \
  /usr/include/c++/14.2.1/bits/chrono_io.h /usr/include/c++/14.2.1/iomanip \
  /usr/include/c++/14.2.1/bits/quoted_string.h \
- /mnt/e/CPP/CongFD/src/include/oneDBnd.hpp \
  /mnt/e/CPP/CongFD/src/include/info.hpp \
- /mnt/e/CPP/CongFD/src/include/fluxSchemes.hpp \
- /mnt/e/CPP/CongFD/src/include/reconstructor5order.hpp \
- /mnt/e/CPP/CongFD/src/include/interScheme.hpp \
- /mnt/e/CPP/CongFD/src/include/reconstructor.hpp \
  /usr/include/c++/14.2.1/functional \
  /usr/include/c++/14.2.1/bits/std_function.h \
  /usr/include/c++/14.2.1/unordered_map \
@@ -252,4 +246,15 @@ CMakeFiles/congFD.dir/main.cpp.o: /mnt/e/CPP/CongFD/main.cpp \
  /usr/include/c++/14.2.1/bits/hashtable.h \
  /usr/include/c++/14.2.1/bits/hashtable_policy.h \
  /usr/include/c++/14.2.1/bits/move_only_function.h \
- /usr/include/c++/14.2.1/bits/mofunc_impl.h
+ /usr/include/c++/14.2.1/bits/mofunc_impl.h \
+ /mnt/e/CPP/CongFD/src/include/fluxPointFlux.hpp \
+ /mnt/e/CPP/CongFD/src/include/fluxSchemes.hpp \
+ /mnt/e/CPP/CongFD/src/include/proxy.h /usr/include/c++/14.2.1/utility \
+ /usr/include/c++/14.2.1/bits/stl_relops.h \
+ /mnt/e/CPP/CongFD/src/include/reconstructor.hpp \
+ /mnt/e/CPP/CongFD/src/include/dataManipulater.hpp \
+ /mnt/e/CPP/CongFD/src/include/oneDBnd.hpp \
+ /mnt/e/CPP/CongFD/src/include/reconstructor5order.hpp \
+ /mnt/e/CPP/CongFD/src/include/eigenSystem.hpp \
+ /mnt/e/CPP/CongFD/src/include/interScheme.hpp \
+ /mnt/e/CPP/CongFD/src/include/solvePointFlux.hpp

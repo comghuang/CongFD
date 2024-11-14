@@ -1,20 +1,21 @@
 #pragma once
 #include "Bnds.hpp"
-#include "SpaceDis.hpp"
+#include "solverType.hpp"
 #include <omp.h>
 
-class SpDistributor
-{
-    public:
+class SpDistributor {
+public:
     void rhsSolve();
 
-    private:
+private:
     friend class Initializer;
 
-    int nCons,nPrim,dim;
-    std::array<int,3> iMax;
-    Data* prim,*cons;
+    int nCons, nPrim, dim;
+    std::array<int, 3> iMax;
+    Data *prim, *cons;
     Data* rhs;
+
     Bnds* bnds;
     Info* info;
+    SolverType solverType;
 };

@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/mnt/e/CPP/CongFD/src/include
 
-CXX_FLAGS = -g -std=gnu++23 -fopenmp
+CXX_FLAGS =  -g -w -O3 -g -std=gnu++23 -fopenmp
 

@@ -1,0 +1,258 @@
+{
+	"globsDependent" : 
+	[
+		{
+			"expression" : "/mnt/e/CPP/CongFD/src/include/*.hpp",
+			"paths" : 
+			[
+				"/mnt/e/CPP/CongFD/src/include/Bnds.hpp",
+				"/mnt/e/CPP/CongFD/src/include/EulerEquation1D.hpp",
+				"/mnt/e/CPP/CongFD/src/include/SourceTerm.hpp",
+				"/mnt/e/CPP/CongFD/src/include/block.hpp",
+				"/mnt/e/CPP/CongFD/src/include/blockSolver.hpp",
+				"/mnt/e/CPP/CongFD/src/include/cgnsio.hpp",
+				"/mnt/e/CPP/CongFD/src/include/data.hpp",
+				"/mnt/e/CPP/CongFD/src/include/dataManipulater.hpp",
+				"/mnt/e/CPP/CongFD/src/include/differ.hpp",
+				"/mnt/e/CPP/CongFD/src/include/differenceScheme.hpp",
+				"/mnt/e/CPP/CongFD/src/include/eigenSystem.hpp",
+				"/mnt/e/CPP/CongFD/src/include/equation.hpp",
+				"/mnt/e/CPP/CongFD/src/include/fluxPointFlux.hpp",
+				"/mnt/e/CPP/CongFD/src/include/fluxScheme.hpp",
+				"/mnt/e/CPP/CongFD/src/include/fluxSchemes.hpp",
+				"/mnt/e/CPP/CongFD/src/include/info.hpp",
+				"/mnt/e/CPP/CongFD/src/include/initializer.hpp",
+				"/mnt/e/CPP/CongFD/src/include/interScheme.hpp",
+				"/mnt/e/CPP/CongFD/src/include/macro.hpp",
+				"/mnt/e/CPP/CongFD/src/include/oneDBnd.hpp",
+				"/mnt/e/CPP/CongFD/src/include/reconstructor.hpp",
+				"/mnt/e/CPP/CongFD/src/include/reconstructor5order.hpp",
+				"/mnt/e/CPP/CongFD/src/include/solvePointFlux.hpp",
+				"/mnt/e/CPP/CongFD/src/include/solverType.hpp",
+				"/mnt/e/CPP/CongFD/src/include/sp_distributor.hpp"
+			],
+			"recurse" : true
+		},
+		{
+			"expression" : "/mnt/e/CPP/CongFD/src/src/*.cpp",
+			"paths" : 
+			[
+				"/mnt/e/CPP/CongFD/src/src/EulerEquation1D.cpp",
+				"/mnt/e/CPP/CongFD/src/src/block.cpp",
+				"/mnt/e/CPP/CongFD/src/src/blockSolver.cpp",
+				"/mnt/e/CPP/CongFD/src/src/bnds.cpp",
+				"/mnt/e/CPP/CongFD/src/src/cgnsio.cpp",
+				"/mnt/e/CPP/CongFD/src/src/data.cpp",
+				"/mnt/e/CPP/CongFD/src/src/dataManipulater.cpp",
+				"/mnt/e/CPP/CongFD/src/src/differ.cpp",
+				"/mnt/e/CPP/CongFD/src/src/eigenSystem.cpp",
+				"/mnt/e/CPP/CongFD/src/src/equation.cpp",
+				"/mnt/e/CPP/CongFD/src/src/fluxScheme.cpp",
+				"/mnt/e/CPP/CongFD/src/src/info.cpp",
+				"/mnt/e/CPP/CongFD/src/src/initializer.cpp",
+				"/mnt/e/CPP/CongFD/src/src/interScheme.cpp",
+				"/mnt/e/CPP/CongFD/src/src/macro.cpp",
+				"/mnt/e/CPP/CongFD/src/src/oneDBnd.cpp",
+				"/mnt/e/CPP/CongFD/src/src/reconstructor.cpp",
+				"/mnt/e/CPP/CongFD/src/src/reconstructor5order.cpp",
+				"/mnt/e/CPP/CongFD/src/src/solverType.cpp",
+				"/mnt/e/CPP/CongFD/src/src/sourceTerm.cpp",
+				"/mnt/e/CPP/CongFD/src/src/sp_distributor.cpp"
+			],
+			"recurse" : true
+		}
+	],
+	"inputs" : 
+	[
+		{
+			"path" : "CMakeLists.txt"
+		},
+		{
+			"isGenerated" : true,
+			"path" : "build/CMakeFiles/3.30.3/CMakeSystem.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/usr/share/cmake/Modules/CMakeSystemSpecificInitialize.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/usr/share/cmake/Modules/Platform/Linux-Initialize.cmake"
+		},
+		{
+			"isGenerated" : true,
+			"path" : "build/CMakeFiles/3.30.3/CMakeCCompiler.cmake"
+		},
+		{
+			"isGenerated" : true,
+			"path" : "build/CMakeFiles/3.30.3/CMakeCXXCompiler.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/usr/share/cmake/Modules/CMakeSystemSpecificInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/usr/share/cmake/Modules/CMakeGenericSystem.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/usr/share/cmake/Modules/CMakeInitializeConfigs.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/usr/share/cmake/Modules/Platform/Linux.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/usr/share/cmake/Modules/Platform/UnixPaths.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/usr/share/cmake/Modules/CMakeCInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/usr/share/cmake/Modules/CMakeLanguageInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/usr/share/cmake/Modules/Compiler/GNU-C.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/usr/share/cmake/Modules/Compiler/GNU.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/usr/share/cmake/Modules/Compiler/CMakeCommonCompilerMacros.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/usr/share/cmake/Modules/Platform/Linux-GNU-C.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/usr/share/cmake/Modules/Platform/Linux-GNU.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/usr/share/cmake/Modules/CMakeCommonLanguageInclude.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/usr/share/cmake/Modules/CMakeCXXInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/usr/share/cmake/Modules/CMakeLanguageInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/usr/share/cmake/Modules/Compiler/GNU-CXX.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/usr/share/cmake/Modules/Compiler/GNU.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/usr/share/cmake/Modules/Platform/Linux-GNU-CXX.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/usr/share/cmake/Modules/Platform/Linux-GNU.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/usr/share/cmake/Modules/CMakeCommonLanguageInclude.cmake"
+		},
+		{
+			"path" : "helloConfig.h.in"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/usr/share/cmake/Modules/FindOpenMP.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/usr/share/cmake/Modules/CMakeParseImplicitLinkInfo.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/usr/share/cmake/Modules/FindPackageHandleStandardArgs.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/usr/share/cmake/Modules/FindPackageMessage.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/usr/share/cmake/Modules/CMakePrintHelpers.cmake"
+		},
+		{
+			"path" : "src/CMakeLists.txt"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/usr/share/cmake/Modules/FindOpenMP.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/usr/share/cmake/Modules/CMakeParseImplicitLinkInfo.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/usr/share/cmake/Modules/FindPackageHandleStandardArgs.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "/usr/share/cmake/Modules/FindPackageMessage.cmake"
+		},
+		{
+			"path" : "utils/CMakeLists.txt"
+		}
+	],
+	"kind" : "cmakeFiles",
+	"paths" : 
+	{
+		"build" : "/mnt/e/CPP/CongFD/build",
+		"source" : "/mnt/e/CPP/CongFD"
+	},
+	"version" : 
+	{
+		"major" : 1,
+		"minor" : 1
+	}
+}

@@ -1,43 +1,73 @@
 #pragma once
 
-#include "data.hpp"
-#include "info.hpp"
 #include <concepts>
 #include <span>
 #include <type_traits>
+
+#include "data.hpp"
+#include "info.hpp"
 /*------------------concepts bigin---------------------------*/
 
 template <std::size_t NVar>
-using RiemannSolverN = void (*)(const std::span<real, NVar * 2> &,
-                                const std::span<real, NVar> &,
-                                const std::array<real, 3> &);
+using RiemannSolverN = void (*)(const std::span<real, NVar * 2>&,
+    const std::span<real, NVar>&,
+    const std::array<real, 3>&);
 
 template <typename T, std::size_t NVar>
-concept RiemannSolver =
-    requires(T f, std::span<real, NVar> arr, std::array<real, 3> norm) {
-      { T(arr, norm) } -> std::same_as<std::array<real, NVar>>;
-    };
+concept RiemannSolver = requires(T f, std::span<real, NVar> arr, std::array<real, 3> norm) {
+    { T(arr, norm) } -> std::same_as<std::array<real, NVar>>;
+};
 
 /*-----------------concepts end--------------------------------*/
 
-template <std::size_t NVar, RiemannSolver<NVar> RSolver> class FluxPointSolver {
+template <std::size_t NVar, RiemannSolverN<NVar> solver>
+class FluxPointSolver {
 public:
-  FluxPointSolver(std::shared_ptr<std::vector<real>> valsR_, Info *info_,
-                  int idim_, int nvar_)
-      : valsR(valsR_), info(info_), idim(idim_), nvar(nvar_) {};
+    FluxPointSolver() {};
+    FluxPointSolver(std::shared_ptr<Data> valsR_, int idim_, int nvar_)
+        : valsR(valsR_)
+        , idim(idim_)
+        , nvar(nvar_) {};
 
-  void setConstNorm(std::array<real, 3> norm_);
-  virtual void solve() = 0;
-  std::shared_ptr<Data> fluxes;
+    void init(std::shared_ptr<Data> valsR_, int idim_, int nvar_)
+    {
+        valsR = valsR_;
+        idim = idim_;
+        nvar = nvar_;
+    }
+    std::shared_ptr<Data> getData() { return fluxes; }
+    void setConstNorm(std::array<real, 3> norm_);
+    void check() { std::cout << "initialized successfully FluxPointSolver\n"; }
+    void solve();
+    std::shared_ptr<Data> fluxes;
 
 protected:
-  std::shared_ptr<std::vector<real>> valsR;
-  Info *info;
-  int idim, nvar;
-  std::array<real, 3> norm;
+    std::shared_ptr<Data> valsR;
+    int idim, nvar;
+    std::array<real, 3> norm;
 };
 
-template <std::size_t NVar, RiemannSolver<NVar> RSolver>
-void FluxPointSolver<NVar, RSolver>::setConstNorm(std::array<real, 3> norm_) {
-  norm = norm_;
+template <std::size_t NVar, RiemannSolverN<NVar> solver>
+void FluxPointSolver<NVar, solver>::setConstNorm(std::array<real, 3> norm_)
+{
+    norm = norm_;
+}
+
+template <std::size_t NVar, RiemannSolverN<NVar> solver>
+void FluxPointSolver<NVar, solver>::solve()
+{
+    auto end = valsR->end();
+    assert(nvar == NVar);
+    assert(valsR->size() % 2 == 0);
+    if (!fluxes)
+        fluxes = std::make_shared<Data>(valsR->getN(), NVar);
+    auto ivar = valsR->begin();
+    auto iflux = fluxes->begin();
+    for (; ivar != end; ivar += 2 * NVar, iflux += NVar) {
+        std::span<real, 2 * NVar> input(ivar, 2 * NVar);
+        std::span<real, NVar> output(iflux, NVar);
+        solver(input, output, norm);
+    }
+    assert(ivar == end);
+    assert(iflux == fluxes->end());
 }
