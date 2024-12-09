@@ -647,7 +647,7 @@ void Initializer::initBnds(Bnds* bnds, Equation* eqn, std::array<int, 3> iMax, B
         offsets = calOffsetInverse(1, 0, 0, bnds->iMax);
         bnds->oneDBnds.at(0)->setUpdate(eqn->prim, offsets[0], offsets[1]);
 
-        offsets = calOffset(1, 0, 0, bnds->iMax);
+        offsets = calOffset(0, 0, 0, bnds->iMax);
         bnds->oneDBnds.at(1)->setUpdate(eqn->prim, offsets[0], offsets[1]);
     } break;
     case EULER:
@@ -657,7 +657,7 @@ void Initializer::initBnds(Bnds* bnds, Equation* eqn, std::array<int, 3> iMax, B
                 Xtype = SYMMETRY1D;
             }
             bnds->oneDBnds.at(0) = std::make_shared<OneDBnd>(nGhost, nPrim, Xtype);
-            offsets = calOffset(1, 0, 0, bnds->iMax);
+            offsets = calOffset(0, 0, 0, bnds->iMax);
             bnds->oneDBnds.at(0)->setUpdate(eqn->prim, offsets[0], offsets[1]);
 
             bnds->oneDBnds.at(1) = std::make_shared<OneDBnd>(nGhost, nPrim, Xtype);
@@ -680,7 +680,7 @@ void Initializer::initBnds(Bnds* bnds, Equation* eqn, std::array<int, 3> iMax, B
 
             for (int i = 0; i < iMax[1]; i++) {
                 bnds->oneDBnds.at(2 * i) = std::make_shared<OneDBnd>(nGhost, nPrim, Xtype);
-                offsets = calOffset(1, i, 0, bnds->iMax);
+                offsets = calOffset(0, i, 0, bnds->iMax);
                 bnds->oneDBnds.at(2 * i)->setUpdate(eqn->prim, offsets[0], offsets[1]);
 
                 bnds->oneDBnds.at(2 * i + 1) = std::make_shared<OneDBnd>(nGhost, nPrim, Xtype);
@@ -690,7 +690,7 @@ void Initializer::initBnds(Bnds* bnds, Equation* eqn, std::array<int, 3> iMax, B
 
             for (int i = 0; i < iMax[0]; i++) {
                 bnds->oneDBnds.at(2 * i + iMax[1] * 2) = std::make_shared<OneDBnd>(nGhost, nPrim, Ytype);
-                offsets = calOffset(2, i, 0, bnds->iMax);
+                offsets = calOffset(1, i, 0, bnds->iMax);
                 bnds->oneDBnds.at(2 * i + iMax[1] * 2)->setUpdate(eqn->prim, offsets[0], offsets[1]);
 
                 if (info->nCase == 3) // For R-T instability
@@ -739,7 +739,7 @@ void Initializer::initDoubleMachBnds(Bnds* bnds, Equation* eqn, std::array<int, 
     int nCons = info->nCons();
     int nPrim = info->nPrim();
     for (int i = 0; i < iMax[1]; i++) {
-        offsets = calOffset(1, i, 0, bnds->iMax);
+        offsets = calOffset(0, i, 0, bnds->iMax);
         real x = block->coorCel(offsets[0], 0);
         bnds->oneDBnds.at(2 * i) = std::make_shared<OneDBnd>(nGhost, nPrim, DIRICLET);
         bnds->oneDBnds.at(2 * i)->setUpdate(eqn->prim, offsets[0], offsets[1]);
@@ -761,7 +761,7 @@ void Initializer::initDoubleMachBnds(Bnds* bnds, Equation* eqn, std::array<int, 
     }
 
     for (int i = 0; i < iMax[0]; i++) {
-        offsets = calOffset(2, i, 0, bnds->iMax);
+        offsets = calOffset(1, i, 0, bnds->iMax);
         real x = block->coorCel(offsets[0], 0);
         BndType Ytype = SYMMETRYY;
         if (x < 1.0 / 6.0)

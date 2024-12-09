@@ -8,7 +8,7 @@ public:
         std::shared_ptr<OneDBnd> bndR_)
         : DataManipulater(varsR_, bndL_, bndR_) {};
     void check() { std::cout << "initialized successfully Reconstuctor\n"; }
-    void solve() final
+    void solve() override
     {
         initVarsR();
         iter = data->begin();

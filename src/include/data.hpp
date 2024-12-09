@@ -36,8 +36,8 @@ public:
 
 private:
     std::vector<real> data;
-    int n = 200;
-    int nVar = 1;
+    int n = 0;
+    int nVar = 0;
 };
 
 class DataReader {

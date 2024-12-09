@@ -1,12 +1,10 @@
-#include <variant>
+#pragma once
 
-#include "differ.hpp"
-#include "fluxPointFlux.hpp"
-#include "fluxSchemes.hpp"
+#include "data.hpp"
+#include "info.hpp"
+#include "interSchemeCellCenter.hpp"
+#include "oneDBnd.hpp"
 #include "proxy.h"
-#include "reconstructor.hpp"
-#include "reconstructor5order.hpp"
-#include "solvePointFlux.hpp"
 
 /*for ProxyDataManipulator*/
 PRO_DEF_MEM_DISPATCH(Solve, solve);
