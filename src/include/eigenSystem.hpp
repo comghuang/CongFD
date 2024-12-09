@@ -1,38 +1,50 @@
 #pragma once
+#include "macro.hpp"
 #include <array>
-#include <macro.hpp>
+#include <concepts>
 
-enum { X, Y };
+template <class T, std::size_t NVar>
+concept EigenSystem = requires(T a, std::span<real, NVar> prim, std::array<real, 3> norm) {
+    // a();
+    // a(prim, norm);
+    // a(prim, prim, norm);
+    { a.primToChar(prim) } -> std::same_as<std::array<real, NVar>>;
+    { a.charToPrim(prim) } -> std::same_as<std::array<real, NVar>>;
+};
+
+enum { X,
+    Y };
 class eigensystemEuler2D {
 public:
-  eigensystemEuler2D() {};
-  eigensystemEuler2D(const std::array<real, 4> &prim,
-                     const std::array<real, 3> &norm_);
-  eigensystemEuler2D(const std::array<real, 4> &priml,
-                     const std::array<real, 4> &primr,
-                     const std::array<real, 3> &norm_);
-  std::array<real, 4> primToChar(const std::array<real, 4> &prim);
-  std::array<real, 4> charToPrim(const std::array<real, 4> &chars);
+    eigensystemEuler2D() {};
+    eigensystemEuler2D(const std::span<real, 4>& prim,
+        const std::array<real, 3>& norm_);
+    eigensystemEuler2D(const std::span<real, 4>& priml,
+        const std::span<real, 4>& primr,
+        const std::array<real, 3>& norm_);
+    std::array<real, 4> primToChar(const std::span<real, 4>& prim);
+    std::array<real, 4> charToPrim(const std::span<real, 4>& chars);
 
 private:
-  real r, u, v, p, gamma = GAMMA, ek, h, c, Vn;
-  bool xOrY = false;
-  std::array<real, 3> norm;
-  std::array<real, 4 * 4> leftEig, rightEig;
+    real r, u, v, p, gamma = GAMMA, ek, h, c, Vn;
+    bool xOrY = false;
+    std::array<real, 3> norm;
+    std::array<real, 4 * 4> leftEig, rightEig;
 };
 
 class eigensystemEuler1D {
 public:
-  eigensystemEuler1D(const std::array<real, 3> &prim);
-  eigensystemEuler1D(const std::array<real, 3> &priml,
-                     const std::array<real, 3> &primr);
-  std::array<real, 3> primToChar(const std::array<real, 3> &prim);
-  std::array<real, 3> charToPrim(const std::array<real, 3> &chars);
+    eigensystemEuler1D() {};
+    eigensystemEuler1D(const std::span<real, 3>& prim, const std::array<real, 3>& norm_);
+    eigensystemEuler1D(const std::span<real, 3>& priml,
+        const std::span<real, 3>& primr, const std::array<real, 3>& norm_);
+    std::array<real, 3> primToChar(const std::span<real, 3>& prim);
+    std::array<real, 3> charToPrim(const std::span<real, 3>& chars);
 
 private:
-  real r, u, p, gamma = GAMMA, ek, h, c;
-  bool xOrY = false;
-  std::array<real, 3 * 3> leftEig, rightEig;
+    real r, u, p, gamma = GAMMA, ek, h, c;
+    bool xOrY = false;
+    std::array<real, 3 * 3> leftEig, rightEig;
 };
 
 // std::array<real,4> characteristicDecomposition(std::array<real,4> prim)

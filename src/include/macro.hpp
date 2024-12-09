@@ -5,8 +5,6 @@
 #define real double
 #define ind int
 
-// #include <cmath>
-// #include <stdio.h>
 #include <array>
 #include <cstring>
 #include <iostream>
@@ -18,7 +16,7 @@
 #include <cassert>
 #include <cmath>
 #include <format>
-#include <map>
+#include <ranges>
 
 #include <chrono>
 inline long timepp = 0;
@@ -57,6 +55,8 @@ enum InterMethod {
     TCNS5CT4,
     TCNS5CT7,
     LINEAR5,
+    BVD5,
+    TRIAL,
     INTERMAX
 };
 enum DiffMethod { HDS6,
@@ -93,13 +93,13 @@ inline std::array<int, 2> calOffset(int idim, int i, int j,
 {
     std::array<int, 3> offsets { 1, iMax[0], iMax[0] * iMax[1] };
     std::array<int, 2> res;
-    if (idim == 1) {
+    if (idim == 0) {
         res[0] = i * offsets[1] + j * offsets[2]; // i0
         res[1] = offsets[0]; // offset
-    } else if (idim == 2) {
+    } else if (idim == 1) {
         res[0] = i * offsets[0] + j * offsets[2]; // i0
         res[1] = offsets[1]; // offset
-    } else if (idim == 3) {
+    } else if (idim == 2) {
         res[0] = i * offsets[0] + j * offsets[1]; // i0
         res[1] = offsets[2]; // offset
     }

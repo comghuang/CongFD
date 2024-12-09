@@ -1,4 +1,14 @@
 #include "solverType.hpp"
+#include "differ.hpp"
+#include "fluxPointFlux.hpp"
+#include "fluxSchemes.hpp"
+#include "interScheme.hpp"
+#include "reconBVD.hpp"
+#include "reconTenoThinc.hpp"
+#include "reconstructor.hpp"
+#include "reconstructorCellCenter.hpp"
+#include "reconstructorFaceCenter.hpp"
+#include "solvePointFlux.hpp"
 SolverType::SolverType(const SolverType& origin)
 {
     info = origin.info;
@@ -19,6 +29,14 @@ SolverType::SolverType(Info* info_)
 
 void SolverType::initReconer()
 {
+
+    if (info->interMethod == TRIAL) {
+        reconer = pro::make_proxy<ProxyDataManipulator>(
+            // Recon5OrderCellCenter<teno5_CongCell>());
+            // Recon5OrderFaceCenter<weno5_JSchen>());
+            ReconerTenoThinc<3, eigensystemEuler1D>());
+        return;
+    }
     switch (info->eqType) {
     case LINEARCONV1D:
     case BURGERS1D:
@@ -55,6 +73,10 @@ void SolverType::initReconer()
             reconer = pro::make_proxy<ProxyDataManipulator>(
                 Recon5OrderFaceCenter<Teno5_CongZCT7>());
             break;
+        case BVD5:
+            reconer = pro::make_proxy<ProxyDataManipulator>(
+                ReconerBVD());
+            break;
 
         default:
             reconer = pro::make_proxy<ProxyDataManipulator>(
@@ -87,6 +109,8 @@ void SolverType::initReconer()
                 break;
             case WCNS5CONGZ:
                 reconer = pro::make_proxy<ProxyDataManipulator>(
+                    // Recon5OrderFaceCenter<weno5_Z>());
+                    // Recon5OrderFaceCenter<Teno5_CongZ>());
                     Recon5Order1DEulerEig<Teno5_CongZ>());
                 break;
             case WCNS5CONGZCT4:
@@ -96,6 +120,10 @@ void SolverType::initReconer()
             case WCNS5CONGZCT7:
                 reconer = pro::make_proxy<ProxyDataManipulator>(
                     Recon5Order1DEulerEig<Teno5_CongZCT7>());
+                break;
+            case BVD5:
+                reconer = pro::make_proxy<ProxyDataManipulator>(
+                    ReconerBVD());
                 break;
 
             default:
@@ -128,6 +156,7 @@ void SolverType::initReconer()
             case WCNS5CONGZ:
                 reconer = pro::make_proxy<ProxyDataManipulator>(
                     Recon5Order2DEulerEig<Teno5_CongZ>());
+                // Recon5OrderFaceCenter<weno5_Z>());
                 break;
             case WCNS5CONGZCT4:
                 reconer = pro::make_proxy<ProxyDataManipulator>(
@@ -136,6 +165,10 @@ void SolverType::initReconer()
             case WCNS5CONGZCT7:
                 reconer = pro::make_proxy<ProxyDataManipulator>(
                     Recon5Order2DEulerEig<Teno5_CongZCT7>());
+                break;
+            case BVD5:
+                reconer = pro::make_proxy<ProxyDataManipulator>(
+                    ReconerBVD());
                 break;
             default:
                 reconer = pro::make_proxy<ProxyDataManipulator>(

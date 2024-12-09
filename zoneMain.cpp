@@ -12,13 +12,13 @@ int main()
     // auto prim2=eig.charToPrim(eigValues);
     // std::cout<<"finish\n";
 
-    omp_set_num_threads(20);
+    omp_set_num_threads(0);
 
     Info* info = new Info;
 
     info->eqType = EULER;
     info->spMethod = WCNS5;
-    info->fluxMethod = ROE;
+    info->fluxMethod = HLLC;
 
     info->diffMethod = MND6;
     // info->diffMethod = TRAD6;
@@ -29,18 +29,20 @@ int main()
     // info->interMethod=WCNS5Char;
     //  info->interMethod=WCNS5CONG;
     //   info->interMethod=TCNSCongA;
-    //  info->interMethod=WCNS5CONGZ;
-    //  info->sourceType=GRAVITY;
     info->interMethod = WCNS5CONGZ;
+    //  info->sourceType=GRAVITY;
+    // info->interMethod = TCNS5;
+    info->interMethod = BVD5;
+    info->interMethod = TRIAL;
 
     // Shu-Osher
-    //  info->endStep=1;
-    //  info->CFL=0.5;
-    //  info->outputDt=1.8;
-    //  info->nCase=1;
-    //  info->calZone={0,10.0,0,0,0,0};
-    //  info->iMax={201,2,2};
-    //  info->dim=1;
+    info->endStep = 18;
+    info->CFL = 0.5;
+    info->outputDt = 0.1;
+    info->nCase = 1;
+    info->calZone = { 0, 10.0, 0, 0, 0, 0 };
+    info->iMax = { 201, 2, 2 };
+    info->dim = 1;
 
     // sod tube
     // info->CFL = 0.5;
@@ -52,13 +54,13 @@ int main()
     // info->dim = 1;
 
     // lax sod tube
-    //  info->endStep=14;
-    //  info->outputDt=0.01;
-    //  info->CFL=0.5;
-    //  info->nCase=2;
-    //  info->calZone={-0.5,0.5,0,0,0,0};
-    //  info->iMax={201,2,2};
-    //  info->dim=1;
+    info->endStep = 14;
+    info->outputDt = 0.01;
+    info->CFL = 0.5;
+    info->nCase = 2;
+    info->calZone = { -0.5, 0.5, 0, 0, 0, 0 };
+    info->iMax = { 201, 2, 2 };
+    info->dim = 1;
 
     // lax sod tube speed test
     //  info->endStep=14;
@@ -70,22 +72,22 @@ int main()
     //  info->dim=1;
 
     // sedov
-    //  info->endStep=1;
-    //  info->outputDt=0.001;
-    //  info->CFL=0.5;
-    //  info->nCase=3;
-    //  info->calZone={-2,2,0,0,0,0};
-    //  info->iMax={400,2,2};
-    //  info->dim=1;
+    // info->endStep = 1;
+    // info->outputDt = 0.001;
+    // info->CFL = 0.5;
+    // info->nCase = 3;
+    // info->calZone = { -2, 2, 0, 0, 0, 0 };
+    // info->iMax = { 400, 2, 2 };
+    // info->dim = 1;
 
     // Woodward-Colella
-    //  info->endStep=1;
-    //  info->outputDt=0.038;
-    //  info->CFL=0.4;
-    //  info->nCase=4;
-    //  info->calZone={0,1,0,0,0,0};
-    //  info->iMax={401,2,2};
-    //  info->dim=1;
+    // info->endStep = 1;
+    // info->outputDt = 0.038;
+    // info->CFL = 0.1;
+    // info->nCase = 4;
+    // info->calZone = { 0, 1, 0, 0, 0, 0 };
+    // info->iMax = { 401, 2, 2 };
+    // info->dim = 1;
 
     // 双稀疏波
     //  info->endStep=100;
@@ -97,22 +99,22 @@ int main()
     //  info->dim=1;
 
     // implosion
-    //  info->endStep=25;
-    //  info->outputDt=0.1;
-    //  info->CFL=0.5;
-    //  info->nCase=2;
-    //  info->calZone={-0.3,0.3,-0.3,0.3,0,0};
-    //  info->iMax={401,401,2};
-    //  info->dim=2;
+    // info->endStep = 25;
+    // info->outputDt = 0.1;
+    // info->CFL = 0.5;
+    // info->nCase = 2;
+    // info->calZone = { -0.3, 0.3, -0.3, 0.3, 0, 0 };
+    // info->iMax = { 401, 401, 2 };
+    // info->dim = 2;
 
     // Riemann 1
-    info->endStep = 1;
-    info->outputDt = 0.8;
-    info->CFL = 0.5;
-    info->nCase = 0;
-    info->calZone = { -0.5, 0.5, -0.5, 0.5, 0, 0 };
-    info->iMax = { 401, 401, 2 };
-    info->dim = 2;
+    // info->endStep = 20;
+    // info->outputDt = 0.04;
+    // info->CFL = 0.5;
+    // info->nCase = 0;
+    // info->calZone = { -0.5, 0.5, -0.5, 0.5, 0, 0 };
+    // info->iMax = { 401, 401, 2 };
+    // info->dim = 2;
 
     // Riemann 2 vortex
     //  info->endStep=1;
@@ -136,13 +138,13 @@ int main()
 
     // info->diffMethod=HDS6;
     // Double Mach
-    //  info->endStep=20;
-    //  info->outputDt=0.01;
-    //  info->CFL=0.5;
-    //  info->nCase=4;
-    //  info->calZone={0,4,0,1,0,0};
-    //  info->iMax={801,201,2};
-    //  info->dim=2;
+    // info->endStep = 20;
+    // info->outputDt = 0.01;
+    // info->CFL = 0.5;
+    // info->nCase = 4;
+    // info->calZone = { 0, 4, 0, 1, 0, 0 };
+    // info->iMax = { 801, 201, 2 };
+    // info->dim = 2;
 
     // file config mode
     std::ifstream file("info.txt");
