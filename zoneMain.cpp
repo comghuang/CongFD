@@ -12,7 +12,7 @@ int main()
     // auto prim2=eig.charToPrim(eigValues);
     // std::cout<<"finish\n";
 
-    omp_set_num_threads(0);
+    omp_set_num_threads(20);
 
     Info* info = new Info;
 
@@ -33,7 +33,7 @@ int main()
     //  info->sourceType=GRAVITY;
     // info->interMethod = TCNS5;
     info->interMethod = BVD5;
-    info->interMethod = TRIAL;
+    info->interMethod = TENOTHINC;
 
     // Shu-Osher
     info->endStep = 18;
@@ -54,13 +54,13 @@ int main()
     // info->dim = 1;
 
     // lax sod tube
-    info->endStep = 14;
-    info->outputDt = 0.01;
-    info->CFL = 0.5;
-    info->nCase = 2;
-    info->calZone = { -0.5, 0.5, 0, 0, 0, 0 };
-    info->iMax = { 201, 2, 2 };
-    info->dim = 1;
+    // info->endStep = 14;
+    // info->outputDt = 0.01;
+    // info->CFL = 0.5;
+    // info->nCase = 2;
+    // info->calZone = { -0.5, 0.5, 0, 0, 0, 0 };
+    // info->iMax = { 101, 2, 2 };
+    // info->dim = 1;
 
     // lax sod tube speed test
     //  info->endStep=14;
@@ -108,13 +108,13 @@ int main()
     // info->dim = 2;
 
     // Riemann 1
-    // info->endStep = 20;
-    // info->outputDt = 0.04;
-    // info->CFL = 0.5;
-    // info->nCase = 0;
-    // info->calZone = { -0.5, 0.5, -0.5, 0.5, 0, 0 };
-    // info->iMax = { 401, 401, 2 };
-    // info->dim = 2;
+    info->endStep = 20;
+    info->outputDt = 0.04;
+    info->CFL = 0.5;
+    info->nCase = 0;
+    info->calZone = { -0.5, 0.5, -0.5, 0.5, 0, 0 };
+    info->iMax = { 401, 401, 2 };
+    info->dim = 2;
 
     // Riemann 2 vortex
     //  info->endStep=1;
