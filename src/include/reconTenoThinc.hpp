@@ -39,8 +39,10 @@ protected:
 
     void outputFlags(const std::array<real, NVar> flags)
     {
+        return;
         std::fstream file("flags.dat", std::ios::app);
         file << std::format("{} {} {} {}\n", count++, flags[0], flags[1], flags[2]);
+        file.close();
     }
     int count = 0;
 
@@ -94,6 +96,8 @@ void ReconerTenoThinc<NVar, eigenSystem, nSten, tenoDetector>::initVarsR()
     buffer = boost::circular_buffer<Element>(7);
     buffer.clear();
     count = 0;
+    // std::fstream file("flags.dat", std::ios::out);
+    // file.close();
 }
 
 template <std::size_t NVar, EigenSystem<NVar> eigenSystem, std::size_t nSten, TenoDetector<nSten> tenoDetector>
@@ -198,16 +202,18 @@ void ReconerTenoThinc<NVar, eigenSystem, nSten, tenoDetector>::reconI(
     auto rightSign = [](uint_fast8_t flag) -> bool { uint_fast8_t sign = 0b001;return !((sign&flag)==0); }; // 判断最低位是否为1
     for (auto ivar : std::ranges::views::iota(0ul, NVar)) {
         //          if buffer[end].flag[ivar]的第一位为0
-        if (leftSign(buffer.back().flags[ivar])) {
+        if (rightSign(buffer.back().flags[ivar])) {
             //           for iEle=end-1:-1(反向遍历)
             for (auto iEle = buffer.rbegin() + 1; iEle != buffer.rend(); iEle++) {
                 //            if iEle的第三位为0
-                if (rightSign(iEle->flags[ivar])) {
+                if (leftSign(iEle->flags[ivar])) {
                     for (auto iEle2 = buffer.rbegin() + 1; iEle2 != iEle; iEle2++) {
                         {
                             // 令iEle的与end之间的重构单元flag[ivar]==0的flag[ivar]=7,即进入THINC重构，并退出循环
                             if (iEle2->flags[ivar] == 0) {
-                                iEle2->flags[ivar] = 7;
+                                // iEle2->flags[ivar] = 7;
+                                // (iEle2 + 1)->flags[ivar] = 7;
+                                // (iEle2 - 1)->flags[ivar] = 7;
                             }
                         }
                     }
@@ -370,7 +376,7 @@ inline std::array<real, 2> THINC(real q1, real q2, real q3)
         qmax = q3;
         qmin = q1;
     }
-    constexpr real beta = 0.7;
+    constexpr real beta = 0.70;
     constexpr real T1 = std::exp(2.0 * beta), T3 = exp(-2.0 * beta);
 
     constexpr real eps = 1e-20;

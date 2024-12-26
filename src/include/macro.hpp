@@ -56,6 +56,7 @@ enum InterMethod {
     TCNS5CT7,
     LINEAR5,
     BVD5,
+    TENOTHINC,
     TRIAL,
     INTERMAX
 };
