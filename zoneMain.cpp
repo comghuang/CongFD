@@ -5,13 +5,6 @@
 
 int main()
 {
-    // std::array<real,4> prim0={1.0,0.75,-0.5,1.0};
-    // std::array<real,4> prim={2.0,-0.75,0.5,1.0};
-    // eigensystemEuler2D eig=eigensystemEuler2D(prim0,{1,0,0});
-    // auto eigValues=eig.primToChar(prim);
-    // auto prim2=eig.charToPrim(eigValues);
-    // std::cout<<"finish\n";
-
     omp_set_num_threads(20);
 
     Info* info = new Info;
