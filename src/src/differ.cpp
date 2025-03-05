@@ -82,10 +82,12 @@ void MidNodeAndNodeDif6::solve()
         varArraysHalf.push_back(std::span<real>(iterFluxHalf, nvar));
         varArraysNode.push_back(std::span<real>(iterFluxNode, nvar));
         for (int ivar : std::views::iota(0, nvar)) {
+            //chenyuqing: 差分的实际逻辑
             iterRhs[ivar] += (w[1] * (varArraysNode[2][ivar] - varArraysNode[0][ivar])
                                  + w[0] * (varArraysHalf[2][ivar] - varArraysHalf[1][ivar])
                                  + w[2] * (varArraysHalf[3][ivar] - varArraysHalf[0][ivar]))
                 / h;
+            // iterRhs[ivar] += (varArraysHalf[2][ivar] - varArraysHalf[1][ivar])/ h;
         }
 
         iterFluxHalf += nvar;

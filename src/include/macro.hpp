@@ -24,7 +24,9 @@
 inline long timepp = 0;
 inline long timesss = 0;
 
+//chenyuqing: 其他算例的gamma
 #define GAMMA 1.4
+//chenyuqing：RT的gamma
 // #define GAMMA 5.0/3.0
 
 enum BndType {
@@ -57,6 +59,7 @@ enum InterMethod {
     TCNS5CT4,
     TCNS5CT7,
     LINEAR5,
+    MUCSLIN5,
     INTERMAX
 };
 enum DiffMethod { HDS6,

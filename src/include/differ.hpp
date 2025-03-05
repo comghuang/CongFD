@@ -39,5 +39,6 @@ public:
 
 class MidNodeAndNodeDif6 : public Differ {
 public:
+    //chenyuqing: 差分使用的方法
     void solve() final;
 };

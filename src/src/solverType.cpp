@@ -97,6 +97,10 @@ void SolverType::initReconer()
                 reconer = pro::make_proxy<ProxyDataManipulator>(
                     Recon5Order1DEulerEig<Teno5_CongZCT7>());
                 break;
+            case MUCSLIN5:
+                reconer = pro::make_proxy<ProxyDataManipulator>(
+                    Recon5Order1DEulerEig<musclIn5>());
+                    break;
 
             default:
                 reconer = pro::make_proxy<ProxyDataManipulator>(
@@ -136,6 +140,10 @@ void SolverType::initReconer()
             case WCNS5CONGZCT7:
                 reconer = pro::make_proxy<ProxyDataManipulator>(
                     Recon5Order2DEulerEig<Teno5_CongZCT7>());
+                break;
+            case MUCSLIN5:
+                reconer = pro::make_proxy<ProxyDataManipulator>(
+                    Recon5Order2DEulerEig<musclIn5>());
                 break;
             default:
                 reconer = pro::make_proxy<ProxyDataManipulator>(

@@ -13,8 +13,9 @@ eigensystemEuler2D::eigensystemEuler2D(const std::array<real, 4> &prim,
 eigensystemEuler2D::eigensystemEuler2D(const std::array<real, 4> &priml,
                                        const std::array<real, 4> &primr,
                                        const std::array<real, 3> &norm_) {
+  //chenyuqing: 构建左右特征变换矩阵
   norm = norm_;
-
+ 
   gamma = GAMMA;
   enum { LL, RR };
   real rl = priml[0], ul = priml[1], vl = priml[2], pl = priml[3];
@@ -74,6 +75,7 @@ eigensystemEuler2D::eigensystemEuler2D(const std::array<real, 4> &priml,
 
 std::array<real, 4>
 eigensystemEuler2D::primToChar(const std::array<real, 4> &prim) {
+  //chenyuqing: 原始变量转为特征变量
   real rt = prim[0], ut = prim[1], vt = prim[2], pt = prim[3];
   real ekt = (ut * ut + vt * vt) / 2;
   real rut = rt * ut, rvt = rt * vt, ret = pt / (gamma - 1) + rt * ekt;
@@ -94,8 +96,19 @@ eigensystemEuler2D::primToChar(const std::array<real, 4> &prim) {
 
   return res;
 }
+
+std::array<real, 4>
+eigensystemEuler2D::primToCons(const std::array<real, 4> &prim) {
+  //chenyuqing: 原始变量转为特征变量
+  real rt = prim[0], ut = prim[1], vt = prim[2], pt = prim[3];
+  real ekt = (ut * ut + vt * vt) / 2;
+  real rut = rt * ut, rvt = rt * vt, ret = pt / (gamma - 1) + rt * ekt;
+
+  return {rt,rut,rvt,ret};
+}
 std::array<real, 4>
 eigensystemEuler2D::charToPrim(const std::array<real, 4> &chars) {
+  //chenyuqing: 特征变量转为原始变量
   real ch1 = chars[0], ch2 = chars[1], ch3 = chars[2], ch4 = chars[3], rt, rut,
        rvt, ret;
   rt = ch3 * rightEig[2] + ch4 * rightEig[3] + ch2 * rightEig[1] +
@@ -116,6 +129,39 @@ eigensystemEuler2D::charToPrim(const std::array<real, 4> &chars) {
   real pt = (gamma - 1) * (ret - rekt);
   return {rt, ut, vt, pt};
 }
+
+std::array<real, 4>
+eigensystemEuler2D::charToCons(const std::array<real, 4> &chars) {
+  //chenyuqing: 特征变量转为原始变量
+  real ch1 = chars[0], ch2 = chars[1], ch3 = chars[2], ch4 = chars[3], rt, rut,
+       rvt, ret;
+  rt = ch3 * rightEig[2] + ch4 * rightEig[3] + ch2 * rightEig[1] +
+       ch1 * rightEig[0];
+
+  rut = ch3 * rightEig[6] + ch4 * rightEig[7] + ch2 * rightEig[5] +
+        ch1 * rightEig[4];
+
+  rvt = ch3 * rightEig[10] + ch4 * rightEig[11] + ch2 * rightEig[9] +
+        ch1 * rightEig[8];
+
+  ret = ch3 * rightEig[14] + ch4 * rightEig[15] + ch2 * rightEig[13] +
+        ch1 * rightEig[12];
+  return {rt, rut, rvt, ret};
+}
+
+std::array<real, 4>
+eigensystemEuler2D::consToPrim(const std::array<real, 4> &cons) {
+  //chenyuqing: 特征变量转为原始变量
+  real rt=cons[0],rut=cons[1],rvt=cons[2],ret=cons[3];
+
+    real ut = rut / rt;
+    real vt = rvt / rt;
+    real rekt = (rut * rut + rvt * rvt) / rt / 2;
+    real pt = (gamma - 1) * (ret - rekt);
+    return {rt, ut, vt, pt};
+}
+
+
 
 eigensystemEuler1D::eigensystemEuler1D(const std::array<real, 3> &priml,
                                        const std::array<real, 3> &primr) {
@@ -170,6 +216,14 @@ eigensystemEuler1D::primToChar(const std::array<real, 3> &prim) {
 }
 
 std::array<real, 3>
+eigensystemEuler1D::primToCons(const std::array<real, 3> &prim) {
+  real rt = prim[0], ut = prim[1], pt = prim[2];
+  real ekt = (ut * ut) / 2;
+  real rut = rt * ut, ret = pt / (gamma - 1) + rt * ekt;
+  return {rt,rut,ret};
+}
+
+std::array<real, 3>
 eigensystemEuler1D::charToPrim(const std::array<real, 3> &chars) {
   real ch1 = chars[0], ch2 = chars[1], ch3 = chars[2], rt, rut, ret;
 
@@ -183,5 +237,36 @@ eigensystemEuler1D::charToPrim(const std::array<real, 3> &chars) {
   real Et = ret / rt;
   real ekt = (ut * ut) / 2;
   real pt = (gamma - 1) * (ret - rt * ekt);
+  return {rt, ut, pt};
+}
+
+std::array<real, 3>
+eigensystemEuler1D::charToCons(const std::array<real, 3> &chars) {
+  // 特征变量转为守恒变量
+  real ch1 = chars[0], ch2 = chars[1], ch3 = chars[2];
+
+  // 计算守恒变量
+  real rt = ch1 * rightEig[0] + ch2 * rightEig[1] + ch3 * rightEig[2]; // 质量 (rho)
+  real rut = ch1 * rightEig[3] + ch2 * rightEig[4] + ch3 * rightEig[5]; // 动量 (rho * u)
+  real ret = ch1 * rightEig[6] + ch2 * rightEig[7] + ch3 * rightEig[8]; // 总能量 (rho * E)
+
+  // 返回守恒变量
+  return {rt, rut, ret};
+}
+
+std::array<real, 3>
+eigensystemEuler1D::consToPrim(const std::array<real, 3> &cons) {
+  // 守恒变量转为原始变量
+  real rt = cons[0]; // 质量 (rho)
+  real rut = cons[1]; // 动量 (rho * u)
+  real ret = cons[2]; // 总能量 (rho * E)
+
+  // 计算原始变量
+  real ut = rut / rt; // 速度 (u)
+  real Et = ret / rt; // 单位质量总能量 (E)
+  real ekt = (ut * ut) / 2; // 动能 (u^2 / 2)
+  real pt = (gamma - 1) * (ret - rt * ekt); // 压力 (p)
+
+  // 返回原始变量
   return {rt, ut, pt};
 }

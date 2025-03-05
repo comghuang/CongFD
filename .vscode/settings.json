@@ -85,7 +85,8 @@
         "source_location": "cpp",
         "stdfloat": "cpp",
         "text_encoding": "cpp",
-        "ranges": "cpp"
+        "ranges": "cpp",
+        "cassert": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

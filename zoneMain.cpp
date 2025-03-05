@@ -12,8 +12,7 @@ int main()
     // auto prim2=eig.charToPrim(eigValues);
     // std::cout<<"finish\n";
 
-    omp_set_num_threads(20);
-
+    omp_set_num_threads(18);
     Info* info = new Info;
 
     info->eqType = EULER;
@@ -22,34 +21,34 @@ int main()
 
     info->diffMethod = MND6;
     // info->diffMethod = TRAD6;
-    // info->interMethod=TCNS5;
+    info->interMethod=TCNS5;
     // info->interMethod = LINEAR5;
-    // info->interMethod=WCNSZ5Char;
+    // info->interMethod=WCNSZ5;
     // info->BVD=true;
     // info->interMethod=WCNS5Char;
     //  info->interMethod=WCNS5CONG;
     //   info->interMethod=TCNSCongA;
-    //  info->interMethod=WCNS5CONGZ;
+     info->interMethod=WCNS5CONGZ;
     //  info->sourceType=GRAVITY;
-    info->interMethod = WCNS5CONGZ;
+    // info->interMethod = MUCSLIN5;
 
     // Shu-Osher
-    //  info->endStep=1;
-    //  info->CFL=0.5;
-    //  info->outputDt=1.8;
-    //  info->nCase=1;
-    //  info->calZone={0,10.0,0,0,0,0};
-    //  info->iMax={201,2,2};
-    //  info->dim=1;
+     info->endStep=1;
+     info->CFL=0.5;
+     info->outputDt=1.8;
+     info->nCase=1;
+     info->calZone={0,10.0,0,0,0,0};
+     info->iMax={201,2,2};
+     info->dim=1;
 
     // sod tube
-    // info->CFL = 0.5;
-    // info->endStep = 20;
-    // info->outputDt = 0.01;
-    // info->nCase = 0;
-    // info->calZone = { -0.5, 0.5, 0, 0, 0, 0 };
-    // info->iMax = { 101, 2, 2 };
-    // info->dim = 1;
+    info->CFL = 0.5;
+    info->endStep = 20;
+    info->outputDt = 0.01;
+    info->nCase = 0;
+    info->calZone = { -0.5, 0.5, 0, 0, 0, 0 };
+    info->iMax = { 101, 2, 2 };
+    info->dim = 1;
 
     // lax sod tube
     //  info->endStep=14;
@@ -97,22 +96,24 @@ int main()
     //  info->dim=1;
 
     // implosion
-    //  info->endStep=25;
-    //  info->outputDt=0.1;
-    //  info->CFL=0.5;
-    //  info->nCase=2;
-    //  info->calZone={-0.3,0.3,-0.3,0.3,0,0};
-    //  info->iMax={401,401,2};
-    //  info->dim=2;
+    //chenyuqing: 算例三：终极算例
+     info->endStep=25;
+     info->outputDt=0.1;
+     info->CFL=0.5;
+     info->nCase=2;
+     info->calZone={-0.3,0.3,-0.3,0.3,0,0};
+     info->iMax={401,401,2};
+     info->dim=2;
 
     // Riemann 1
-    info->endStep = 1;
-    info->outputDt = 0.8;
-    info->CFL = 0.5;
-    info->nCase = 0;
-    info->calZone = { -0.5, 0.5, -0.5, 0.5, 0, 0 };
-    info->iMax = { 401, 401, 2 };
-    info->dim = 2;
+    //chenyuqing: 算例一
+    // info->endStep = 10; //输出多少步
+    // info->outputDt = 0.08; //步与步之间的间隔
+    // info->CFL = 0.5;//CFL数
+    // info->nCase = 0;
+    // info->calZone = { -0.5, 0.5, -0.5, 0.5, 0, 0 };//计算域
+    // info->iMax = { 401, 401, 2 };//网格数
+    // info->dim = 2;
 
     // Riemann 2 vortex
     //  info->endStep=1;
@@ -123,8 +124,19 @@ int main()
     //  info->iMax={801,801,2};
     //  info->dim=2;
 
+    // Riemann 3 
+    //chenyuqing: 算例二
+    // info->endStep = 1;
+    // info->outputDt = 0.25;
+    // info->CFL = 0.5;
+    // info->nCase = 5;
+    // info->calZone = { -0.5, 0.5, -0.5, 0.5, 0, 0 };
+    // info->iMax = { 401, 401, 2 };
+    // info->dim = 2;
+
     // RT instability
     // 记得改GAMMA
+    //chenyuqing: 算例四
     //  info->endStep=1;
     //  info->outputDt=1.95;
     //  info->CFL=0.5;

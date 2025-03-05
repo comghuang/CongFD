@@ -248,6 +248,7 @@ inline real Teno5_ZCT7(std::array<real, 5> q) {
 }
 
 inline real Teno5_Z(std::array<real, 5> q) {
+  //chenyuqing: 最后用的非线性插值函数TENO
   real eps = 1e-40;
   std::array<real, 3> beta;
   beta[0] = 1.0 / 1.0 * pow(1.0 * q[0] - 2.0 * q[1] + 1.0 * q[2], 2) +
@@ -1229,6 +1230,7 @@ inline real Teno5_CongIncrease(std::array<real, 5> q) {
   return result / sumGamma;
 }
 
+
 inline real musclInterpolation(real q1, real q2, real q3) {
 
   real delta;
@@ -1246,6 +1248,9 @@ inline real musclInterpolation(real q1, real q2, real q3) {
                                    std::max(deltam, beta * deltap)));
   }
   return q2 + delta * 0.5;
+}
+inline real musclIn5(std::array<real, 5> q) {
+  return musclInterpolation(q[1],q[2],q[3]);
 }
 
 inline std::array<real, 2> THINC(real q1, real q2, real q3) {

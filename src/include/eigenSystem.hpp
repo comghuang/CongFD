@@ -8,11 +8,15 @@ public:
   eigensystemEuler2D() {};
   eigensystemEuler2D(const std::array<real, 4> &prim,
                      const std::array<real, 3> &norm_);
+  //chenyuqing: 现在用的是这个
   eigensystemEuler2D(const std::array<real, 4> &priml,
                      const std::array<real, 4> &primr,
                      const std::array<real, 3> &norm_);
   std::array<real, 4> primToChar(const std::array<real, 4> &prim);
   std::array<real, 4> charToPrim(const std::array<real, 4> &chars);
+  std::array<real, 4> charToCons(const std::array<real, 4> &chars);
+  std::array<real, 4> consToPrim(const std::array<real, 4> &chars);
+  std::array<real, 4> primToCons(const std::array<real, 4> &chars);
 
 private:
   real r, u, v, p, gamma = GAMMA, ek, h, c, Vn;
@@ -28,6 +32,9 @@ public:
                      const std::array<real, 3> &primr);
   std::array<real, 3> primToChar(const std::array<real, 3> &prim);
   std::array<real, 3> charToPrim(const std::array<real, 3> &chars);
+  std::array<real, 3> charToCons(const std::array<real, 3> &chars);
+  std::array<real, 3> consToPrim(const std::array<real, 3> &chars);
+  std::array<real, 3> primToCons(const std::array<real, 3> &chars);
 
 private:
   real r, u, p, gamma = GAMMA, ek, h, c;

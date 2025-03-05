@@ -9,7 +9,7 @@
             // "program": "${workspaceFolder}/build/symmetrytest",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "/mnt/e/CPP/CongFDCases/cases",
+            "cwd": "/mnt/d/ArchLinux/CongFDCases/cases",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",

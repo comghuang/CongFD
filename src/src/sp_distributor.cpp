@@ -23,6 +23,9 @@ void SpDistributor::rhsSolve()
                 solverTemp.reconer->init(primReader, oneDBnds[0], oneDBnds[1]);
                 solverTemp.reconer->setConstNorm(normTemp);
                 solverTemp.reconer->solve();
+                auto reconData=solverTemp.reconer->getData();
+                int nData=reconData->getN();
+                int nVarData=reconData->getN();
 
                 solverTemp.fluxPointSolver->init(solverTemp.reconer->getData(), idim, prim->getNVar());
                 solverTemp.fluxPointSolver->setConstNorm(normTemp);

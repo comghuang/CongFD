@@ -196,6 +196,7 @@ inline void HLLCFlux2D2(const std::span<real, 8>& iter,
     const std::span<real, 4>& res,
     const std::array<real, 3>& norm)
 {
+    //chenyuqing: HLLC的对称形式
 
     real rl = iter[0];
     real ul = iter[1];
@@ -404,6 +405,7 @@ inline void roeFlux2DSym(const std::span<real, 8>& iter,
     const std::span<real, 4>& res,
     const std::array<real, 3>& norm)
 {
+    //chenyuqing: ROE的对称格式
 
     real rl = iter[0];
     real ul = iter[1];
@@ -481,17 +483,19 @@ inline void roeFlux2DSym(const std::span<real, 8>& iter,
     FDispassion[2] = lambda[0] * (coef1 * (vAvg - cAvg * norm[1]));
     FDispassion[3] = lambda[0] * (coef1 * (HAvg - cAvg * VnAvg));
 
+    coef2 = deltaRho - deltaP / (cAvg * cAvg);
+    FDispassion[0] += lambda[1] * (coef2 * 1.0 + rhoAvg * 0.0);
+    FDispassion[1] += lambda[1] * (coef2 * uAvg + rhoAvg * ((norm[1] > norm[0]) ? deltaU : 0));
+    FDispassion[2] += lambda[1] * (coef2 * vAvg + rhoAvg * ((norm[1] > norm[0]) ? 0 : deltaV));
+    FDispassion[3] += lambda[1] * (coef2 * q_2Avg + rhoAvg * ((norm[1] > norm[0]) ? uAvg * deltaU : vAvg * deltaV));
+
     coef = (deltaP + rhoAvg * cAvg * deltaVn) / (2.0 * cAvg * cAvg);
     FDispassion[0] += lambda[2] * (coef * 1);
     FDispassion[1] += lambda[2] * (coef * (uAvg + cAvg * norm[0]));
     FDispassion[2] += lambda[2] * (coef * (vAvg + cAvg * norm[1]));
     FDispassion[3] += lambda[2] * (coef * (HAvg + cAvg * VnAvg));
 
-    coef2 = deltaRho - deltaP / (cAvg * cAvg);
-    FDispassion[0] += lambda[1] * (coef2 * 1.0 + rhoAvg * 0.0);
-    FDispassion[1] += lambda[1] * (coef2 * uAvg + rhoAvg * ((norm[1] > norm[0]) ? deltaU : 0));
-    FDispassion[2] += lambda[1] * (coef2 * vAvg + rhoAvg * ((norm[1] > norm[0]) ? 0 : deltaV));
-    FDispassion[3] += lambda[1] * (coef2 * q_2Avg + rhoAvg * ((norm[1] > norm[0]) ? uAvg * deltaU : vAvg * deltaV));
+
 
     for (int i = 0; i < 4; i++) {
         res[i] = (FcL[i] + FcR[i] - FDispassion[i]) / 2;
@@ -523,6 +527,7 @@ inline void fluxSolveEuler2D(const std::span<real, 4>& iterVar,
     const std::span<real, 4>& iterFlux,
     const std::array<real, 3>& norm)
 {
+    //chenyuqing: 求解点通量函数
     real r = iterVar[0], u = iterVar[1], v = iterVar[2], p = iterVar[3];
     real Vn = (u * norm[0] + v * norm[1]);
     // real H=GAMMA/(GAMMA-1)*p/r+(u*u+v*v)/2;
