@@ -294,53 +294,53 @@ void Recon5Order2DEulerEig<inter5>::reconI(
     // std::chrono::duration_cast<std::chrono::nanoseconds>(stop
     // - start).count(); timep+=duration;
     //chenyuqing: 变回原始变量
-    // auto resTempL = eig.charToPrim({ Q1LL, Q2LL, Q3LL, Q4LL });
-    // auto resTempR = eig.charToPrim({ Q1RR, Q2RR, Q3RR, Q4RR });
+    auto resTempL = eig.charToPrim({ Q1LL, Q2LL, Q3LL, Q4LL });
+    auto resTempR = eig.charToPrim({ Q1RR, Q2RR, Q3RR, Q4RR });
 
     // //chenyuqing: 简单的保正限制器
-    // if (resTempL[0]<0||resTempL[3]<0) resTempL={ primL[R], primL[U], primL[V], primL[P] };
-    // if (resTempR[0]<0||resTempR[3]<0) resTempR={ primR[R], primL[U], primL[V], primR[P] };
+    if (resTempL[0]<0||resTempL[3]<0) resTempL={ primL[R], primL[U], primL[V], primL[P] };
+    if (resTempR[0]<0||resTempR[3]<0) resTempR={ primR[R], primL[U], primL[V], primR[P] };
 
     // 将原始变量（密度、速度分量 u 和 v、压力）转换为守恒变量
-auto consL = eig.primToCons({ primL[R], primL[U], primL[V], primL[P] });
-auto consR = eig.primToCons({ primR[R], primR[U], primR[V], primR[P] });
+// auto consL = eig.primToCons({ primL[R], primL[U], primL[V], primL[P] });
+// auto consR = eig.primToCons({ primR[R], primR[U], primR[V], primR[P] });
 
 // 定义 lambda 表达式，提取守恒变量中的密度
-auto funcRho = [](std::array<real, 4> const& W) { return W[0]; };
+// auto funcRho = [](std::array<real, 4> const& W) { return W[0]; };
 
-// 定义 lambda 表达式，计算密度乘以声速的平方
-auto funcRhoCsq = [](std::array<real, 4> const& W) {
-    real rho = W[0];          // 密度
-    real rhou = W[1];         // x 方向动量
-    real rhov = W[2];         // y 方向动量
-    real rhoE = W[3];         // 总能
+// // 定义 lambda 表达式，计算密度乘以声速的平方
+// auto funcRhoCsq = [](std::array<real, 4> const& W) {
+//     real rho = W[0];          // 密度
+//     real rhou = W[1];         // x 方向动量
+//     real rhov = W[2];         // y 方向动量
+//     real rhoE = W[3];         // 总能
 
-    // 计算速度分量
-    real u = rhou / rho;      // x 方向速度
-    real v = rhov / rho;      // y 方向速度
-    // 计算动能
-    real ekin = 0.5 * (u * u + v * v);  // 动能
-    // 计算压力
-    real p = (GAMMA - 1) * (rhoE - rho * ekin); // 压力
-    // 返回密度乘以声速的平方
-    return GAMMA * p;
-};
+//     // 计算速度分量
+//     real u = rhou / rho;      // x 方向速度
+//     real v = rhov / rho;      // y 方向速度
+//     // 计算动能
+//     real ekin = 0.5 * (u * u + v * v);  // 动能
+//     // 计算压力
+//     real p = (GAMMA - 1) * (rhoE - rho * ekin); // 压力
+//     // 返回密度乘以声速的平方
+//     return GAMMA * p;
+// };
 
-// 将特征变量转换为守恒变量
-auto consTempL = eig.charToCons({ Q1LL, Q2LL, Q3LL, Q4LL });
-auto consTempR = eig.charToCons({ Q1RR, Q2RR, Q3RR, Q4RR });
+// // 将特征变量转换为守恒变量
+// auto consTempL = eig.charToCons({ Q1LL, Q2LL, Q3LL, Q4LL });
+// auto consTempR = eig.charToCons({ Q1RR, Q2RR, Q3RR, Q4RR });
 
-// 对守恒变量进行正限制，确保密度为正
-variable_positive_limiter<4>(consL, consTempL, funcRho);
-variable_positive_limiter<4>(consR, consTempR, funcRho);
+// // 对守恒变量进行正限制，确保密度为正
+// variable_positive_limiter<4>(consL, consTempL, funcRho);
+// variable_positive_limiter<4>(consR, consTempR, funcRho);
 
-// 对守恒变量进行正限制，确保密度乘以声速的平方为正
-variable_positive_limiter<4>(consL, consTempL, funcRhoCsq);
-variable_positive_limiter<4>(consR, consTempR, funcRhoCsq);
+// // 对守恒变量进行正限制，确保密度乘以声速的平方为正
+// variable_positive_limiter<4>(consL, consTempL, funcRhoCsq);
+// variable_positive_limiter<4>(consR, consTempR, funcRhoCsq);
 
-// 将守恒变量转换回原始变量
-auto resTempL = eig.consToPrim(consTempL);
-auto resTempR = eig.consToPrim(consTempR);
+// // 将守恒变量转换回原始变量
+// auto resTempL = eig.consToPrim(consTempL);
+// auto resTempR = eig.consToPrim(consTempR);
 
 // 将结果复制到指定位置
 std::copy(resTempL.begin(), resTempL.end(), this->iter);

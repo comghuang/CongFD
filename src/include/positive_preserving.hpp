@@ -45,3 +45,58 @@ template <size_t ncomp, PositiveQuantityFunc<ncomp> PositiveQuantityFuncType>
     }
 }
 
+
+// 通量保正限制器函数
+// template <std::size_t ncomp, PositiveQuantityFunction<ncomp> Func>
+// void flux_positivity_limiter(
+//     const std::array<double, ncomp>& WHLLC_plus,  // HLLC+ 状态
+//     const std::array<double, ncomp>& Wstar_plus,  // **+ 状态
+//     const std::array<double, ncomp>& WHLLC_minus, // HLLC- 状态
+//     const std::array<double, ncomp>& Wstar_minus, // **- 状态
+//     const std::array<double, ncomp>& GHLLC_plus,  // HLLC+ 通量
+//     std::array<double, ncomp>& Gstar_plus,        // **+ 通量（直接修改）
+//     const std::array<double, ncomp>& GHLLC_minus, // HLLC- 通量
+//     std::array<double, ncomp>& Gstar_minus,       // **- 通量（直接修改）
+//     Func alpha_k,                                 // 计算保正量的函数
+//     double epsilon_alpha=1e-10                          // 保正量阈值
+// ) {
+//     // 提前计算 alpha_k 的值
+//     const double alpha_HLLC_plus = alpha_k(WHLLC_plus);
+//     const double alpha_star_plus = alpha_k(Wstar_plus);
+//     const double alpha_HLLC_minus = alpha_k(WHLLC_minus);
+//     const double alpha_star_minus = alpha_k(Wstar_minus);
+
+//     // 检查是否需要直接跳出
+//     if (alpha_HLLC_plus >= epsilon_alpha && alpha_star_plus >= epsilon_alpha &&
+//         alpha_HLLC_minus >= epsilon_alpha && alpha_star_minus >= epsilon_alpha) {
+//         return; // 无需修正，直接返回
+//     }
+
+//     // 计算 theta_plus
+//     double theta_plus = 1.0;
+//     if (alpha_HLLC_plus < epsilon_alpha) {
+//         theta_plus = 0.0;
+//     } else if (alpha_star_plus < epsilon_alpha) {
+//         theta_plus = (epsilon_alpha - alpha_HLLC_plus) / (alpha_star_plus - alpha_HLLC_plus);
+//         theta_plus = std::clamp(theta_plus, 0.0, 1.0);
+//     }
+
+//     // 计算 theta_minus
+//     double theta_minus = 1.0;
+//     if (alpha_HLLC_minus < epsilon_alpha) {
+//         theta_minus = 0.0;
+//     } else if (alpha_star_minus < epsilon_alpha) {
+//         theta_minus = (epsilon_alpha - alpha_HLLC_minus) / (alpha_star_minus - alpha_HLLC_minus);
+//         theta_minus = std::clamp(theta_minus, 0.0, 1.0);
+//     }
+
+//     // 取 theta 的最小值
+//     double theta = std::min(theta_plus, theta_minus);
+
+//     // 凸组合计算最终通量
+//     for (std::size_t i = 0; i < ncomp; ++i) {
+//         Gstar_plus[i] = (1.0 - theta) * GHLLC_plus[i] + theta * Gstar_plus[i];
+//         Gstar_minus[i] = (1.0 - theta) * GHLLC_minus[i] + theta * Gstar_minus[i];
+//     }
+// }
+
